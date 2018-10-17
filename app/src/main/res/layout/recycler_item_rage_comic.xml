@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- bind a variable from your fragments and activities to your view
+     and allow for changes to the variable to automatically update in the View
+     -->
+    <data>
+        <variable name="comic" type="com.tile.yvesv.nativeappsiproject.domain.Comic" />
+    </data>
+
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/recycler_layout_spacing">
+
+        <!-- databinding used here -->
+        <ImageView
+            android:id="@+id/comic_image"
+            imageResource="@{comic.imageResId}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+        <!-- databinding used here -->
+        <TextView
+            android:id="@+id/name"
+            style="@style/TextAppearance.AppCompat.Subhead.Inverse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/blue_grey_800_50p"
+            android:minHeight="@dimen/recycler_item_footer_height_min"
+            android:paddingLeft="@dimen/recycler_item_footer_padding"
+            android:paddingTop="@dimen/recycler_item_footer_padding"
+            android:paddingRight="@dimen/recycler_item_footer_padding"
+            android:paddingBottom="@dimen/recycler_item_footer_padding"
+            tools:text="@{comic.name}" />
+    </FrameLayout>
+</layout>
