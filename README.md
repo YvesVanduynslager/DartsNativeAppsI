@@ -2,6 +2,6 @@
 
 # Project voor Native Apps I
 
-# Yves Vanduynslager
-# TILE/3A
-# 2018-2019
+Yves Vanduynslager
+TILE/3A
+2018-2019
