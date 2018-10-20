@@ -1,16 +1,11 @@
 package com.tile.yvesv.nativeappsiproject
 
-import android.databinding.DataBindingUtil.setContentView
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.tile.yvesv.nativeappsiproject.domain.Player
-import com.tile.yvesv.nativeappsiproject.domain.PlayerData
-import android.widget.Toast
-import com.tile.yvesv.nativeappsiproject.domain.Comic
 
-class MainActivity : AppCompatActivity(), RageComicListFragment.OnRageComicSelected
+class MainActivity : AppCompatActivity(), PlayerListFragment.OnPlayerSelected
 {
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -30,18 +25,19 @@ class MainActivity : AppCompatActivity(), RageComicListFragment.OnRageComicSelec
              */
             supportFragmentManager
                     .beginTransaction() //oa mogelijk: add, remove, replace, hide
-                    .add(R.id.root_layout, RageComicListFragment.newInstance(), "rageComicList")
+                    .add(R.id.root_layout, PlayerListFragment.newInstance(), "playerList")
                     .commit()
         }
     }
 
     //invoking the click listener
-    override fun onRageComicSelected(comic: Comic) {
-        //Toast.makeText(this, "Hey, you selected " + comic.name + "!",
-          //      Toast.LENGTH_SHORT).show()
-        val detailsFragment = RageComicDetailsFragment.newInstance(comic)
+    override fun onPlayerSelected(player: Player)
+    {
+        //Toast.makeText(this, "Hey, you selected " + player.name + "!",
+        //      Toast.LENGTH_SHORT).show()
+        val detailsFragment = PlayerDetailsFragment.newInstance(player)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.root_layout, detailsFragment, "rageComicDetails")
+                .replace(R.id.root_layout, detailsFragment, "playerDetails") //hier kan je bvb add doen ipv replace in een andere countainer
                 .addToBackStack(null)
                 .commit()
     }
@@ -57,7 +53,7 @@ class MainActivity : AppCompatActivity(), RageComicListFragment.OnRageComicSelec
         super.onStart()
     }
 
-    private fun createPlayers(): List<Player>
+    /*private fun createPlayers(): List<Player>
     {
         val playerList = mutableListOf<Player>()
 
@@ -74,5 +70,5 @@ class MainActivity : AppCompatActivity(), RageComicListFragment.OnRageComicSelec
         }
 
         return playerList
-    }
+    }*/
 }

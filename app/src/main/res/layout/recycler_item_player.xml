@@ -5,7 +5,7 @@
      and allow for changes to the variable to automatically update in the View
      -->
     <data>
-        <variable name="comic" type="com.tile.yvesv.nativeappsiproject.domain.Comic" />
+        <variable name="player" type="com.tile.yvesv.nativeappsiproject.domain.Player" />
     </data>
 
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +16,7 @@
         <!-- databinding used here -->
         <ImageView
             android:id="@+id/comic_image"
-            imageResource="@{comic.imageResId}"
+            imageResource="@{player.imageResId}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
@@ -36,6 +36,6 @@
             android:paddingTop="@dimen/recycler_item_footer_padding"
             android:paddingRight="@dimen/recycler_item_footer_padding"
             android:paddingBottom="@dimen/recycler_item_footer_padding"
-            tools:text="@{comic.name}" />
+            tools:text="@{player.name}" />
     </FrameLayout>
 </layout>

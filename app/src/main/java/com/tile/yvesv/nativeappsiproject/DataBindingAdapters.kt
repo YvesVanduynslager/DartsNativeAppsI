@@ -33,7 +33,7 @@ import android.widget.ImageView
  * along with a parameter.
  * It uses that to call setImageResource on the imageView that displays the image for the comic.
  *
- * See: recycler_item_rage_comic.xml (of later: recycler_item_player.xml
+ * See: recycler_item_player.xml
  */
 object DataBindingAdapters
 {

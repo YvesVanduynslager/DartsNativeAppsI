@@ -22,31 +22,32 @@
 
 package com.tile.yvesv.nativeappsiproject
 
-import com.tile.yvesv.nativeappsiproject.databinding.FragmentRageComicDetailsBinding
 import java.io.Serializable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tile.yvesv.nativeappsiproject.domain.Comic
+import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
+import com.tile.yvesv.nativeappsiproject.domain.Player
 
 //1
-class RageComicDetailsFragment : Fragment()
+class PlayerDetailsFragment : Fragment()
 {
     /**
-     * Since we want to dynamically populate the UI of the RageComicDetailsFragment with the selection,
+     * Since we want to dynamically populate the UI of the PlayerDetailsFragment with the selection,
      * we grab the reference to the FragmentRageComicDetailsBinding in the fragment view in onCreateView.
-     * Next, we bind the view comic with the Comic that we’ve passed to RageComicDetailsFragment.
+     * Next, we bind the view comic with the Player that we’ve passed to PlayerDetailsFragment.
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        val fragmentRageComicDetailsBinding = FragmentRageComicDetailsBinding.inflate(inflater, container, false)
+        val fragmentPlayerDetailsBinding = FragmentPlayerDetailsBinding.inflate(inflater, container, false)
 
-        val comic = arguments!!.getSerializable(COMIC) as Comic
-        fragmentRageComicDetailsBinding.comic = comic
-        comic.text = String.format(getString(R.string.description_format), comic.description, comic.url)
-        return fragmentRageComicDetailsBinding.root
+        val player = arguments!!.getSerializable(PLAYER) as Player
+        fragmentPlayerDetailsBinding.player = player
+        //player.text = String.format(getString(R.string.description_format), player.description)
+        player.text = player.description
+        return fragmentPlayerDetailsBinding.root
     }
 
     /**
@@ -55,16 +56,17 @@ class RageComicDetailsFragment : Fragment()
      * You create and populate the arguments’ Bundle, set the arguments, and when you need the values later, you reference arguments property to retrieve them.
      * As you learned earlier, when a fragment is re-created, the default empty constructor is used — no parameters for you.
      * Because the fragment can recall initial parameters from its persisted arguments, you can utilize them in the re-creation.
-     * The code below also stores information about the selected Rage Comic in the RageComicDetailsFragment arguments.
+     * The code below also stores information about the selected Rage Player in the PlayerDetailsFragment arguments.
      */
     companion object
     {
-        private const val COMIC = "comic"
+        private const val PLAYER = "player"
 
-        fun newInstance(comic: Comic): RageComicDetailsFragment {
+        fun newInstance(player: Player): PlayerDetailsFragment
+        {
             val args = Bundle()
-            args.putSerializable(COMIC, comic as Serializable)
-            val fragment = RageComicDetailsFragment()
+            args.putSerializable(PLAYER, player as Serializable)
+            val fragment = PlayerDetailsFragment()
             fragment.arguments = args
             return fragment
         }

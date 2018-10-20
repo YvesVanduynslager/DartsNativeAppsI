@@ -22,8 +22,6 @@
 
 package com.tile.yvesv.nativeappsiproject
 
-import com.tile.yvesv.nativeappsiproject.databinding.FragmentRageComicDetailsBinding
-import java.io.Serializable
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -32,23 +30,24 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tile.yvesv.nativeappsiproject.databinding.RecyclerItemRageComicBinding
-import com.tile.yvesv.nativeappsiproject.domain.Comic
+import com.tile.yvesv.nativeappsiproject.databinding.RecyclerItemPlayerBinding
+import com.tile.yvesv.nativeappsiproject.domain.Player
 
-class RageComicListFragment : Fragment()
+class PlayerListFragment : Fragment()
 {
     private lateinit var imageResIds: IntArray
     private lateinit var names: Array<String>
-    private lateinit var descriptions: Array<String>
-    private lateinit var urls: Array<String>
+    private lateinit var extras: Array<String>
+    private lateinit var facebookUrls: Array<String>
 
     //reference to the fragment’s listener, which is the activity.
-    private lateinit var listener : OnRageComicSelected
+    private lateinit var listener: OnPlayerSelected
 
     companion object
     {
-        fun newInstance(): RageComicListFragment {
-            return RageComicListFragment()
+        fun newInstance(): PlayerListFragment
+        {
+            return PlayerListFragment()
         }
     }
 
@@ -60,26 +59,26 @@ class RageComicListFragment : Fragment()
         super.onAttach(context)
 
         //This initializes the listener reference
-        if(context is OnRageComicSelected)
+        if (context is OnPlayerSelected)
         {
             listener = context
         }
         else
         {
-            throw ClassCastException(context.toString() + "  must implement OnRageComicSelected")
+            throw ClassCastException(context.toString() + "  must implement OnPlayerSelected")
         }
 
-        // Get rage face names and descriptions.
+        // Get player attributes
         //val resources = context!!.resources
         val resources = context.resources
         names = resources.getStringArray(R.array.names)
-        descriptions = resources.getStringArray(R.array.descriptions)
-        urls = resources.getStringArray(R.array.urls)
+        extras = resources.getStringArray(R.array.extras)
 
-        // Get rage face images.
+        // Get player images.
         val typedArray = resources.obtainTypedArray(R.array.images)
         val imageCount = names.size
         imageResIds = IntArray(imageCount)
+
         for (i in 0 until imageCount)
         {
             imageResIds[i] = typedArray.getResourceId(i, 0)
@@ -89,18 +88,21 @@ class RageComicListFragment : Fragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        val view: View = inflater.inflate(R.layout.fragment_rage_comic_list, container,false)
+        //setup view with fragment_player_list.xml, add to container (= parent view)
+        val view: View = inflater.inflate(R.layout.fragment_player_list, container, false)
+
         val activity = activity
         val recyclerView = view.findViewById(R.id.recycler_view) as RecyclerView
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
-        recyclerView.adapter = RageComicAdapter(activity!!)
+        recyclerView.adapter = PlayerAdapter(activity!!)
+
         return view
     }
 
     /**
      *  Whenever a view has a data field, the framework automatically generates a binding object.
      *  The name of the object is derived by converting the snake case name of the view into camel case and adding binding to the name.
-     *  For example, a view called recycler_item_rage_comic.xml would have a corresponding binding called RecyclerItemRageComicBinding.
+     *  For example, a view called recycler_item_player.xmlld have a corresponding binding called RecyclerItemRageComicBinding.
      *
      *  You can then inflate the view via the inflater method on the binding object and set properties via standard property access mechanisms.
      *  Data binding follows a Model-View-ViewModel (MVVM) pattern. MVVM consists of three components:
@@ -109,7 +111,7 @@ class RageComicListFragment : Fragment()
      *  A Model: The data class
      *  A View Model/Binder: The auto-generated binding files.
      */
-    internal inner class RageComicAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>()
+    internal inner class PlayerAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>()
     {
         private val layoutInflater: LayoutInflater
 
@@ -120,21 +122,21 @@ class RageComicListFragment : Fragment()
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder
         {
-            val recyclerItemRageComicBinding = RecyclerItemRageComicBinding.inflate(layoutInflater,
+            val recyclerItemRageComicBinding = RecyclerItemPlayerBinding.inflate(layoutInflater,
                     viewGroup, false)
             return ViewHolder(recyclerItemRageComicBinding.root, recyclerItemRageComicBinding)
         }
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int)
         {
-            val comic = Comic(imageResIds[position], names[position],
-                    descriptions[position], urls[position])
-            viewHolder.setData(comic)
+            val player = Player(imageResIds[position], names[position],
+                    extras[position])
+            viewHolder.setData(player)
 
             //add click listener to each item (comic)
             viewHolder.itemView.setOnClickListener {
                 //invokes the callback on the listener (the activity) to pass along the selection.
-                listener.onRageComicSelected(comic)
+                listener.onPlayerSelected(player)
             }
         }
 
@@ -145,25 +147,24 @@ class RageComicListFragment : Fragment()
     }
 
 
-    internal inner class ViewHolder constructor(itemView: View, val recyclerItemRageComicBinding: RecyclerItemRageComicBinding) :
-            RecyclerView.ViewHolder(itemView)
+    internal inner class ViewHolder constructor(itemView: View, val recyclerItemPlayerBinding: RecyclerItemPlayerBinding) : RecyclerView.ViewHolder(itemView)
     {
 
-        fun setData(comic: Comic)
+        fun setData(player: Player)
         {
             //databinding: data hier binden
-            recyclerItemRageComicBinding.comic = comic
+            recyclerItemPlayerBinding.player = player
         }
     }
 
     /**
      * This defines a listener interface for the activity to listen to the fragment.
-     * The activity will implement this interface, and the fragment will invoke the onRageComicSelected()
+     * The activity will implement this interface, and the fragment will invoke the onPlayerSelected()
      * when an item is selected, passing the selection to the activity.
      */
-    interface OnRageComicSelected
+    interface OnPlayerSelected
     {
-        fun onRageComicSelected(comic: Comic)
+        fun onPlayerSelected(player: Player)
     }
 }
 
