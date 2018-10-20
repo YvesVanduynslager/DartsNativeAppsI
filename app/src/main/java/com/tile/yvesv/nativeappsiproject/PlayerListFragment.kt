@@ -39,7 +39,6 @@ class PlayerListFragment : Fragment()
     private lateinit var imageResIds: IntArray
     private lateinit var names: Array<String>
     private lateinit var extras: Array<String>
-    private lateinit var facebookUrls: Array<String>
 
     //reference to the fragment’s listener, which is the activity.
     private lateinit var listener: OnPlayerSelected
@@ -123,9 +122,9 @@ class PlayerListFragment : Fragment()
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder
         {
-            val recyclerItemRageComicBinding = RecyclerItemPlayerBinding.inflate(layoutInflater,
+            val recyclerItemPlayerBinding = RecyclerItemPlayerBinding.inflate(layoutInflater,
                     viewGroup, false)
-            return ViewHolder(recyclerItemRageComicBinding.root, recyclerItemRageComicBinding)
+            return ViewHolder(recyclerItemPlayerBinding.root, recyclerItemPlayerBinding)
         }
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int)
@@ -135,7 +134,7 @@ class PlayerListFragment : Fragment()
             //val player = Player(imageResIds[position], names[position], extras[position])
             viewHolder.setData(player)
 
-            //add click listener to each item (comic)
+            //add click listener to each item (player)
             viewHolder.itemView.setOnClickListener {
                 //invokes the callback on the listener (the activity) to pass along the selection.
                 listener.onPlayerSelected(player)

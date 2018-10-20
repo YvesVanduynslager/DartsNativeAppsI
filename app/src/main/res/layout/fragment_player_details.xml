@@ -5,14 +5,13 @@
 
     <!-- data binding -->
     <data>
-        <variable
-            name="player"
-            type="com.tile.yvesv.nativeappsiproject.domain.Player" />
+        <variable name="player" type="com.tile.yvesv.nativeappsiproject.domain.Player" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/design_default_color_primary_dark"
         android:fillViewport="true">
 
         <LinearLayout
@@ -95,11 +94,13 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="0"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/plus_one"
                     app:layout_constraintStart_toEndOf="@+id/minus_one"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>

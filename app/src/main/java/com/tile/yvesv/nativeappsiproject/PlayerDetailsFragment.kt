@@ -22,7 +22,6 @@
 
 package com.tile.yvesv.nativeappsiproject
 
-import java.io.Serializable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -31,9 +30,10 @@ import android.view.ViewGroup
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import kotlinx.android.synthetic.main.fragment_player_details.*
+import java.io.Serializable
 
 //1
-class PlayerDetailsFragment : Fragment()
+class PlayerDetailsFragment : Fragment(), View.OnClickListener
 {
     /**
      * Since we want to dynamically populate the UI of the PlayerDetailsFragment with the selection,
@@ -42,28 +42,18 @@ class PlayerDetailsFragment : Fragment()
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        val fragmentPlayerDetailsBinding = FragmentPlayerDetailsBinding.inflate(inflater, container, false)
+        val view = FragmentPlayerDetailsBinding.inflate(inflater, container, false)
 
         val player = arguments!!.getSerializable(PLAYER) as Player
-        fragmentPlayerDetailsBinding.player = player
+        view.player = player
         //player.text = String.format(getString(R.string.description_format), player.description)
         player.playerData.text = player.playerData.description
+
+        view.plusOne.setOnClickListener(this)
+        view.minusOne.setOnClickListener(this)
+
         //player.text = player.description
-        return fragmentPlayerDetailsBinding.root
-    }
-
-    fun plusOneToScore(view: View)
-    {
-        val player = arguments!!.getSerializable(PLAYER) as Player
-        player.plusOneToScore()
-        txt_score.text = "${player.playerData.score}"
-
-    }
-    fun minusOneToScore(view: View)
-    {
-        val player = arguments!!.getSerializable(PLAYER) as Player
-        player.minusOneToScore()
-        txt_score.text = "${player.playerData.score}"
+        return view.root
     }
 
     /**
@@ -88,4 +78,20 @@ class PlayerDetailsFragment : Fragment()
         }
     }
 
+    override fun onClick(view: View?)
+    {
+        val player = arguments!!.getSerializable(PLAYER) as Player
+
+        if (view?.id == plus_one.id)
+        {
+            player.increaseScoreByOne()
+
+        }
+        else
+        {
+            player.decreaseScoreByOne()
+        }
+
+        txt_score.text = "${player.playerData.score}"
+    }
 }

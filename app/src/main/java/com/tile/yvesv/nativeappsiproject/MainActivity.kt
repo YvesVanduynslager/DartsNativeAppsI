@@ -6,8 +6,6 @@ import com.tile.yvesv.nativeappsiproject.domain.Player
 
 class MainActivity : AppCompatActivity(), PlayerListFragment.OnPlayerSelected
 {
-    var selectedPlayerId: Int = -1
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)

@@ -8,6 +8,12 @@
     <item>@drawable/tracer</item>
     <item>@drawable/widow</item>
     <item>@drawable/zenyatta</item>
+    <item>@drawable/bert</item>
+    <item>@drawable/ernie</item>
+    <item>@drawable/freddie_mercury</item>
+    <item>@drawable/koning</item>
+    <item>@drawable/rage_guy</item>
+    <item>@drawable/troll_face</item>
   </array>
 
   <string-array name="names">
@@ -17,6 +23,12 @@
     <item>Tracer</item>
     <item>Widow</item>
     <item>Zenyatta</item>
+    <item>BERTEN</item>
+    <item>ERNIE</item>
+    <item>legend</item>
+    <item>Koning Liegebeest</item>
+    <item>Rage Guy</item>
+    <item>Troll Face</item>
   </string-array>
 
   <string-array name="extras">
@@ -26,5 +38,11 @@
     <item>Tracer = bae</item>
     <item>Hmm...</item>
     <item>Embrace the iris</item>
+      <item>Hmm...</item>
+      <item>Hmm...</item>
+      <item>Hmm...</item>
+      <item>Hmm...</item>
+      <item>Hmm...</item>
+      <item>Hmm...</item>
   </string-array>
 </resources>
