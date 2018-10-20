@@ -30,6 +30,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.domain.Player
+import kotlinx.android.synthetic.main.fragment_player_details.*
 
 //1
 class PlayerDetailsFragment : Fragment()
@@ -46,8 +47,23 @@ class PlayerDetailsFragment : Fragment()
         val player = arguments!!.getSerializable(PLAYER) as Player
         fragmentPlayerDetailsBinding.player = player
         //player.text = String.format(getString(R.string.description_format), player.description)
-        player.text = player.description
+        player.playerData.text = player.playerData.description
+        //player.text = player.description
         return fragmentPlayerDetailsBinding.root
+    }
+
+    fun plusOneToScore(view: View)
+    {
+        val player = arguments!!.getSerializable(PLAYER) as Player
+        player.plusOneToScore()
+        txt_score.text = "${player.playerData.score}"
+
+    }
+    fun minusOneToScore(view: View)
+    {
+        val player = arguments!!.getSerializable(PLAYER) as Player
+        player.minusOneToScore()
+        txt_score.text = "${player.playerData.score}"
     }
 
     /**

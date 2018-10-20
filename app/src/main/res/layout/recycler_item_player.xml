@@ -15,8 +15,8 @@
 
         <!-- databinding used here -->
         <ImageView
-            android:id="@+id/comic_image"
-            imageResource="@{player.imageResId}"
+            android:id="@+id/player_image"
+            imageResource="@{player.playerData.imageResId}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
@@ -36,6 +36,6 @@
             android:paddingTop="@dimen/recycler_item_footer_padding"
             android:paddingRight="@dimen/recycler_item_footer_padding"
             android:paddingBottom="@dimen/recycler_item_footer_padding"
-            tools:text="@{player.name}" />
+            tools:text="@{player.playerData.name}" />
     </FrameLayout>
 </layout>

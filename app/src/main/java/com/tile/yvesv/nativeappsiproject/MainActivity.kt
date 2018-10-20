@@ -6,6 +6,8 @@ import com.tile.yvesv.nativeappsiproject.domain.Player
 
 class MainActivity : AppCompatActivity(), PlayerListFragment.OnPlayerSelected
 {
+    var selectedPlayerId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,8 @@ class MainActivity : AppCompatActivity(), PlayerListFragment.OnPlayerSelected
                 .replace(R.id.root_layout, detailsFragment, "playerDetails") //hier kan je bvb add doen ipv replace in een andere countainer
                 .addToBackStack(null)
                 .commit()
+
+        //this.selectedPlayerId = player.playerData.id
     }
 
     /**
@@ -52,23 +56,4 @@ class MainActivity : AppCompatActivity(), PlayerListFragment.OnPlayerSelected
     {
         super.onStart()
     }
-
-    /*private fun createPlayers(): List<Player>
-    {
-        val playerList = mutableListOf<Player>()
-
-        val resources = applicationContext.resources
-
-        val firstNames = resources.getStringArray(R.array.firstnames)
-        val surNames = resources.getStringArray(R.array.surnames)
-
-        for (i in 0 until firstNames.size)
-        {
-            val playerData = PlayerData(surNames[i], firstNames[i])
-            val player = Player(playerData)
-            playerList.add(player)
-        }
-
-        return playerList
-    }*/
 }

@@ -32,6 +32,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tile.yvesv.nativeappsiproject.databinding.RecyclerItemPlayerBinding
 import com.tile.yvesv.nativeappsiproject.domain.Player
+import com.tile.yvesv.nativeappsiproject.domain.PlayerData
 
 class PlayerListFragment : Fragment()
 {
@@ -129,8 +130,9 @@ class PlayerListFragment : Fragment()
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int)
         {
-            val player = Player(imageResIds[position], names[position],
-                    extras[position])
+            val playerData = PlayerData(imageResIds[position], names[position], extras[position])
+            val player = Player(playerData)
+            //val player = Player(imageResIds[position], names[position], extras[position])
             viewHolder.setData(player)
 
             //add click listener to each item (comic)
