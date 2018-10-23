@@ -24,11 +24,13 @@ package com.tile.yvesv.nativeappsiproject
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.domain.Player
+import com.tile.yvesv.nativeappsiproject.domain.PlayerScoreModifier
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import java.io.Serializable
 
@@ -81,15 +83,26 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     override fun onClick(view: View?)
     {
         val player = arguments!!.getSerializable(PLAYER) as Player
+        val scoreModifier = PlayerScoreModifier(player)
 
         if (view?.id == plus_one.id)
         {
-            player.increaseScoreByOne()
+            scoreModifier.increaseScoreByOne()
+            //player.increaseScoreByOne()
 
         }
         else
         {
-            player.decreaseScoreByOne()
+            try
+            {
+                scoreModifier.decreaseScoreByOne()
+            }
+            catch (e: Exception)
+            {
+                Log.e("Exception", e.message)
+                TODO("display error message in view")
+            }
+            //player.decreaseScoreByOne()
         }
 
         txt_score.text = "${player.playerData.score}"
