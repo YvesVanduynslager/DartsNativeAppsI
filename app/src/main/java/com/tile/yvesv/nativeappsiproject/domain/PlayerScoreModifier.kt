@@ -1,5 +1,7 @@
 package com.tile.yvesv.nativeappsiproject.domain
 
+import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
+
 class PlayerScoreModifier(var player: IPlayer) : ScoreModifier
 {
     override fun increaseScoreByOne()
@@ -14,7 +16,7 @@ class PlayerScoreModifier(var player: IPlayer) : ScoreModifier
         }
         else
         {
-            throw Exception("Score can not be lower than 0!")
+            throw ZeroException("Score can not be lower than 0!")
         }
     }
 
@@ -30,7 +32,7 @@ class PlayerScoreModifier(var player: IPlayer) : ScoreModifier
         }
         else
         {
-            throw Exception("Score can not be lower than 0!")
+            throw ZeroException("Score can not be lower than 0!")
         }
     }
 }

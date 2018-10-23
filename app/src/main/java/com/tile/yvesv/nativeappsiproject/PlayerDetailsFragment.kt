@@ -28,9 +28,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import com.tile.yvesv.nativeappsiproject.domain.PlayerScoreModifier
+import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import java.io.Serializable
 
@@ -82,6 +86,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     override fun onClick(view: View?)
     {
+
         val player = arguments!!.getSerializable(PLAYER) as Player
         val scoreModifier = PlayerScoreModifier(player)
 
@@ -89,7 +94,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         {
             scoreModifier.increaseScoreByOne()
             //player.increaseScoreByOne()
-
         }
         else
         {
@@ -97,10 +101,10 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
             {
                 scoreModifier.decreaseScoreByOne()
             }
-            catch (e: Exception)
+            catch (e: ZeroException)
             {
                 Log.e("Exception", e.message)
-                TODO("display error message in view")
+                Toast.makeText(activity, getString(R.string.less_than_zero_error), Toast.LENGTH_LONG).show()
             }
             //player.decreaseScoreByOne()
         }

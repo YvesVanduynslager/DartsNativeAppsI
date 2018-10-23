@@ -2,6 +2,7 @@ package com.tile.yvesv.nativeappsiproject
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Window
 import com.tile.yvesv.nativeappsiproject.domain.Player
 
 class MainActivity : AppCompatActivity(), PlayerListFragment.OnPlayerSelected

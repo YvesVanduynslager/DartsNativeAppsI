@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-  <string name="app_name">Darts</string>
-  <string name="description_format">%1$s\n\n%2$s</string>
+    <string name="app_name">Darts</string>
+    <string name="description_format">%1$s\n\n%2$s</string>
     <string name="minus_one">- 1</string>
-  <string name="plus_one">+ 1</string>
+    <string name="plus_one">+ 1</string>
+    <string name="less_than_zero_error">Score can not be lower than 0!</string>
 </resources>
