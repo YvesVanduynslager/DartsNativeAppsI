@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-  <array name="images">
-    <item>@drawable/ana</item>
-    <item>@drawable/lucio</item>
-    <item>@drawable/moira</item>
-    <item>@drawable/tracer</item>
-    <item>@drawable/widow</item>
-    <item>@drawable/zenyatta</item>
-    <item>@drawable/bert</item>
-    <item>@drawable/ernie</item>
-    <item>@drawable/freddie_mercury</item>
-    <item>@drawable/koning</item>
-    <item>@drawable/rage_guy</item>
-    <item>@drawable/troll_face</item>
-  </array>
+    <array name="images">
+        <item>@drawable/ana</item>
+        <item>@drawable/lucio</item>
+        <item>@drawable/moira</item>
+        <item>@drawable/tracer</item>
+        <item>@drawable/widow</item>
+        <item>@drawable/zenyatta</item>
+        <item>@drawable/bert</item>
+        <item>@drawable/ernie</item>
+        <item>@drawable/freddie_mercury</item>
+        <item>@drawable/koning</item>
+        <item>@drawable/rage_guy</item>
+        <item>@drawable/troll_face</item>
+    </array>
 
-  <string-array name="names">
-    <item>Ana</item>
-    <item>Lucio (AKA filthy rat)</item>
-    <item>Moira</item>
-    <item>Tracer</item>
-    <item>Widow</item>
-    <item>Zenyatta</item>
-    <item>BERTEN</item>
-    <item>ERNIE</item>
-    <item>legend</item>
-    <item>Koning Liegebeest</item>
-    <item>Rage Guy</item>
-    <item>Troll Face</item>
-  </string-array>
+    <string-array name="names">
+        <item>Ana</item>
+        <item>Lucio (AKA filthy rat)</item>
+        <item>Moira</item>
+        <item>Tracer</item>
+        <item>Widow</item>
+        <item>Zenyatta</item>
+        <item>BERTEN</item>
+        <item>ERNIE</item>
+        <item>legend</item>
+        <item>Koning Liegebeest</item>
+        <item>Rage Guy</item>
+        <item>Troll Face</item>
+    </string-array>
 
-  <string-array name="extras">
-    <item>Ana Amari</item>
-    <item>Lucio something something. Among the most slippery little shits in the game</item>
-    <item>This is nice, I like this</item>
-    <item>Tracer = bae</item>
-    <item>Hmm...</item>
-    <item>Embrace the iris</item>
-      <item>Hmm...</item>
-      <item>Hmm...</item>
-      <item>Hmm...</item>
-      <item>Hmm...</item>
-      <item>Hmm...</item>
-      <item>Hmm...</item>
-  </string-array>
+    <string-array name="extras">
+        <item>Ana Amari</item>
+        <item>Lucio something something</item>
+        <item>This is nice, I like this</item>
+        <item>Tracer = bae</item>
+        <item>Hmm...</item>
+        <item>Embrace the iris</item>
+        <item>Hmm...</item>
+        <item>Hmm...</item>
+        <item>Hmm...</item>
+        <item>Hmm...</item>
+        <item>Hmm...</item>
+        <item>Hmm...</item>
+    </string-array>
 </resources>

@@ -6,4 +6,7 @@
     <string name="minus_one">- 1</string>
     <string name="plus_one">+ 1</string>
     <string name="less_than_zero_error">Score can not be lower than 0!</string>
+    <string name="ranking">Ranking</string>
+    <string name="players">Players</string>
+    <string name="info">Info</string>
 </resources>

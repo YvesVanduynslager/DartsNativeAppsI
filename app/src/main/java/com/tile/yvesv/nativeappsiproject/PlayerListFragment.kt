@@ -93,7 +93,7 @@ class PlayerListFragment : Fragment()
 
         val activity = activity
         val recyclerView = view.findViewById(R.id.recycler_view) as RecyclerView
-        recyclerView.layoutManager = GridLayoutManager(activity, 2)
+        recyclerView.layoutManager = GridLayoutManager(activity, 1) //int hier aantal items per rij
         recyclerView.adapter = PlayerAdapter(activity!!)
 
         return view
