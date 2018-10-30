@@ -11,4 +11,9 @@
     <string name="info">Info</string>
 
     <string name="title_activity_splash">Darts: keeping up with the scores</string>
+    <string name="native_apps_i_android">Native Apps I: Android</string>
+    <string name="using_kotlin">using Kotlin</string>
+    <string name="info_quote">\"The most important step a man can take. It\'s not the first one, is it? It\'s the next one. Always the next step.\"</string>
+    <string name="info_name">Yves Vanduynslager</string>
+    <string name="hogent_tile3a_2018_2019">HoGent | TILE3A | 2018 - 2019</string>
 </resources>
