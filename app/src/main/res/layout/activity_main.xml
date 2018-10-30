@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_primary_dark"
+    android:background="@android:color/black"
     tools:context=".MainActivity">
 
     <!-- STATIC ADD OF FRAGMENT
@@ -32,8 +31,8 @@
         app:tabBackground="@color/blue_grey_800_50p"
         app:tabIndicatorColor="@android:color/white"
         app:tabIndicatorFullWidth="true"
-        app:tabTextColor="@android:color/white"
-        app:tabMode="fixed">
+        app:tabMode="fixed"
+        app:tabTextColor="@android:color/white">
 
         <!--<android.support.design.widget.TabItem
             android:id="@+id/tab_ranking"
@@ -58,7 +57,7 @@
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout_main"/>
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout_main" />
 
     <LinearLayout
         android:id="@+id/root_layout"
@@ -69,7 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout_main">
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout_main"></LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

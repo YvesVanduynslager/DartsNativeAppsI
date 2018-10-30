@@ -1,10 +1,17 @@
 package com.tile.yvesv.nativeappsiproject
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class TabPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm)
+/**
+ * TabPagerAdapter handles switching between tabs.
+ * context is used here to access strings.xml
+ * nrOfTabs to set the number of tabs to display.
+ * Factory pattern can be used here?
+ */
+class TabPagerAdapter(fm: FragmentManager, private val context: Context, private val nrOfTabs: Int) : FragmentPagerAdapter(fm)
 {
     override fun getItem(position: Int): Fragment?
     {
@@ -12,29 +19,22 @@ class TabPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm)
         {
             0 -> RankingFragment.newInstance()
             1 -> RankingFragment.newInstance()
-            else ->
-            {
-                InfoFragment.newInstance()
-            }
+            else -> InfoFragment.newInstance()
         }
     }
 
     override fun getCount(): Int
     {
-        return 3
+        return nrOfTabs
     }
 
     override fun getPageTitle(position: Int): CharSequence
     {
         return when (position)
         {
-            0 -> "Ranking"
-            1 -> "Players"
-            2 -> "Info"
-            else ->
-            {
-                return ""
-            }
+            0 -> context.getString(R.string.ranking)
+            1 -> context.getString(R.string.players)
+            else -> context.getString(R.string.info)
         }
     }
 }

@@ -104,8 +104,10 @@ class RankingFragment : Fragment()
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder
         {
+
             val recyclerItemPlayerBinding = RecyclerItemPlayerBinding.inflate(layoutInflater,
                     viewGroup, false)
+
             return ViewHolder(recyclerItemPlayerBinding.root, recyclerItemPlayerBinding)
         }
 
@@ -127,7 +129,6 @@ class RankingFragment : Fragment()
             return names.size
         }
     }
-
 
     internal inner class ViewHolder constructor(itemView: View, val recyclerItemPlayerBinding: RecyclerItemPlayerBinding) : RecyclerView.ViewHolder(itemView)
     {

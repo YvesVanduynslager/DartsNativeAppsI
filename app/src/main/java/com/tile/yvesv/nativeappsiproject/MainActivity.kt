@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), RankingFragment.OnPlayerSelected
         if (savedInstanceState == null)
         {
             //setup for tabbed layout
-            val fragmentAdapter = TabPagerAdapter(supportFragmentManager)
+            val fragmentAdapter = TabPagerAdapter(supportFragmentManager, this.applicationContext, 3)
             viewpager_main.adapter = fragmentAdapter
             tab_layout_main.setupWithViewPager(viewpager_main)
         }
@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity(), RankingFragment.OnPlayerSelected
      * - register click listeners
      * - update UI
      */
-    override fun onStart()
+    /*override fun onStart()
     {
         super.onStart()
-    }
+    }*/
 }

@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/design_default_color_primary_dark"
+        android:background="@android:color/black"
         android:fillViewport="true">
 
         <LinearLayout
@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/player_name_margin_top"
                 android:layout_marginBottom="0dp"
-                android:text="@{player.playerData.name}" />
+                android:text="@{player.playerData.name}"
+                android:textColor="@android:color/white" />
 
             <ImageView
                 android:id="@+id/player_image"
@@ -53,7 +54,8 @@
                 android:layout_marginEnd="@dimen/player_extra_margin_right"
                 android:layout_marginBottom="@dimen/player_extra_margin_bottom"
                 android:autoLink="web"
-                android:text="@{player.playerData.text}" />
+                android:text="@{player.playerData.text}"
+                android:textColor="@android:color/white" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -95,13 +97,14 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
+                    android:text="@{Integer.toString(player.playerData.score)}"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/blue_grey_800_50p"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/plus_one"
                     app:layout_constraintStart_toEndOf="@+id/minus_one"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="@{Integer.toString(player.playerData.score)}" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
