@@ -1,25 +1,3 @@
-/**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
 package com.tile.yvesv.nativeappsiproject
 
 import android.content.Context
@@ -34,20 +12,21 @@ import com.tile.yvesv.nativeappsiproject.databinding.RecyclerItemPlayerBinding
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import com.tile.yvesv.nativeappsiproject.domain.PlayerData
 
-class PlayerListFragment : Fragment()
+class RankingFragment : Fragment()
 {
     private lateinit var imageResIds: IntArray
     private lateinit var names: Array<String>
     private lateinit var extras: Array<String>
+    private lateinit var scores: IntArray
 
     //reference to the fragment’s listener, which is the activity.
     private lateinit var listener: OnPlayerSelected
 
     companion object
     {
-        fun newInstance(): PlayerListFragment
+        fun newInstance(): RankingFragment
         {
-            return PlayerListFragment()
+            return RankingFragment()
         }
     }
 
@@ -73,23 +52,26 @@ class PlayerListFragment : Fragment()
         val resources = context.resources
         names = resources.getStringArray(R.array.names)
         extras = resources.getStringArray(R.array.extras)
+        scores = resources.getIntArray(R.array.scores)
 
-        // Get player images.
+        // Get player images and scores.
         val typedArray = resources.obtainTypedArray(R.array.images)
+
         val imageCount = names.size
         imageResIds = IntArray(imageCount)
 
         for (i in 0 until imageCount)
         {
             imageResIds[i] = typedArray.getResourceId(i, 0)
+
         }
         typedArray.recycle()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        //setup view with fragment_player_list.xml, add to container (= parent view)
-        val view: View = inflater.inflate(R.layout.fragment_player_list, container, false)
+        //setup view with fragment_ranking, add to container (= parent view)
+        val view: View = inflater.inflate(R.layout.fragment_ranking, container, false)
 
         val activity = activity
         val recyclerView = view.findViewById(R.id.recycler_view) as RecyclerView
@@ -129,9 +111,8 @@ class PlayerListFragment : Fragment()
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int)
         {
-            val playerData = PlayerData(imageResIds[position], names[position], extras[position])
+            val playerData = PlayerData(imageResIds[position], names[position], extras[position], scores[position])
             val player = Player(playerData)
-            //val player = Player(imageResIds[position], names[position], extras[position])
             viewHolder.setData(player)
 
             //add click listener to each item (player)
@@ -159,6 +140,8 @@ class PlayerListFragment : Fragment()
     }
 
     /**
+     * Callback interface
+     *
      * This defines a listener interface for the activity to listen to the fragment.
      * The activity will implement this interface, and the fragment will invoke the onPlayerSelected()
      * when an item is selected, passing the selection to the activity.
@@ -168,4 +151,3 @@ class PlayerListFragment : Fragment()
         fun onPlayerSelected(player: Player)
     }
 }
-

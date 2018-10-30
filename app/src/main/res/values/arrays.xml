@@ -18,7 +18,7 @@
 
     <string-array name="names">
         <item>Ana</item>
-        <item>Lucio (AKA filthy rat)</item>
+        <item>Lucio</item>
         <item>Moira</item>
         <item>Tracer</item>
         <item>Widow</item>
@@ -35,8 +35,8 @@
         <item>Ana Amari</item>
         <item>Lucio something something</item>
         <item>This is nice, I like this</item>
-        <item>Tracer = bae</item>
-        <item>Hmm...</item>
+        <item>Tracer</item>
+        <item>Weduwenmaker</item>
         <item>Embrace the iris</item>
         <item>Hmm...</item>
         <item>Hmm...</item>
@@ -45,4 +45,19 @@
         <item>Hmm...</item>
         <item>Hmm...</item>
     </string-array>
+
+    <integer-array name="scores">
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
+        <item>13</item>
+        <item>21</item>
+        <item>34</item>
+        <item>55</item>
+        <item>89</item>
+    </integer-array>
 </resources>

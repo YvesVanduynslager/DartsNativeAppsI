@@ -93,7 +93,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         if (view?.id == plus_one.id)
         {
             scoreModifier.increaseScoreByOne()
-            //player.increaseScoreByOne()
         }
         else
         {
@@ -106,7 +105,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
                 Log.e("Exception", e.message)
                 Toast.makeText(activity, getString(R.string.less_than_zero_error), Toast.LENGTH_LONG).show()
             }
-            //player.decreaseScoreByOne()
         }
 
         txt_score.text = "${player.playerData.score}"

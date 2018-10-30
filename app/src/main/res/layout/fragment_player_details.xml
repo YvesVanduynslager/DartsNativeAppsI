@@ -1,6 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- data binding -->
     <data>
@@ -95,13 +95,13 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="0"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/plus_one"
                     app:layout_constraintStart_toEndOf="@+id/minus_one"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@{Integer.toString(player.playerData.score)}" />
 
             </android.support.constraint.ConstraintLayout>
 

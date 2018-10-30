@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!-- player list -->
-  <dimen name="recycler_margin_horizontal">4dp</dimen>
-  <dimen name="recycler_margin_vertical">4dp</dimen>
-  <dimen name="recycler_layout_spacing">4dp</dimen>
-  <dimen name="recycler_item_footer_height_min">48dp</dimen>
-  <dimen name="recycler_item_footer_padding">16dp</dimen>
+    <!-- player list -->
+    <dimen name="recycler_margin_horizontal">4dp</dimen>
+    <dimen name="recycler_margin_vertical">4dp</dimen>
+    <dimen name="recycler_layout_spacing">4dp</dimen>
+    <dimen name="recycler_item_footer_height_min">48dp</dimen>
+    <dimen name="recycler_item_footer_padding">16dp</dimen>
 
-  <!-- player detail -->
-  <dimen name="player_image_size">200dp</dimen>
-  <dimen name="player_image_margin_vertical">24dp</dimen>
-  <dimen name="player_name_margin_top">24dp</dimen>
-  <dimen name="player_extra_margin_left">32dp</dimen>
-  <dimen name="player_extra_margin_right">24dp</dimen>
-  <dimen name="player_extra_margin_bottom">16dp</dimen>
+    <!-- player detail -->
+    <dimen name="player_image_size">200dp</dimen>
+    <dimen name="player_image_margin_vertical">24dp</dimen>
+    <dimen name="player_name_margin_top">24dp</dimen>
+    <dimen name="player_extra_margin_left">32dp</dimen>
+    <dimen name="player_extra_margin_right">24dp</dimen>
+    <dimen name="player_extra_margin_bottom">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 </resources>
