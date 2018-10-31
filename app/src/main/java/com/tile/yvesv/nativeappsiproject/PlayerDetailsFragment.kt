@@ -31,6 +31,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
+import com.tile.yvesv.nativeappsiproject.domain.IPlayer
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import com.tile.yvesv.nativeappsiproject.domain.PlayerScoreModifier
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
@@ -74,7 +75,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     {
         private const val PLAYER = "player"
 
-        fun newInstance(player: Player): PlayerDetailsFragment
+        fun newInstance(player: IPlayer): PlayerDetailsFragment
         {
             val args = Bundle()
             args.putSerializable(PLAYER, player as Serializable)

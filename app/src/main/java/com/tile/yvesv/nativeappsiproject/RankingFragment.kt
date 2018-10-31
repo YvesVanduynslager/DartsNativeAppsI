@@ -9,15 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tile.yvesv.nativeappsiproject.databinding.RecyclerItemPlayerBinding
+import com.tile.yvesv.nativeappsiproject.domain.IPlayer
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import com.tile.yvesv.nativeappsiproject.domain.PlayerData
 
 class RankingFragment : Fragment()
 {
-    private lateinit var imageResIds: IntArray
-    private lateinit var names: Array<String>
-    private lateinit var extras: Array<String>
-    private lateinit var scores: IntArray
+    private var players: List<IPlayer>? = null
 
     //reference to the fragment’s listener, which is the activity.
     private lateinit var listener: OnPlayerSelected
@@ -31,7 +29,11 @@ class RankingFragment : Fragment()
     }
 
     /**
-     * Accesses the resources you need via the Context to which the fragment is attached.
+     * Accesses the resources you need via the Context to which the fragment is attached. (MainActivity)
+     *
+     * This method will be called first, even before onCreate(),
+     * letting us know that your fragment has been attached to an activity.
+     * You are passed the Activity that will host your fragment
      */
     override fun onAttach(context: Context?)
     {
@@ -40,60 +42,96 @@ class RankingFragment : Fragment()
         //This initializes the listener reference
         if (context is OnPlayerSelected)
         {
+            //MainActivity implements OnPlayerSelected, so MainActivity is OnPlayerSelected
             listener = context
         }
         else
         {
             throw ClassCastException(context.toString() + "  must implement OnPlayerSelected")
         }
-
-        // Get player attributes
-        //val resources = context!!.resources
-        val resources = context.resources
-        names = resources.getStringArray(R.array.names)
-        extras = resources.getStringArray(R.array.extras)
-        scores = resources.getIntArray(R.array.scores)
-
-        // Get player images and scores.
-        val typedArray = resources.obtainTypedArray(R.array.images)
-
-        val imageCount = names.size
-        imageResIds = IntArray(imageCount)
-
-        for (i in 0 until imageCount)
-        {
-            imageResIds[i] = typedArray.getResourceId(i, 0)
-
-        }
-        typedArray.recycle()
     }
+
+
+    /**
+     * The system calls this callback when it’s time for the fragment to draw its UI for the first time.
+     * To draw a UI for the fragment, a View component must be returned from this method which is the root of the fragment’s layout.
+     * We can return null if the fragment does not provide a UI
+     */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        //setup view with fragment_ranking, add to container (= parent view)
+        /**
+         * Retreive playes from resources
+         */
+        players = getPlayers()
+
+        /**
+         * setup view with fragment_ranking, add to container (= parent view)
+         */
         val view: View = inflater.inflate(R.layout.fragment_ranking, container, false)
 
-        val activity = activity
+        /**
+         * fill recyclerview with players
+         */
         val recyclerView = view.findViewById(R.id.recycler_view) as RecyclerView
         recyclerView.layoutManager = GridLayoutManager(activity, 1) //int hier aantal items per rij
-        recyclerView.adapter = PlayerAdapter(activity!!)
+        recyclerView.adapter = PlayerAdapter(activity!!, players!!)
 
         return view
     }
 
     /**
-     *  Whenever a view has a data field, the framework automatically generates a binding object.
-     *  The name of the object is derived by converting the snake case name of the view into camel case and adding binding to the name.
-     *  For example, a view called recycler_item_player.xmlld have a corresponding binding called RecyclerItemRageComicBinding.
-     *
-     *  You can then inflate the view via the inflater method on the binding object and set properties via standard property access mechanisms.
-     *  Data binding follows a Model-View-ViewModel (MVVM) pattern. MVVM consists of three components:
-     *
-     *  A View: The layout file.
-     *  A Model: The data class
-     *  A View Model/Binder: The auto-generated binding files.
+     * The onStart() method is called once the fragment gets visible
      */
-    internal inner class PlayerAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>()
+    override fun onStart()
+    {
+        super.onStart()
+    }
+
+    /**
+     * Placeholder code until database logic is implemented
+     */
+    private fun getPlayers(): List<Player>
+    {
+        val playerList = mutableListOf<Player>()
+
+        val resources = context!!.resources
+
+        val names = resources.getStringArray(R.array.names)
+        val descriptions = resources.getStringArray(R.array.extras)
+        val scores = resources.getIntArray(R.array.scores)
+
+        /**
+         * Get images
+         */
+        val typedArray = resources.obtainTypedArray(R.array.images)
+        val imageResIds = IntArray(names.size)
+
+        /**
+         * Fill list with players
+         */
+        for (i in 0 until names.size)
+        {
+            imageResIds[i] = typedArray.getResourceId(i, 0)
+            val playerData = PlayerData(imageResIds[i], names[i], descriptions[i], scores[i])
+            val thePlayer = Player(playerData)
+            playerList.add(thePlayer)
+        }
+        typedArray.recycle()
+
+        /**
+         * Sort the players descending on their score and return
+         */
+        return playerList.sortedWith(compareByDescending {
+            it.playerData.score
+        })
+    }
+
+
+    /**
+     * RECYCLERVIEW
+     */
+    internal inner class PlayerAdapter(context: Context, private val players: List<IPlayer>) : RecyclerView.Adapter<ViewHolder>()
     {
         private val layoutInflater: LayoutInflater
 
@@ -104,7 +142,6 @@ class RankingFragment : Fragment()
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder
         {
-
             val recyclerItemPlayerBinding = RecyclerItemPlayerBinding.inflate(layoutInflater,
                     viewGroup, false)
 
@@ -113,30 +150,35 @@ class RankingFragment : Fragment()
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int)
         {
-            val playerData = PlayerData(imageResIds[position], names[position], extras[position], scores[position])
-            val player = Player(playerData)
+            val player = players[position]
             viewHolder.setData(player)
 
-            //add click listener to each item (player)
+            /**
+             * add click listener for each item (player)
+             * invokes the callback on the listener (the activity) to pass along the selection
+             */
             viewHolder.itemView.setOnClickListener {
-                //invokes the callback on the listener (the activity) to pass along the selection.
                 listener.onPlayerSelected(player)
             }
         }
 
         override fun getItemCount(): Int
         {
-            return names.size
+            return players.size
         }
     }
 
-    internal inner class ViewHolder constructor(itemView: View, val recyclerItemPlayerBinding: RecyclerItemPlayerBinding) : RecyclerView.ViewHolder(itemView)
+    internal inner class ViewHolder constructor(itemView: View, private val recyclerItemPlayerBinding: RecyclerItemPlayerBinding) : RecyclerView.ViewHolder(itemView)
     {
-
-        fun setData(player: Player)
+        /**
+         * sets an item in the recyclerview
+         */
+        fun setData(player: IPlayer)
         {
-            //databinding: data hier binden
-            recyclerItemPlayerBinding.player = player
+            /**
+             * databinding for the recyclerview happens here
+             */
+            recyclerItemPlayerBinding.player = player as Player
         }
     }
 
@@ -149,6 +191,6 @@ class RankingFragment : Fragment()
      */
     interface OnPlayerSelected
     {
-        fun onPlayerSelected(player: Player)
+        fun onPlayerSelected(player: IPlayer)
     }
 }

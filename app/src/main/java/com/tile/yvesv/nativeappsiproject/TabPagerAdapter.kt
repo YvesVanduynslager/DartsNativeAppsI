@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter
  * TabPagerAdapter handles switching between tabs.
  * context is used here to access strings.xml
  * nrOfTabs to set the number of tabs to display.
- * Factory pattern can be used here?
  */
 class TabPagerAdapter(fm: FragmentManager, private val context: Context, private val nrOfTabs: Int) : FragmentPagerAdapter(fm)
 {
