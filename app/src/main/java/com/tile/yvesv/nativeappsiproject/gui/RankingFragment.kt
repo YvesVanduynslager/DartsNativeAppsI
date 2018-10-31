@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject
+package com.tile.yvesv.nativeappsiproject.gui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.RecyclerItemPlayerBinding
 import com.tile.yvesv.nativeappsiproject.domain.IPlayer
 import com.tile.yvesv.nativeappsiproject.domain.Player

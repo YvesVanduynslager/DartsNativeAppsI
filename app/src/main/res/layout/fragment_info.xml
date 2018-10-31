@@ -5,10 +5,8 @@
     android:id="@+id/info_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    tools:context=".InfoFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:background="@color/black_grey"
+    tools:context=".gui.InfoFragment">
 
     <TextView
         android:id="@+id/txt_info_title"
@@ -16,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/native_apps_i_android"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/autumn_red"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/using_kotlin"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/autumn_red"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +47,7 @@
         android:padding="5dp"
         android:text="@string/info_quote"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/light_blue"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/txt_info_college"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +63,7 @@
         android:layout_marginBottom="100dp"
         android:text="@string/info_name"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/autumn_red"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +79,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/hogent_tile3a_2018_2019"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/autumn_red"
         app:layout_constraintBottom_toTopOf="@+id/txt_info_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

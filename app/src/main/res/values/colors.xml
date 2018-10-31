@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue_grey_800_50p">#e237474f</color>
-
-    <color name="black_overlay">#66000000</color>
+    <color name="light_blue">#90afc5</color>
+    <color name="blue">#336b87</color>
+    <color name="black_grey">#2a3132</color>
+    <color name="autumn_red">#763626</color>
 </resources>

@@ -1,9 +1,10 @@
-package com.tile.yvesv.nativeappsiproject
+package com.tile.yvesv.nativeappsiproject.gui
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import com.tile.yvesv.nativeappsiproject.R
 
 /**
  * Splash screen activity. Shows title then loads MainActivity after 3 seconds

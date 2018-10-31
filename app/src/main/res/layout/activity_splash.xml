@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context=".SplashActivity">
+    tools:context=".gui.SplashActivity">
 
     <TextView
         android:id="@+id/fullscreen_content"
@@ -13,7 +13,7 @@
         android:gravity="center"
         android:keepScreenOn="true"
         android:text="@string/title_activity_splash"
-        android:textColor="@color/blue_grey_800_50p"
+        android:textColor="@color/autumn_red"
         android:textSize="50sp"
         android:textStyle="bold" />
 </FrameLayout>

@@ -1,10 +1,11 @@
-package com.tile.yvesv.nativeappsiproject
+package com.tile.yvesv.nativeappsiproject.gui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tile.yvesv.nativeappsiproject.R
 
 class InfoFragment : Fragment()
 {
