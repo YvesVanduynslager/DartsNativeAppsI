@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), RankingFragment.OnPlayerSelected
 {
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -15,13 +16,13 @@ class MainActivity : AppCompatActivity(), RankingFragment.OnPlayerSelected
         /** Checks that the activity doesn’t have saved state.
          * When an activity is saved, all of its active fragments are also saved. If you don’t perform this check
          * you can end up with a whole bunch of fragments*/
-        if (savedInstanceState == null)
-        {
+        //if (savedInstanceState == null)
+        //{
             //setup for tabbed layout
             val fragmentAdapter = TabPagerAdapter(supportFragmentManager, this.applicationContext, 3)
             viewpager_main.adapter = fragmentAdapter
             tab_layout_main.setupWithViewPager(viewpager_main)
-        }
+        //}
 
 
         /*
