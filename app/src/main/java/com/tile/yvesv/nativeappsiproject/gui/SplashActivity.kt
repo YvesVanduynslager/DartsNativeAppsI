@@ -12,7 +12,7 @@ import com.tile.yvesv.nativeappsiproject.R
 class SplashActivity : AppCompatActivity()
 {
     private var mDelayHandler: Handler? = null
-    private val SPLASH_DELAY: Long = 2000 //3 seconds
+    private val SPLASH_DELAY: Long = 200 //FAST FOR DEVELOPMENT
 
     internal val mRunnable: Runnable = Runnable {
         if (!isFinishing)

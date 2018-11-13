@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
     <!-- bind a variable from your fragments and activities to your view
      and allow for changes to the variable to automatically update in the View
      -->
-    <data>
+    <!--<data>
         <variable name="player" type="com.tile.yvesv.nativeappsiproject.domain.Player" />
-    </data>
+    </data>-->
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/list_player_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/recycler_layout_spacing">
-
-        <!-- databinding used here -->
 
         <TextView
             android:id="@+id/txt_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
             android:background="@color/light_blue"
             android:minHeight="@dimen/recycler_item_footer_height_min"
             android:paddingLeft="@dimen/recycler_item_footer_padding"
             android:paddingTop="@dimen/recycler_item_footer_padding"
             android:paddingRight="@dimen/recycler_item_footer_padding"
             android:paddingBottom="@dimen/recycler_item_footer_padding"
-            android:text="@{player.playerData.name}"
             android:textAlignment="viewStart"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/txt_score"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/txt_score"
@@ -47,11 +45,10 @@
             android:paddingTop="@dimen/recycler_item_footer_padding"
             android:paddingRight="@dimen/recycler_item_footer_padding"
             android:paddingBottom="@dimen/recycler_item_footer_padding"
-            android:text="@{Integer.toString(player.playerData.score)}"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_name" />
     </android.support.constraint.ConstraintLayout>
-</layout>
+</FrameLayout>
