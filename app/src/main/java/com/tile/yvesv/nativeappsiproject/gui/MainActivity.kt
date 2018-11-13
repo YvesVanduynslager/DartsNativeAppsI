@@ -1,18 +1,18 @@
 package com.tile.yvesv.nativeappsiproject.gui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import com.tile.yvesv.nativeappsiproject.domain.PlayerData
 import com.tile.yvesv.nativeappsiproject.domain.PlayerSorter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.player_item.view.*
 import kotlinx.android.synthetic.main.player_list.*
 
@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        players = this.getPlayers()
 
         if (player_detail_container != null)
         {
@@ -54,7 +52,7 @@ class MainActivity : AppCompatActivity()
     override fun onStart()
     {
         super.onStart()
-
+        players = this.getPlayers()
         player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, twoPane)
 
         /**
@@ -64,6 +62,50 @@ class MainActivity : AppCompatActivity()
         viewpager_main.adapter = fragmentAdapter
         tab_layout_main.setupWithViewPager(viewpager_main)*/
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean
+    {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+        //PLACE IN COMPANION OBJECT
+        /*
+        check which activity invoked, the invoking activity shouldn't be redrawn. (=> 2x stacked)
+         */
+        when (item.itemId)
+        {
+            /*R.id.ranking ->
+            {
+                val intent = MainActivity.newIntent(this.applicationContext)
+                startActivity(intent)
+
+                Toast.makeText(this, "Ranking selected", Toast.LENGTH_SHORT).show()
+                return true
+            }*/
+            R.id.players ->
+            {
+                val intent = PlayersActivity.newIntent(this.applicationContext)
+                startActivity(intent)
+
+                Toast.makeText(this, "Players selected", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.info ->
+            {
+                val intent = InfoActivity.newIntent(this.applicationContext)
+                startActivity(intent)
+
+                Toast.makeText(this, "Info selected", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
 
     /**
      * Placeholder code until database logic is implemented
@@ -165,7 +207,7 @@ class MainActivity : AppCompatActivity()
                     val intent = PlayerDetailActivity.newIntent(view.context).apply {
                         putExtra(PlayerDetailsFragment.PLAYER, item)
 
-                   // val intent = Intent(view.context, PlayerDetailActivity::class.java).apply {
+                        // val intent = Intent(view.context, PlayerDetailActivity::class.java).apply {
                         //putExtra(PlayerDetailsFragment.PLAYER, item)
                         //IMPLICIT INTENT EXAMPLE:
                         /*button_contacts . setOnClickListener {
@@ -209,6 +251,14 @@ class MainActivity : AppCompatActivity()
             val name: TextView = view.txt_name
             val score: TextView = view.txt_score
             //val image: ImageView = view.list_comic_image
+        }
+    }
+
+    companion object
+    {
+        fun newIntent ( context : Context): Intent
+        {
+           return Intent ( context , MainActivity::class.java )
         }
     }
 }

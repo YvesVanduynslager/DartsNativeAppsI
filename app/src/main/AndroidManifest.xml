@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".gui.MainActivity">
+        <activity
+            android:name=".gui.MainActivity"
+            android:label="Ranking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,15 +23,26 @@
         <activity
             android:name=".gui.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Splash"
             android:theme="@style/FullscreenTheme">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
-        <activity android:name=".gui.PlayerDetailActivity">
-
-        </activity>
+        <activity
+            android:name=".gui.PlayerDetailActivity"
+            android:label="Detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".gui.PlayersActivity"
+            android:label="Players" />
+        <activity
+            android:name=".gui.InfoActivity"
+            android:label="Info"/>
     </application>
 
 </manifest>
