@@ -69,6 +69,8 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
         rootView.plus_one.setOnClickListener(this)
         rootView.minus_one.setOnClickListener(this)
+        rootView.btn_save.setOnClickListener(this)
+        rootView.btn_cancel.setOnClickListener(this)
 
         player.let {
             rootView.txt_name.text = it.playerData.name
