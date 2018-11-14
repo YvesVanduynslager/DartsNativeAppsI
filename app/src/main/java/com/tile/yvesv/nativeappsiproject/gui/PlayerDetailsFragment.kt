@@ -3,9 +3,7 @@ package com.tile.yvesv.nativeappsiproject.gui
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.DataBindingUtil.setContentView
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
-import com.tile.yvesv.nativeappsiproject.domain.*
+import com.tile.yvesv.nativeappsiproject.domain.IPlayer
+import com.tile.yvesv.nativeappsiproject.domain.Player
+import com.tile.yvesv.nativeappsiproject.domain.PlayerViewModelScoreModifier
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import kotlinx.android.synthetic.main.fragment_player_details.view.*
@@ -23,7 +23,7 @@ import java.io.Serializable
 class PlayerDetailsFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
-    private lateinit var playerViewModel : PlayerViewModel
+    private lateinit var playerViewModel: PlayerViewModel
 
     private var activityFragmentListener: DetailFragmentListener? = null
 
@@ -32,11 +32,11 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         super.onCreate(savedInstanceState)
 
         //links the viewmodel to the activity's lifecycle
-        playerViewModel = ViewModelProviders.of( this ).get( PlayerViewModel::class.java)
+        playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel::class.java)
 
 
         arguments!!.let {
-            if(it.containsKey(PLAYER))
+            if (it.containsKey(PLAYER))
             {
                 //assign the selected player to player variable
                 this.player = it.getSerializable(PLAYER) as Player
@@ -54,6 +54,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         super.onAttach(context)
         activityFragmentListener = activity as DetailFragmentListener
     }
+
     override fun onDetach()
     {
         super.onDetach()
@@ -114,8 +115,40 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
         //val scoreModifier = PlayerScoreModifier(player)
 
+        when (view?.id)
+        {
+            btn_save.id ->
+            {
+                //player.playerData.score = Integer.parseInt(txt_score.text.toString())
+                this.savePlayer()
+            }
+            btn_cancel.id ->
+            {
+                this.cancel()
+            }
+            plus_one.id ->
+            {
+                scoreModifier.increaseScoreByOne()
+            }
+            minus_one.id ->
+            {
+                try
+                {
+                    scoreModifier.decreaseScoreByOne()
+                }
+                catch (e: ZeroException) //catch exception on attempt to decrease score below 0
+                {
+                    //log the error message
+                    Log.e("Exception", e.message)
+                    //display a toast notifying the user that he can't decrease below 0
+                    Toast.makeText(activity, getString(R.string.less_than_zero_error), Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+        this.activityFragmentListener!!.notifyChange(player, playerViewModel)
         // +1 button tapped
-        if (view?.id == plus_one.id)
+        /*if (view?.id == plus_one.id)
         {
             scoreModifier.increaseScoreByOne()
             this.activityFragmentListener!!.notifyChange(player, playerViewModel)
@@ -134,7 +167,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
                 //display a toast notifying the user that he can't decrease below 0
                 Toast.makeText(activity, getString(R.string.less_than_zero_error), Toast.LENGTH_LONG).show()
             }
-        }
+        }*/
 
         //No longer needed, score text is now updated through databinding
         //updateUI()//txt_score.text = "${player.playerData.score}"
@@ -142,13 +175,13 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     private fun savePlayer()
     {
-        this.playerViewModel.score.let {
+        player.playerData.score = Integer.parseInt(txt_score.text.toString())
+        /*this.playerViewModel.score.let {
             player.playerData.score = it.value!!
-        }
-        this.activityFragmentListener!!.notifyChange(player, playerViewModel)
+        }*/
     }
 
-    private fun reset()
+    private fun cancel()
     {
         playerViewModel.score.value = player.playerData.score
     }
