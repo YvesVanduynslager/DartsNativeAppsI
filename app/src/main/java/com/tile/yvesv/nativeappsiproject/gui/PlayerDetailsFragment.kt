@@ -1,7 +1,11 @@
 package com.tile.yvesv.nativeappsiproject.gui
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.databinding.DataBindingUtil
+import android.databinding.DataBindingUtil.setContentView
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.domain.IPlayer
-import com.tile.yvesv.nativeappsiproject.domain.Player
-import com.tile.yvesv.nativeappsiproject.domain.PlayerScoreModifier
+import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
+import com.tile.yvesv.nativeappsiproject.domain.*
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import kotlinx.android.synthetic.main.fragment_player_details.view.*
@@ -20,18 +23,30 @@ import java.io.Serializable
 class PlayerDetailsFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
+    private lateinit var playerViewModel : PlayerViewModel
+
     private var activityFragmentListener: DetailFragmentListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
 
+        //links the viewmodel to the activity's lifecycle
+        playerViewModel = ViewModelProviders.of( this ).get( PlayerViewModel::class.java)
+
+
         arguments!!.let {
             if(it.containsKey(PLAYER))
             {
+                //assign the selected player to player variable
                 this.player = it.getSerializable(PLAYER) as Player
+
+                //only the score can be adjusted in this fragment, no need to put the rest in the viewmodel
+                //only the score is used with databinding here
+                this.playerViewModel.score.value = this.player.playerData.score
             }
         }
+
     }
 
     override fun onAttach(context: Context?)
@@ -47,18 +62,27 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        //val view = FragmentPlayerDetailsBinding.inflate(inflater, container, false)
-        val rootView = inflater.inflate(R.layout.fragment_player_details, container, false)
+        //DON'T EVER FORGET THIS LINE FOR DATABINDING FFS
+        val binding: FragmentPlayerDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_details, container, false)
+        val rootView = binding.root
 
         rootView.plus_one.setOnClickListener(this)
         rootView.minus_one.setOnClickListener(this)
 
         player.let {
             rootView.txt_name.text = it.playerData.name
-            rootView.txt_score.text = "${it.playerData.score}"
+            rootView.txt_score.text = "${playerViewModel.score.value}"
+            //score is handled with databinding
             rootView.txt_description.text = it.playerData.description
             rootView.img_player.setImageResource(it.playerData.imageResId)
         }
+
+        binding.playerViewModel = playerViewModel
+
+        //Setting the lifecycleowner to this activity is required, as otherwise the UI won't update when changes occur.
+        //This is because LiveData only updates when the owner is in an ACTIVE state.
+        //If there's no owner, it can't be active.
+        binding.setLifecycleOwner(this)
 
         return rootView
     }
@@ -87,20 +111,21 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     override fun onClick(view: View?)
     {
-        val scoreModifier = PlayerScoreModifier(player)
+        val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
+        //val scoreModifier = PlayerScoreModifier(player)
 
         // +1 button tapped
         if (view?.id == plus_one.id)
         {
             scoreModifier.increaseScoreByOne()
-            this.activityFragmentListener!!.notifyChange(player)
+            this.activityFragmentListener!!.notifyChange(player, playerViewModel)
         }
         else // -1 button tapped
         {
             try
             {
                 scoreModifier.decreaseScoreByOne()
-                this.activityFragmentListener!!.notifyChange(player)
+                this.activityFragmentListener!!.notifyChange(player, playerViewModel)
             }
             catch (e: ZeroException) //catch exception on attempt to decrease score below 0
             {
@@ -111,11 +136,31 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
             }
         }
 
-        txt_score.text = "${player.playerData.score}"
+        //No longer needed, score text is now updated through databinding
+        //updateUI()//txt_score.text = "${player.playerData.score}"
+    }
+
+    private fun savePlayer()
+    {
+        this.playerViewModel.score.let {
+            player.playerData.score = it.value!!
+        }
+        this.activityFragmentListener!!.notifyChange(player, playerViewModel)
+    }
+
+    private fun reset()
+    {
+        playerViewModel.score.value = player.playerData.score
+    }
+
+    //No longer needed, score text is now updated using databinding
+    private fun updateUI()
+    {
+        txt_score.text = "${playerViewModel.score.value}"
     }
 
     interface DetailFragmentListener
     {
-        fun notifyChange(player: IPlayer)
+        fun notifyChange(player: IPlayer, vm: PlayerViewModel)
     }
 }

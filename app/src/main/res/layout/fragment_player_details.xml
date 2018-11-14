@@ -1,100 +1,109 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black_grey"
-    android:fillViewport="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+    <variable
+        name="playerViewModel"
+        type="com.tile.yvesv.nativeappsiproject.gui.PlayerViewModel"/>
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/black_grey"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/txt_name"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/player_name_margin_top"
-            android:layout_marginBottom="0dp"
-            android:textColor="@color/autumn_red" />
-
-        <ImageView
-            android:id="@+id/img_player"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/player_image_size"
-            android:layout_marginTop="@dimen/player_image_margin_vertical"
-            android:layout_marginBottom="@dimen/player_image_margin_vertical"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop" />
-
-        <TextView
-            android:id="@+id/txt_description"
-            style="@style/TextAppearance.AppCompat.Body1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/player_extra_margin_left"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="@dimen/player_extra_margin_right"
-            android:layout_marginBottom="@dimen/player_extra_margin_bottom"
-            android:autoLink="web"
-            android:textColor="@android:color/white" />
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadingEdge="horizontal|vertical">
-
-            <Button
-                android:id="@+id/minus_one"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/light_blue"
-                android:text="@string/minus_one"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/plus_one"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/light_blue"
-                android:text="@string/plus_one"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.491" />
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt_score"
+                android:id="@+id/txt_name"
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/plus_one"
-                app:layout_constraintStart_toEndOf="@+id/minus_one"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="@dimen/player_name_margin_top"
+                android:layout_marginBottom="0dp"
+                android:textColor="@color/autumn_red" />
 
-        </android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/img_player"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/player_image_size"
+                android:layout_marginTop="@dimen/player_image_margin_vertical"
+                android:layout_marginBottom="@dimen/player_image_margin_vertical"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txt_description"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/player_extra_margin_left"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="@dimen/player_extra_margin_right"
+                android:layout_marginBottom="@dimen/player_extra_margin_bottom"
+                android:autoLink="web"
+                android:textColor="@android:color/white" />
 
-</ScrollView>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdge="horizontal|vertical">
+
+                <Button
+                    android:id="@+id/minus_one"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/light_blue"
+                    android:text="@string/minus_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/plus_one"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/light_blue"
+                    android:text="@string/plus_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.491" />
+
+                <TextView
+                    android:id="@+id/txt_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@android:color/white"
+                    android:text ="@{playerViewModel.score.toString()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/plus_one"
+                    app:layout_constraintStart_toEndOf="@+id/minus_one"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

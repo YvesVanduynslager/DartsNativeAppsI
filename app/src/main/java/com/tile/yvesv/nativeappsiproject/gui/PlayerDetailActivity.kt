@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.domain.IPlayer
+import com.tile.yvesv.nativeappsiproject.domain.Player
 
 /**
  * An activity representing a single player detail screen. This
@@ -56,10 +58,11 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFr
         }
     }
 
-    override fun notifyChange(player: IPlayer)
+    override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
     {
-        Toast.makeText(this, "${player.playerData.score}", Toast.LENGTH_LONG).show()
-
+        //Toast.makeText(this, "Player's score hasn't been saved yet: ${player.playerData.score}", Toast.LENGTH_LONG).show()
+        Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
+        Log.d("PLAYER_VIEW_MODEL_SCORE", "Score in viewmodel is: ${vm.score.value}")
     }
 
     companion object

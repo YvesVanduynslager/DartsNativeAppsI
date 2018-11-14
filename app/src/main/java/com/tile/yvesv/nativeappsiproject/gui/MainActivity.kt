@@ -1,10 +1,12 @@
 package com.tile.yvesv.nativeappsiproject.gui
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -193,8 +195,12 @@ class MainActivity : AppCompatActivity()
                 // Here each item in the RecyclerView keeps a reference to the player it represents.
                 // This allows us to reuse a single listener for all items in the list
                 val item = view.tag as Player
+                Log.d("CLICKED PLAYER", item.playerData.name)
+
+                Log.d("TWO_PANE", twoPane.toString())
                 if (twoPane)
                 {
+
                     val fragment = PlayerDetailsFragment.newInstance(item)
                     parentActivity.supportFragmentManager
                             .beginTransaction()
@@ -215,8 +221,6 @@ class MainActivity : AppCompatActivity()
                         * ContactsContract.Contacts. CONTENT_URI )
                         * checkForCompatibility (intent , PICK_CONTACT )
                         * }*/
-
-
                     }
 
                     view.context.startActivity(intent)

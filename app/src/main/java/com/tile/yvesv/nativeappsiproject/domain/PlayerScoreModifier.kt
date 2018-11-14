@@ -2,7 +2,7 @@ package com.tile.yvesv.nativeappsiproject.domain
 
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 
-class PlayerScoreModifier(var player: IPlayer) : ScoreModifier
+class PlayerScoreModifier(private val player: IPlayer) : ScoreModifier
 {
     override fun increaseScoreByOne()
     {
