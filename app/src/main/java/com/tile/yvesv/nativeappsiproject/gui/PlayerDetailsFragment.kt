@@ -46,7 +46,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
                 this.playerViewModel.score.value = this.player.playerData.score
             }
         }
-
     }
 
     override fun onAttach(context: Context?)
@@ -123,6 +122,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
             {
                 //player.playerData.score = Integer.parseInt(txt_score.text.toString())
                 this.savePlayer()
+                this.activityFragmentListener!!.notifyChange(player, playerViewModel)
             }
             btn_cancel.id ->
             {
@@ -148,7 +148,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
             }
 
         }
-        this.activityFragmentListener!!.notifyChange(player, playerViewModel)
+        //this.activityFragmentListener!!.notifyChange(player, playerViewModel)
         // +1 button tapped
         /*if (view?.id == plus_one.id)
         {

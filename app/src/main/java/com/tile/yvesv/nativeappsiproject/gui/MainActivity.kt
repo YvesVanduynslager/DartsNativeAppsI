@@ -1,6 +1,5 @@
 package com.tile.yvesv.nativeappsiproject.gui
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,20 +10,28 @@ import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.domain.IPlayer
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import com.tile.yvesv.nativeappsiproject.domain.PlayerData
 import com.tile.yvesv.nativeappsiproject.domain.PlayerSorter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.player_item.view.*
 import kotlinx.android.synthetic.main.player_list.*
 
 /**
  * Activity with 3 tabs that can switch between 3 fragments
  */
-class MainActivity : AppCompatActivity()
+class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener
 {
+    override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
+    {
+        Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
+        Log.d("PLAYER_VIEW_MODEL_SCORE", "Score in viewmodel is: ${vm.score.value}")
+
+
+    }
+
     private var twoPane: Boolean = false
-    private var players: List<Player>? = null
+    //private var players: List<Player>? = null
     /**
      * Fundamental setup for the activity, such as declaring the user interface (defined in an XML layout file),
      * defining member variables, and configuring some of the UI
@@ -55,6 +62,7 @@ class MainActivity : AppCompatActivity()
     {
         super.onStart()
         players = this.getPlayers()
+
         player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, twoPane)
 
         /**
@@ -260,9 +268,11 @@ class MainActivity : AppCompatActivity()
 
     companion object
     {
-        fun newIntent ( context : Context): Intent
+        var players: List<Player>? = null
+
+        fun newIntent(context: Context): Intent
         {
-           return Intent ( context , MainActivity::class.java )
+            return Intent(context, MainActivity::class.java)
         }
     }
 }
