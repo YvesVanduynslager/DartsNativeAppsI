@@ -5,16 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.domain.IPlayer
-import com.tile.yvesv.nativeappsiproject.domain.Player
 
 /**
  * An activity representing a single player detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a [MainActivity].
+ * in a [RankingActivity].
  */
 class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener
 {

@@ -14,24 +14,22 @@ import com.tile.yvesv.nativeappsiproject.domain.IPlayer
 import com.tile.yvesv.nativeappsiproject.domain.Player
 import com.tile.yvesv.nativeappsiproject.domain.PlayerData
 import com.tile.yvesv.nativeappsiproject.domain.PlayerSorter
-import kotlinx.android.synthetic.main.player_item.view.*
-import kotlinx.android.synthetic.main.player_list.*
+import kotlinx.android.synthetic.main.player_rank_item.view.*
+import kotlinx.android.synthetic.main.player_rank_list.*
 
 /**
  * Activity with 3 tabs that can switch between 3 fragments
  */
-class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener
+class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener
 {
     override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
     {
         Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
         Log.d("PLAYER_VIEW_MODEL_SCORE", "Score in viewmodel is: ${vm.score.value}")
-
-
     }
 
     private var twoPane: Boolean = false
-    //private var players: List<Player>? = null
+    private var players: List<Player>? = null
     /**
      * Fundamental setup for the activity, such as declaring the user interface (defined in an XML layout file),
      * defining member variables, and configuring some of the UI
@@ -39,14 +37,14 @@ class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentLi
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_ranking)
 
         if (player_detail_container != null)
         {
             /*
-            * player_detail_container sits in player_list(w900dp)
-            * the player_list file is selected based on the width of the screen
-            * if the player_list.xml file with 900dp width is selected.
+            * player_detail_container sits in player_rank_list(w900dp)
+            * the player_rank_list file is selected based on the width of the screen
+            * if the player_rank_list.xml file with 900dp width is selected.
             * there will be a player_detail_container view present
             * if that is not null we set twoPane to true
             * this boolean is then used in the recyclerviewadapter. See below
@@ -88,14 +86,6 @@ class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentLi
          */
         when (item.itemId)
         {
-            /*R.id.ranking ->
-            {
-                val intent = MainActivity.newIntent(this.applicationContext)
-                startActivity(intent)
-
-                Toast.makeText(this, "Ranking selected", Toast.LENGTH_SHORT).show()
-                return true
-            }*/
             R.id.players ->
             {
                 val intent = PlayersActivity.newIntent(this.applicationContext)
@@ -188,7 +178,7 @@ class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentLi
         }
     }*/
 
-    class SimpleItemRecyclerViewAdapter(private val parentActivity: MainActivity,
+    class SimpleItemRecyclerViewAdapter(private val parentActivity: RankingActivity,
                                         private val players: List<Player>,
                                         private val twoPane: Boolean) :
             RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>()
@@ -208,7 +198,6 @@ class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentLi
                 Log.d("TWO_PANE", twoPane.toString())
                 if (twoPane)
                 {
-
                     val fragment = PlayerDetailsFragment.newInstance(item)
                     parentActivity.supportFragmentManager
                             .beginTransaction()
@@ -220,15 +209,6 @@ class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentLi
                     //EXPLICIT INTENT
                     val intent = PlayerDetailActivity.newIntent(view.context).apply {
                         putExtra(PlayerDetailsFragment.PLAYER, item)
-
-                        // val intent = Intent(view.context, PlayerDetailActivity::class.java).apply {
-                        //putExtra(PlayerDetailsFragment.PLAYER, item)
-                        //IMPLICIT INTENT EXAMPLE:
-                        /*button_contacts . setOnClickListener {
-                        * val intent = Intent ( Intent. ACTION_PICK ,
-                        * ContactsContract.Contacts. CONTENT_URI )
-                        * checkForCompatibility (intent , PICK_CONTACT )
-                        * }*/
                     }
 
                     view.context.startActivity(intent)
@@ -239,15 +219,17 @@ class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentLi
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
         {
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.player_item, parent, false)
+                    .inflate(R.layout.player_rank_item, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int)
         {
             val player = players[position]
+
             holder.name.text = player.playerData.name
             holder.score.text = "${player.playerData.score}"
+            holder.rank.text = "${(position + 1)}"
             //holder.image.setImageResource(player.playerData.imageResId)
 
             with(holder.itemView) {
@@ -262,17 +244,15 @@ class MainActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentLi
         {
             val name: TextView = view.txt_name
             val score: TextView = view.txt_score
-            //val image: ImageView = view.list_comic_image
+            val rank: TextView = view.txt_rank
         }
     }
 
     companion object
     {
-        var players: List<Player>? = null
-
         fun newIntent(context: Context): Intent
         {
-            return Intent(context, MainActivity::class.java)
+            return Intent(context, RankingActivity::class.java)
         }
     }
 }

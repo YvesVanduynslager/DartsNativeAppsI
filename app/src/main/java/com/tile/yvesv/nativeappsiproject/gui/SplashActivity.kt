@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import com.tile.yvesv.nativeappsiproject.R
 
 /**
- * Splash screen activity. Shows title then loads MainActivity after 3 seconds
+ * Splash screen activity. Shows title then loads RankingActivity after 3 seconds
  */
 class SplashActivity : AppCompatActivity()
 {
@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity()
         if (!isFinishing)
         {
 
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val intent = Intent(applicationContext, RankingActivity::class.java)
             startActivity(intent)
             finish()
         }

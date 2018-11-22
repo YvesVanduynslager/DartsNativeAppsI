@@ -1,7 +1,6 @@
 package com.tile.yvesv.nativeappsiproject.gui
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -48,28 +47,47 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         }
     }
 
-    override fun onAttach(context: Context?)
+    override fun onResume()
+    {
+        super.onResume()
+
+        /*activity will be RankingActivity or PlayerDetailActivity depending on
+        the device (cellphone or tablet)*/
+        activityFragmentListener = activity as DetailFragmentListener
+
+        plus_one.setOnClickListener(this)
+        minus_one.setOnClickListener(this)
+        btn_save.setOnClickListener(this)
+        btn_cancel.setOnClickListener(this)
+    }
+
+    override fun onPause()
+    {
+        super.onPause()
+        activityFragmentListener = null
+        plus_one.setOnClickListener(null)
+        minus_one.setOnClickListener(null)
+        btn_save.setOnClickListener(null)
+        btn_cancel.setOnClickListener(null)
+    }
+
+    /*override fun onAttach(context: Context?)
     {
         super.onAttach(context)
-        activityFragmentListener = activity as DetailFragmentListener
+        //activityFragmentListener = activity as DetailFragmentListener
     }
 
     override fun onDetach()
     {
         super.onDetach()
-        activityFragmentListener = null
-    }
+        //activityFragmentListener = null
+    }*/
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         //DON'T EVER FORGET THIS LINE FOR DATABINDING FFS
         val binding: FragmentPlayerDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_details, container, false)
         val rootView = binding.root
-
-        rootView.plus_one.setOnClickListener(this)
-        rootView.minus_one.setOnClickListener(this)
-        rootView.btn_save.setOnClickListener(this)
-        rootView.btn_cancel.setOnClickListener(this)
 
         player.let {
             rootView.txt_name.text = it.playerData.name
@@ -121,12 +139,12 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
             btn_save.id ->
             {
                 //player.playerData.score = Integer.parseInt(txt_score.text.toString())
-                this.savePlayer()
+                this.savePlayerScore()
                 this.activityFragmentListener!!.notifyChange(player, playerViewModel)
             }
             btn_cancel.id ->
             {
-                this.cancel()
+                this.resetPlayerScore()
             }
             plus_one.id ->
             {
@@ -148,34 +166,9 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
             }
 
         }
-        //this.activityFragmentListener!!.notifyChange(player, playerViewModel)
-        // +1 button tapped
-        /*if (view?.id == plus_one.id)
-        {
-            scoreModifier.increaseScoreByOne()
-            this.activityFragmentListener!!.notifyChange(player, playerViewModel)
-        }
-        else // -1 button tapped
-        {
-            try
-            {
-                scoreModifier.decreaseScoreByOne()
-                this.activityFragmentListener!!.notifyChange(player, playerViewModel)
-            }
-            catch (e: ZeroException) //catch exception on attempt to decrease score below 0
-            {
-                //log the error message
-                Log.e("Exception", e.message)
-                //display a toast notifying the user that he can't decrease below 0
-                Toast.makeText(activity, getString(R.string.less_than_zero_error), Toast.LENGTH_LONG).show()
-            }
-        }*/
-
-        //No longer needed, score text is now updated through databinding
-        //updateUI()//txt_score.text = "${player.playerData.score}"
     }
 
-    private fun savePlayer()
+    private fun savePlayerScore()
     {
         player.playerData.score = Integer.parseInt(txt_score.text.toString())
         /*this.playerViewModel.score.let {
@@ -183,7 +176,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         }*/
     }
 
-    private fun cancel()
+    private fun resetPlayerScore()
     {
         playerViewModel.score.value = player.playerData.score
     }

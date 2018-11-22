@@ -42,7 +42,7 @@ class PlayersActivity : AppCompatActivity()
         {
             R.id.ranking ->
             {
-                val intent = MainActivity.newIntent(this.applicationContext)
+                val intent = RankingActivity.newIntent(this.applicationContext)
                 startActivity(intent)
 
                 Toast.makeText(this, "Ranking selected", Toast.LENGTH_SHORT).show()

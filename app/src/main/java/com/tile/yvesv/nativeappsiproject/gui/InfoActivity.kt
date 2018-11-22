@@ -19,9 +19,21 @@ class InfoActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        btn_email.setOnClickListener {
+        /*btn_email.setOnClickListener {
             this.openEmail()
-        }
+        }*/
+    }
+
+    override fun onResume()
+    {
+        super.onResume()
+        btn_email.setOnClickListener{this.openEmail()}
+    }
+
+    override fun onPause()
+    {
+        super.onPause()
+        btn_email.setOnClickListener(null)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
@@ -40,7 +52,7 @@ class InfoActivity : AppCompatActivity()
         {
             R.id.ranking ->
             {
-                val intent = MainActivity.newIntent(this.applicationContext)
+                val intent = RankingActivity.newIntent(this.applicationContext)
                 startActivity(intent)
 
                 Toast.makeText(this, "Ranking selected", Toast.LENGTH_SHORT).show()

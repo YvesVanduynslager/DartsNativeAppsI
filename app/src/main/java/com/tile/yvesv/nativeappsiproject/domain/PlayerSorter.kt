@@ -2,7 +2,7 @@ package com.tile.yvesv.nativeappsiproject.domain
 
 object PlayerSorter
 {
-    fun SortOnName(players: List<Player>) : List<Player>
+    fun SortOnNameAsc(players: List<Player>) : List<Player>
     {
         return players.sortedWith(compareBy {
             it.playerData.name
