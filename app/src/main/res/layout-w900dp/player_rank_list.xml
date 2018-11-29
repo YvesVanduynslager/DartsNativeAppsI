@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".gui.RankingActivity">
+    tools:context=".gui.activities.RankingActivity">
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,7 +22,7 @@
         android:layout_marginEnd="4dp"
         android:layout_weight="2"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".gui.RankingActivity"
+        tools:context=".gui.activities.RankingActivity"
         tools:listitem="@layout/player_rank_item" />
 
     <FrameLayout

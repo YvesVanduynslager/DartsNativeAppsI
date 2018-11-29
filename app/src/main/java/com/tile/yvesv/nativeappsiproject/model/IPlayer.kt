@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.domain
+package com.tile.yvesv.nativeappsiproject.model
 
 interface IPlayer
 {

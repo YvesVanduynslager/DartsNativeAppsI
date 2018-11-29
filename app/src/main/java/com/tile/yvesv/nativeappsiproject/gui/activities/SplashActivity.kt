@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.gui
+package com.tile.yvesv.nativeappsiproject.gui.activities
 
 import android.content.Intent
 import android.os.Bundle

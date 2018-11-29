@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.gui
+package com.tile.yvesv.nativeappsiproject.gui.viewmodels
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

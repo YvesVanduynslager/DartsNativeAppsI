@@ -5,7 +5,7 @@
     <item
         android:id="@+id/ranking"
         android:title="@string/ranking"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/players"
@@ -15,6 +15,10 @@
     <item
         android:id="@+id/info"
         android:title="@string/info"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nogames"
+        android:title="@string/no_games"
         app:showAsAction="ifRoom" />
     <!--android:icon="@drawable/ic_menu_4"-->
 </menu>

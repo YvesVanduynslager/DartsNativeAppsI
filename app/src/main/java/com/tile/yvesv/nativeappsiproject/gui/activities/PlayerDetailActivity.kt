@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.gui
+package com.tile.yvesv.nativeappsiproject.gui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.domain.IPlayer
+import com.tile.yvesv.nativeappsiproject.model.IPlayer
+import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
+import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 
 /**
  * An activity representing a single player detail screen. This

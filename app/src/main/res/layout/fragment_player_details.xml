@@ -5,7 +5,7 @@
 
         <variable
             name="playerViewModel"
-            type="com.tile.yvesv.nativeappsiproject.gui.PlayerViewModel" />
+            type="com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel" />
     </data>
 
     <ScrollView

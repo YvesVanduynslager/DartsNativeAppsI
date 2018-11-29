@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.gui
+package com.tile.yvesv.nativeappsiproject.gui.fragments
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -11,10 +11,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
-import com.tile.yvesv.nativeappsiproject.domain.IPlayer
-import com.tile.yvesv.nativeappsiproject.domain.Player
-import com.tile.yvesv.nativeappsiproject.domain.PlayerViewModelScoreModifier
+import com.tile.yvesv.nativeappsiproject.model.IPlayer
+import com.tile.yvesv.nativeappsiproject.model.Player
+import com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
+import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import kotlinx.android.synthetic.main.fragment_player_details.view.*
 import java.io.Serializable

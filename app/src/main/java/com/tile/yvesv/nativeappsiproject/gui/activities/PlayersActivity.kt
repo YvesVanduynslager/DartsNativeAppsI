@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.gui
+package com.tile.yvesv.nativeappsiproject.gui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
 
 import kotlinx.android.synthetic.main.activity_players.*
@@ -45,23 +46,25 @@ class PlayersActivity : AppCompatActivity()
                 val intent = RankingActivity.newIntent(this.applicationContext)
                 startActivity(intent)
 
-                Toast.makeText(this, "Ranking selected", Toast.LENGTH_SHORT).show()
+                Logger.i("Ranking selected")
+                //Toast.makeText(this, "Ranking selected", Toast.LENGTH_SHORT).show()
                 return true
             }
-            /*R.id.players ->
-            {
-                val intent = PlayersActivity.newIntent(this.applicationContext)
-                startActivity(intent)
-
-                Toast.makeText(this, "Players selected", Toast.LENGTH_SHORT).show()
-                return true
-            }*/
             R.id.info ->
             {
                 val intent = InfoActivity.newIntent(this.applicationContext)
                 startActivity(intent)
 
-                Toast.makeText(this, "Info selected", Toast.LENGTH_SHORT).show()
+                Logger.i("Info selected")
+                //Toast.makeText(this, "Info selected", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.nogames ->
+            {
+                val intent = BoredActivity.newIntent(this.applicationContext)
+                startActivity(intent)
+
+                Logger.i("No games to play? selected")
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

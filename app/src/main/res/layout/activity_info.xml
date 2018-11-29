@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_grey"
-    tools:context=".gui.InfoActivity">
+    tools:context=".gui.activities.InfoActivity">
 
     <TextView
         android:id="@+id/contactdata"

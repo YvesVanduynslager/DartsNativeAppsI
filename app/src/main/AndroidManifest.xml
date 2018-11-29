@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tile.yvesv.nativeappsiproject">
 
+    <!-- gives app permission to use internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".gui.RankingActivity"
+            android:name=".gui.activities.RankingActivity"
             android:label="Ranking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gui.SplashActivity"
+            android:name=".gui.activities.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Splash"
             android:theme="@style/FullscreenTheme">
@@ -34,15 +37,16 @@
             -->
         </activity>
         <activity
-            android:name=".gui.PlayerDetailActivity"
+            android:name=".gui.activities.PlayerDetailActivity"
             android:label="Detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".gui.PlayersActivity"
+            android:name=".gui.activities.PlayersActivity"
             android:label="Players" />
         <activity
-            android:name=".gui.InfoActivity"
-            android:label="Info"/>
+            android:name=".gui.activities.InfoActivity"
+            android:label="Info" />
+        <activity android:name=".gui.activities.BoredActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.gui
+package com.tile.yvesv.nativeappsiproject.gui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -9,11 +9,14 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.domain.IPlayer
-import com.tile.yvesv.nativeappsiproject.domain.Player
-import com.tile.yvesv.nativeappsiproject.domain.PlayerData
-import com.tile.yvesv.nativeappsiproject.domain.PlayerSorter
+import com.tile.yvesv.nativeappsiproject.model.IPlayer
+import com.tile.yvesv.nativeappsiproject.model.Player
+import com.tile.yvesv.nativeappsiproject.model.PlayerData
+import com.tile.yvesv.nativeappsiproject.model.PlayerSorter
+import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
+import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import kotlinx.android.synthetic.main.player_rank_item.view.*
 import kotlinx.android.synthetic.main.player_rank_list.*
 
@@ -91,7 +94,8 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
                 val intent = PlayersActivity.newIntent(this.applicationContext)
                 startActivity(intent)
 
-                Toast.makeText(this, "Players selected", Toast.LENGTH_SHORT).show()
+                Logger.i("Players selected")
+                //Toast.makeText(this, "Players selected", Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.info ->
@@ -99,7 +103,16 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
                 val intent = InfoActivity.newIntent(this.applicationContext)
                 startActivity(intent)
 
-                Toast.makeText(this, "Info selected", Toast.LENGTH_SHORT).show()
+                Logger.i("Info selected")
+                //Toast.makeText(this, "Info selected", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.nogames ->
+            {
+                val intent = BoredActivity.newIntent(this.applicationContext)
+                startActivity(intent)
+
+                Logger.i("No games to play? selected")
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_grey"
-    tools:context=".gui.PlayersActivity">
+    tools:context=".gui.activities.PlayersActivity">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

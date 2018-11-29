@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.gui
+package com.tile.yvesv.nativeappsiproject.gui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
 import kotlinx.android.synthetic.main.activity_info.*
 
@@ -64,7 +65,14 @@ class InfoActivity : AppCompatActivity()
 
                 startActivity(intent)
 
-                Toast.makeText(this, "Players selected", Toast.LENGTH_SHORT).show()
+                Logger.i("Players selected")
+                return true
+            }
+            R.id.nogames -> {
+                val intent = BoredActivity.newIntent(this.applicationContext)
+                startActivity(intent)
+
+                Logger.i("No games to play? selected")
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
