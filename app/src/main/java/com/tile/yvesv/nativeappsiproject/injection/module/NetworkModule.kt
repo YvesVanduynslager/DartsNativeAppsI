@@ -38,17 +38,16 @@ object NetworkModule
      * Return the Retrofit object.
      */
     @Provides
-    internal fun provideRetrofitInterface(): Retrofit {
-
+    internal fun provideRetrofitInterface(): Retrofit
+    {
         //To debug Retrofit/OkHttp we can intercept the calls and log them.
-        val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
 
         val client: OkHttpClient = OkHttpClient.Builder().apply {
-            this.addInterceptor(interceptor)
+            this.addInterceptor(loggingInterceptor)
         }.build()
-
 
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)

@@ -25,4 +25,6 @@
     <string name="e_mail">E-mail</string>
     <string name="class_year">Native Apps I -- HoGent TILE/3A -- 2018-2019</string>
     <string name="no_games">No games to play?</string>
+    <string name="no_games_to_play">No games to play? Press the button!</string>
+    <string name="give_me_something_else">Give me something else to do</string>
 </resources>

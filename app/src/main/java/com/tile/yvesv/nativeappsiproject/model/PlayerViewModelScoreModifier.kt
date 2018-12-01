@@ -37,6 +37,9 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
         }
     }
 
+    /**
+     * @param points the number of points to be increased
+     */
     override fun increaseScoreBy(points: Int)
     {
         this.playerViewModel.score.let {
@@ -45,6 +48,10 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
             it.value = score
         }
     }
+
+    /**
+     * @param points the number of points to be decreased
+     */
     override fun decreaseScoreBy(points: Int)
     {
         this.playerViewModel.score.let {

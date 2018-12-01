@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="No games to play? Press the button!"
+        android:text="@string/no_games_to_play"
         android:textAlignment="center"
         android:textColor="@color/light_blue"
         android:textSize="18sp"
@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Give me something else to do"
+        android:text="@string/give_me_something_else"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,9 +48,8 @@
 
         <TextView
             android:id="@+id/txt_activity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textColor="@color/light_blue"
             android:textSize="24sp" />

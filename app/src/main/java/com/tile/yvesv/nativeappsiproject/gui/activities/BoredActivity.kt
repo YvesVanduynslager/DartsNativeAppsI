@@ -2,45 +2,45 @@ package com.tile.yvesv.nativeappsiproject.gui.activities
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.BoredActivityViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_bored.*
 
 class BoredActivity : AppCompatActivity()
 {
+
     private var act: BoredActivityViewModel = BoredActivityViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bored)
-        btn_bored.setOnClickListener{ this.newBoredActivity()}
+        btn_bored.setOnClickListener { this.newBoredActivity() }
 
     }
+
     override fun onStart()
     {
         super.onStart()
         newBoredActivity()
     }
 
+    /*private fun isConnected(): Boolean
+    {
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo=connectivityManager.activeNetworkInfo
+        return  networkInfo!=null && networkInfo.isConnected
+    }*/
+
     private fun newBoredActivity()
     {
-        //txt_activity.text = act.getRawAct().value
-        var sub = act.boredActApi.getBoredActivity()
-                //we tell it to fetch the data on background by
-                .subscribeOn(Schedulers.io())
-                //we like the fetched data to be displayed on the MainTread (UI)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { result ->
-                    txt_activity.text = result.activity
-                }
+        act.newActivity()
+        txt_activity.text = act.getRawAct().value
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
@@ -51,10 +51,6 @@ class BoredActivity : AppCompatActivity()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
-        //PLACE IN COMPANION OBJECT
-        /*
-        check which activity invoked, the invoking activity shouldn't be redrawn. (=> 2x stacked)
-         */
         when (item.itemId)
         {
             R.id.ranking ->
@@ -86,9 +82,10 @@ class BoredActivity : AppCompatActivity()
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
     companion object
     {
-        /**
+        /*
          * Id's for the activities which return results
          */
         //private const val PICK_EMAIL = 1
