@@ -1,11 +1,19 @@
 package com.tile.yvesv.nativeappsiproject.model
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import java.io.Serializable
 
 /**
  * @class Stores the properties for the player
- * @param imageResId the id of the player's image
  * @param name the player's name
  * @param description description of the player
  */
-data class PlayerData(val imageResId: Int, val name: String, var description: String, var score: Int, var text: String = "") : Serializable
+@Entity(tableName = "player_data")
+data class PlayerData(
+        @PrimaryKey(autoGenerate = true) val id: Int,
+        @ColumnInfo(name="player_name") val name: String,
+        @ColumnInfo(name="player_descr") var description: String,
+        @ColumnInfo(name="player_score") var score: Int,
+        @ColumnInfo(name="extra_text") var text: String = "") : Serializable

@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
@@ -16,6 +15,8 @@ import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.model.PlayerData
 import com.tile.yvesv.nativeappsiproject.model.PlayerSorter
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
+import com.tile.yvesv.nativeappsiproject.gui.menu.RankingMenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import kotlinx.android.synthetic.main.player_rank_item.view.*
 import kotlinx.android.synthetic.main.player_rank_list.*
@@ -23,8 +24,10 @@ import kotlinx.android.synthetic.main.player_rank_list.*
 /**
  * Activity with 3 tabs that can switch between 3 fragments
  */
-class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener
+class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener, MenuInterface
 {
+    override val menuStrategy: MenuStrategy = RankingMenuStrategy()
+
     override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
     {
         Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
@@ -83,11 +86,8 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
-        //PLACE IN COMPANION OBJECT
-        /*
-        check which activity invoked, the invoking activity shouldn't be redrawn. (=> 2x stacked)
-         */
-        when (item.itemId)
+        return menuStrategy.menuSetup(this, item)
+        /*when (item.itemId)
         {
             R.id.players ->
             {
@@ -116,7 +116,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
-        }
+        }*/
     }
 
 
@@ -129,6 +129,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
         val resources = resources
 
+        val ids = resources.getIntArray(R.array.ids)
         val names = resources.getStringArray(R.array.names)
         val descriptions = resources.getStringArray(R.array.extras)
         val scores = resources.getIntArray(R.array.scores)
@@ -145,7 +146,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         for (i in 0 until names.size)
         {
             imageResIds[i] = typedArray.getResourceId(i, 0)
-            val playerData = PlayerData(imageResIds[i], names[i], descriptions[i], scores[i])
+            val playerData = PlayerData(ids[i], names[i], descriptions[i], scores[i])
             val thePlayer = Player(playerData)
             playerList.add(thePlayer)
         }
@@ -154,7 +155,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         /**
          * Sort the players descending on their score and return
          */
-        return PlayerSorter.SortOnScoresDesc(playerList)
+        return PlayerSorter.sortOnScoreDesc(playerList)
         /*return playerList.sortedWith(compareByDescending {
                 it.playerData.score
         })*/

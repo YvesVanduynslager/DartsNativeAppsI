@@ -10,10 +10,13 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.gui.menu.InfoMenuStrategy
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import kotlinx.android.synthetic.main.activity_info.*
 
-class InfoActivity : AppCompatActivity()
+class InfoActivity : AppCompatActivity(), MenuInterface
 {
+    override val menuStrategy: MenuStrategy = InfoMenuStrategy()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -43,13 +46,14 @@ class InfoActivity : AppCompatActivity()
         return true
     }
 
+    /**
+     * Handles the menu selection
+     * @param item The selected menu-item
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
-        //PLACE IN COMPANION OBJECT
-        /*
-        check which activity invoked, the invoking activity shouldn't be redrawn. (=> 2x stacked)
-         */
-        when (item.itemId)
+        return menuStrategy.menuSetup(this, item)
+        /*when (item.itemId)
         {
             R.id.ranking ->
             {
@@ -76,7 +80,7 @@ class InfoActivity : AppCompatActivity()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
-        }
+        }*/
     }
 
     /**

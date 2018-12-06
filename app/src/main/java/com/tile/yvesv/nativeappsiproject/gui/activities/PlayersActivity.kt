@@ -10,11 +10,14 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
+import com.tile.yvesv.nativeappsiproject.gui.menu.PlayersMenuStrategy
 
 import kotlinx.android.synthetic.main.activity_players.*
 
-class PlayersActivity : AppCompatActivity()
+class PlayersActivity : AppCompatActivity(), MenuInterface
 {
+    override val menuStrategy: MenuStrategy = PlayersMenuStrategy()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -35,11 +38,8 @@ class PlayersActivity : AppCompatActivity()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
-        //PLACE IN COMPANION OBJECT
-        /*
-        check which activity invoked, the invoking activity shouldn't be redrawn. (=> 2x stacked)
-         */
-        when (item.itemId)
+        return menuStrategy.menuSetup(this, item)
+        /*when (item.itemId)
         {
             R.id.ranking ->
             {
@@ -68,7 +68,7 @@ class PlayersActivity : AppCompatActivity()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
-        }
+        }*/
     }
 
     companion object

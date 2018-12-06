@@ -48,7 +48,9 @@
         <activity
             android:name=".gui.activities.InfoActivity"
             android:label="Info" />
-        <activity android:name=".gui.activities.BoredActivity"/>
+        <activity
+            android:name=".gui.activities.BoredActivity"
+            android:label="No games?"/>
     </application>
 
 </manifest>

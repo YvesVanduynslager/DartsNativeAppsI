@@ -27,17 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/player_name_margin_top"
                 android:layout_marginBottom="0dp"
+                android:text="@{playerViewModel.name}"
                 android:textColor="@color/autumn_red" />
-
-            <ImageView
-                android:id="@+id/img_player"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/player_image_size"
-                android:layout_marginTop="@dimen/player_image_margin_vertical"
-                android:layout_marginBottom="@dimen/player_image_margin_vertical"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/txt_description"
@@ -47,6 +38,7 @@
                 android:layout_marginStart="@dimen/player_extra_margin_left"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="@dimen/player_extra_margin_right"
+                android:text="@{playerViewModel.description}"
                 android:layout_marginBottom="@dimen/player_extra_margin_bottom"
                 android:autoLink="web"
                 android:textColor="@android:color/white" />

@@ -8,11 +8,12 @@ import java.io.Serializable
  */
 class Player(override val playerData: PlayerData) : Serializable, IPlayer
 {
-    val imageResId: Int
-        get() = playerData.imageResId
-
     val name: String
         get() = playerData.name
+        /*set(value)
+        {
+            playerData.name = value
+        }*/
 
     val description: String
         get() = playerData.description

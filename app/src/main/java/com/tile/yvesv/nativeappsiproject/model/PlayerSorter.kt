@@ -9,7 +9,7 @@ object PlayerSorter
         })
     }
 
-    fun SortOnScoresDesc(players: List<Player>) : List<Player>
+    fun sortOnScoreDesc(players: List<Player>) : List<Player>
     {
         return players.sortedWith(compareByDescending {
             it.playerData.score

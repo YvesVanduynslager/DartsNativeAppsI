@@ -11,11 +11,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
+import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
+import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier
-import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
-import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import kotlinx.android.synthetic.main.fragment_player_details.view.*
 import java.io.Serializable
@@ -31,9 +31,9 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     {
         super.onCreate(savedInstanceState)
 
-        //links the viewmodel to the activity's lifecycle
+        /*PlayerViewModel needs to be initialized using ViewModelProviders for auto updating on state changes
+        PlayerViewModel uses MutableLiveData for properties*/
         playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel::class.java)
-
 
         arguments!!.let {
             if (it.containsKey(PLAYER))
@@ -41,9 +41,10 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
                 //assign the selected player to player variable
                 this.player = it.getSerializable(PLAYER) as Player
 
-                //only the score can be adjusted in this fragment, no need to put the rest in the viewmodel
-                //only the score is used with databinding here
-                this.playerViewModel.score.value = this.player.playerData.score
+                //this.playerViewModel.score.value = this.player.playerData.score
+                this.playerViewModel.name.value = this.player.name
+                this.playerViewModel.description.value = this.player.description
+                this.playerViewModel.score.value = this.player.score
             }
         }
     }
@@ -72,18 +73,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         btn_cancel.setOnClickListener(null)
     }
 
-    /*override fun onAttach(context: Context?)
-    {
-        super.onAttach(context)
-        //activityFragmentListener = activity as DetailFragmentListener
-    }
-
-    override fun onDetach()
-    {
-        super.onDetach()
-        //activityFragmentListener = null
-    }*/
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         //DON'T EVER FORGET THIS LINE FOR DATABINDING FFS
@@ -91,18 +80,22 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         val rootView = binding.root
 
         player.let {
-            rootView.txt_name.text = it.playerData.name
-            rootView.txt_score.text = "${playerViewModel.score.value}"
+            //rootView.txt_name.text = it.playerData.name
             //score is handled with databinding
-            rootView.txt_description.text = it.playerData.description
-            rootView.img_player.setImageResource(it.playerData.imageResId)
+            //rootView.txt_score.text = "${playerViewModel.score.value}"
+
+            //rootView.txt_description.text = it.playerData.description
+            //rootView.img_player.setImageResource(it.playerData.imageResId)
         }
 
         binding.playerViewModel = playerViewModel
 
-        //Setting the lifecycleowner to this activity is required, as otherwise the UI won't update when changes occur.
-        //This is because LiveData only updates when the owner is in an ACTIVE state.
-        //If there's no owner, it can't be active.
+        /*Setting the LifeCycleOwner to this fragment is required, as otherwise the UI won't update when changes occur.
+        This is because LiveData only updates when the owner is in an ACTIVE state. (fragment = active)
+        If there' no owner, it can't be active.
+        We need the binding to set up the link with the variables defined in the layout file. Setting the
+        LifeCycleOwner is needed when using LiveData. Without this step the LiveData objects can’t
+        know when their listeners are active or not.*/
         binding.setLifecycleOwner(this)
 
         return rootView
@@ -162,7 +155,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
                     //log the error message
                     Log.e("Exception", e.message)
                     //display a toast notifying the user that he can't decrease below 0
-                    Toast.makeText(activity, getString(R.string.less_than_zero_error), Toast.LENGTH_LONG).show()
+                    showToast("Score can not be lower than 0!")
                 }
             }
 
@@ -172,20 +165,18 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     private fun savePlayerScore()
     {
         player.playerData.score = Integer.parseInt(txt_score.text.toString())
-        /*this.playerViewModel.score.let {
-            player.playerData.score = it.value!!
-        }*/
+        showToast("Saved score")
     }
 
     private fun resetPlayerScore()
     {
         playerViewModel.score.value = player.playerData.score
+        showToast("Reset score")
     }
 
-    //No longer needed, score text is now updated using databinding
-    private fun updateUI()
+    private fun showToast(text: String)
     {
-        txt_score.text = "${playerViewModel.score.value}"
+        Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
     }
 
     interface DetailFragmentListener

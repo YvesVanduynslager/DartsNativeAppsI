@@ -1,42 +1,43 @@
 package com.tile.yvesv.nativeappsiproject.gui.activities
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.gui.menu.BoredMenuStrategy
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.BoredActivityViewModel
 import kotlinx.android.synthetic.main.activity_bored.*
 
-class BoredActivity : AppCompatActivity()
+/**
+ * @class [BoredActivity]
+ * This activity displays a random activity to perform when there are no games to play
+ * Not to be confused with Android activities ;)
+ * Used only to demonstrate networking functionality.
+ */
+class BoredActivity : AppCompatActivity(), MenuInterface
 {
-
+    override val menuStrategy: MenuStrategy = BoredMenuStrategy()
     private var act: BoredActivityViewModel = BoredActivityViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bored)
+
+        /**[BoredActivityViewModel] needs to be initialized using ViewModelProviders
+        * because of the use of MutableLiveData */
+        act = ViewModelProviders.of(this).get(BoredActivityViewModel::class.java)
         btn_bored.setOnClickListener { this.newBoredActivity() }
-
     }
 
-    override fun onStart()
-    {
-        super.onStart()
-        newBoredActivity()
-    }
-
-    /*private fun isConnected(): Boolean
-    {
-        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo=connectivityManager.activeNetworkInfo
-        return  networkInfo!=null && networkInfo.isConnected
-    }*/
-
+    /**
+     * Request a new activity and display it in [txt_activity]
+     */
     private fun newBoredActivity()
     {
         act.newActivity()
@@ -49,9 +50,14 @@ class BoredActivity : AppCompatActivity()
         return true
     }
 
+    /**
+     * Handles the menu selection
+     * @param item The selected menu-item
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
-        when (item.itemId)
+        return menuStrategy.menuSetup(this, item)
+        /*when (item.itemId)
         {
             R.id.ranking ->
             {
@@ -67,7 +73,6 @@ class BoredActivity : AppCompatActivity()
                 startActivity(intent)
 
                 Logger.i("Players selected")
-                //Toast.makeText(this, "Players selected", Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.info ->
@@ -76,11 +81,10 @@ class BoredActivity : AppCompatActivity()
                 startActivity(intent)
 
                 Logger.i("Info selected")
-                //Toast.makeText(this, "Info selected", Toast.LENGTH_SHORT).show()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
-        }
+        }*/
     }
 
     companion object
