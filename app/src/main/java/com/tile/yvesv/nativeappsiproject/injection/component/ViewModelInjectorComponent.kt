@@ -16,9 +16,8 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [NetworkModule::class])
-interface ViewModelInjectorComponent {
-
-
+interface ViewModelInjectorComponent
+{
     /**
      * Injects the dependencies into the specified [BoredActivityViewModel].
      * @param boredActivityViewModel the [BoredActivityViewModel] in which to inject the dependencies.

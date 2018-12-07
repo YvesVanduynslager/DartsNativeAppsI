@@ -8,9 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.gui.menu.InfoMenuStrategy
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import kotlinx.android.synthetic.main.activity_info.*
 

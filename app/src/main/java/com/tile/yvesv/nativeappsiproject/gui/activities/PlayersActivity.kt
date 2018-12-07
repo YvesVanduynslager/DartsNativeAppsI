@@ -7,9 +7,8 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.menu.PlayersMenuStrategy
 

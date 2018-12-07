@@ -8,13 +8,13 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.model.PlayerData
 import com.tile.yvesv.nativeappsiproject.model.PlayerSorter
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.menu.RankingMenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel

@@ -30,7 +30,7 @@ class BoredActivityViewModel : BaseViewModel()
     /**
      * Indicates whether the loading view should be displayed
      */
-    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+    private val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
 
     /**
      * Represents a disposable resource

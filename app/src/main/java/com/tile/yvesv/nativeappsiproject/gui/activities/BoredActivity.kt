@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.gui.menu.BoredMenuStrategy
+import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.BoredActivityViewModel
 import kotlinx.android.synthetic.main.activity_bored.*
