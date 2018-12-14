@@ -2,7 +2,8 @@ package com.tile.yvesv.nativeappsiproject.persistence
 
 import android.arch.lifecycle.LiveData
 import android.support.annotation.WorkerThread
-import com.tile.yvesv.nativeappsiproject.model.PlayerData
+import com.tile.yvesv.nativeappsiproject.model.Player
+import org.jetbrains.anko.doAsync
 
 /**
  * @class [PlayerRepository]
@@ -10,37 +11,38 @@ import com.tile.yvesv.nativeappsiproject.model.PlayerData
  * network connection is unavailable, the Dao can be used to request cached data instead.
  * Using the repository pattern hides this complexity from other classes.
  */
-class PlayerRepository(private val playerDAO: PlayerDAO)
+class PlayerRepository(private val dartsDao: DartsDao)
 {
-    val players: LiveData<List<PlayerData>> = playerDAO.getAllPlayers()
+    val players: LiveData<List<Player>> = dartsDao.getAllPlayers()
 
     @WorkerThread
-    fun create(playerData: PlayerData)
+    //fun create(playerData: PlayerData)
+    fun insert(player: Player)
     {
-        playerDAO.insert(playerData)
+        doAsync { dartsDao.insert(player) }
     }
 
     @WorkerThread
-    fun delete(playerData: PlayerData)
+    fun delete(player: Player)
     {
-        playerDAO.delete(playerData)
+        doAsync { dartsDao.delete(player) }
     }
 
     @WorkerThread
-    fun update(playerData: PlayerData)
+    fun update(player: Player)
     {
-        playerDAO.update(playerData)
+        doAsync { dartsDao.update(player) }
     }
 
     /*@WorkerThread
     fun readByName(name: String)
     {
-        playerDAO.readByName(name)
+        dartsDao.readByName(name)
     }
 
     @WorkerThread
     fun readById(id: Int)
     {
-        playerDAO.readById(id)
+        dartsDao.readById(id)
     }*/
 }

@@ -2,11 +2,12 @@ package com.tile.yvesv.nativeappsiproject.model
 
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 
-class PlayerScoreModifier(private val player: IPlayer) : ScoreModifier
+class PlayerScoreModifier(private var player: IPlayer) //: ScoreModifier
 {
-    override fun increaseScoreByOne()
+    /*override fun increaseScoreByOne()
     {
-        player.playerData.score += 1
+        //player.playerData.score += 1
+
     }
     override fun decreaseScoreByOne()
     {
@@ -34,5 +35,5 @@ class PlayerScoreModifier(private val player: IPlayer) : ScoreModifier
         {
             throw ZeroException("Score can not be lower than 0!")
         }
-    }
+    }*/
 }

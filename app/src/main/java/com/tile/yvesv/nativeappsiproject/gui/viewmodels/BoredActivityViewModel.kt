@@ -24,7 +24,7 @@ class BoredActivityViewModel : BaseViewModel()
     /**
      * The instance of the BoredActApi class to get back the results of the API
      */
-    @Inject
+    @Inject //Injected with class ViewModelInjectorComponent
     lateinit var boredActApi: BoredActApi
 
     /**

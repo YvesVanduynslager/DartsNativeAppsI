@@ -11,7 +11,7 @@ import java.io.Serializable
  * @param description description of the player
  */
 @Entity(tableName = "player_data")
-data class PlayerData(
+data class PlayerData1(
         @PrimaryKey(autoGenerate = true) val id: Int,
         @ColumnInfo(name="player_name") val name: String,
         @ColumnInfo(name="player_descr") var description: String,

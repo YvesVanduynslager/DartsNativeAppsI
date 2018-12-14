@@ -1,5 +1,8 @@
 package com.tile.yvesv.nativeappsiproject.gui.activities
 
+//import com.tile.yvesv.nativeappsiproject.model.PlayerData
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,17 +12,18 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.model.IPlayer
-import com.tile.yvesv.nativeappsiproject.model.Player
-import com.tile.yvesv.nativeappsiproject.model.PlayerData
-import com.tile.yvesv.nativeappsiproject.model.PlayerSorter
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.menu.RankingMenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
+import com.tile.yvesv.nativeappsiproject.model.IPlayer
+import com.tile.yvesv.nativeappsiproject.model.Player
+import com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel
+import kotlinx.android.synthetic.main.activity_ranking.*
 import kotlinx.android.synthetic.main.player_rank_item.view.*
 import kotlinx.android.synthetic.main.player_rank_list.*
+import kotlinx.android.synthetic.main.activity_ranking.view.*
 
 /**
  * Activity with 3 tabs that can switch between 3 fragments
@@ -28,9 +32,13 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 {
     override val menuStrategy: MenuStrategy = RankingMenuStrategy()
 
+    lateinit var dartsPlayerViewModel: DartsPlayerViewModel
+    private lateinit var playersListAdapter: SimpleItemRecyclerViewAdapter
+
+
     override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
     {
-        Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
+        //Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
         Log.d("PLAYER_VIEW_MODEL_SCORE", "Score in viewmodel is: ${vm.score.value}")
     }
 
@@ -47,16 +55,18 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
         if (player_detail_container != null)
         {
-            /*
-            * player_detail_container sits in player_rank_list(w900dp)
-            * the player_rank_list file is selected based on the width of the screen
-            * if the player_rank_list.xml file with 900dp width is selected.
-            * there will be a player_detail_container view present
-            * if that is not null we set twoPane to true
-            * this boolean is then used in the recyclerviewadapter. See below
+            /**
+             * [player_detail_container] sits in player_rank_list(w900dp)
+             * the player_rank_list file is selected based on the width of the screen
+             * if the player_rank_list.xml file with 900dp width is selected.
+             * there will be a player_detail_container view present
+             * if that is not null we set twoPane to true
+             * this boolean is then used in the recyclerviewadapter. See below
              */
             twoPane = true
         }
+
+        dartsPlayerViewModel = ViewModelProviders.of(this).get(DartsPlayerViewModel::class.java)
     }
 
     /**
@@ -65,18 +75,16 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
     override fun onStart()
     {
         super.onStart()
-        players = this.getPlayers()
+        //players = this.getPlayers()
 
-        player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, twoPane)
+        dartsPlayerViewModel.allPlayers.observe(this, Observer { players ->
+            players?.let { playersListAdapter.setPlayers(it) }
+        })
+        playersListAdapter = SimpleItemRecyclerViewAdapter(this, true)
+        player_list.adapter = playersListAdapter
 
-        /**
-         * setup for tabbed layout
-         */
-        /*val fragmentAdapter = TabPagerAdapter(supportFragmentManager, this.applicationContext, 1)
-        viewpager_main.adapter = fragmentAdapter
-        tab_layout_main.setupWithViewPager(viewpager_main)*/
+        //player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, twoPane)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
     {
@@ -87,43 +95,12 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
         return menuStrategy.menuSetup(this, item)
-        /*when (item.itemId)
-        {
-            R.id.players ->
-            {
-                val intent = PlayersActivity.newIntent(this.applicationContext)
-                startActivity(intent)
-
-                Logger.i("Players selected")
-                //Toast.makeText(this, "Players selected", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.info ->
-            {
-                val intent = InfoActivity.newIntent(this.applicationContext)
-                startActivity(intent)
-
-                Logger.i("Info selected")
-                //Toast.makeText(this, "Info selected", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.nogames ->
-            {
-                val intent = BoredActivity.newIntent(this.applicationContext)
-                startActivity(intent)
-
-                Logger.i("No games to play? selected")
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }*/
     }
-
 
     /**
      * Placeholder code until database logic is implemented
      */
-    private fun getPlayers(): List<Player>
+    /*private fun getPlayers(): List<Player>
     {
         val playerList = mutableListOf<Player>()
 
@@ -146,8 +123,9 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         for (i in 0 until names.size)
         {
             imageResIds[i] = typedArray.getResourceId(i, 0)
-            val playerData = PlayerData(ids[i], names[i], descriptions[i], scores[i])
-            val thePlayer = Player(playerData)
+            //val playerData = PlayerData(ids[i], names[i], descriptions[i], scores[i])
+            //val thePlayer = Player(playerData)
+            val thePlayer = Player(ids[i], names[i], descriptions[i], scores[i])
             playerList.add(thePlayer)
         }
         typedArray.recycle()
@@ -159,44 +137,15 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         /*return playerList.sortedWith(compareByDescending {
                 it.playerData.score
         })*/
-    }
-
-    /**
-     * TabPagerAdapter handles switching between tabs.
-     * context is used here to access strings.xml
-     * nrOfTabs to set the number of tabs to display.
-     */
-    /*class TabPagerAdapter(fm: FragmentManager, private val context: Context, private val nrOfTabs: Int) : FragmentPagerAdapter(fm)
-    {
-        override fun getItem(position: Int): Fragment?
-        {
-            return when (position)
-            {
-                0 -> InfoFragment.newInstance()
-                else -> InfoFragment.newInstance()
-            }
-        }
-
-        override fun getCount(): Int
-        {
-            return nrOfTabs
-        }
-
-        override fun getPageTitle(position: Int): CharSequence
-        {
-            return when (position)
-            {
-                0 -> context.getString(R.string.info)
-                else -> context.getString(R.string.info)
-            }
-        }
     }*/
 
     class SimpleItemRecyclerViewAdapter(private val parentActivity: RankingActivity,
-                                        private val players: List<Player>,
+            /*private val players: List<Player>,*/
                                         private val twoPane: Boolean) :
             RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>()
     {
+
+        private var playersCached = emptyList<Player>()
 
         private val onClickListener: View.OnClickListener
 
@@ -207,7 +156,8 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
                 // Here each item in the RecyclerView keeps a reference to the player it represents.
                 // This allows us to reuse a single listener for all items in the list
                 val item = view.tag as Player
-                Log.d("CLICKED PLAYER", item.playerData.name)
+                //Log.d("CLICKED PLAYER", item.playerData.name)
+                Log.d("CLICKED PLAYER", item.name)
 
                 Log.d("TWO_PANE", twoPane.toString())
                 if (twoPane)
@@ -239,10 +189,13 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int)
         {
-            val player = players[position]
+            //val player = players[position]
+            val player = playersCached[position]
 
-            holder.name.text = player.playerData.name
-            holder.score.text = "${player.playerData.score}"
+            //holder.name.text = player.playerData.name
+            //holder.score.text = "${player.playerData.score}"
+            holder.name.text = player.name
+            holder.score.text = "${player.score}"
             holder.rank.text = "${(position + 1)}"
             //holder.image.setImageResource(player.playerData.imageResId)
 
@@ -252,7 +205,14 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
             }
         }
 
-        override fun getItemCount() = players.size
+        internal fun setPlayers(players: List<Player>)
+        {
+            this.playersCached = players
+            notifyDataSetChanged()
+        }
+
+        //override fun getItemCount() = players.size
+        override fun getItemCount() = playersCached.size
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
         {

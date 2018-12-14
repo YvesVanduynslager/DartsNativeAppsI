@@ -61,7 +61,7 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFr
     override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
     {
         //Toast.makeText(this, "Player's score hasn't been saved yet: ${player.playerData.score}", Toast.LENGTH_LONG).show()
-        Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
+        //Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
         Log.d("PLAYER_VIEW_MODEL_SCORE", "Score in viewmodel is: ${vm.score.value}")
     }
 

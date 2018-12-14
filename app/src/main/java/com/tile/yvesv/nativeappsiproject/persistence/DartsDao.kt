@@ -2,10 +2,11 @@ package com.tile.yvesv.nativeappsiproject.persistence
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
-import com.tile.yvesv.nativeappsiproject.model.PlayerData
+import com.tile.yvesv.nativeappsiproject.model.Player
+//import com.tile.yvesv.nativeappsiproject.model.PlayerData
 
 @Dao
-interface PlayerDAO
+interface DartsDao
 {
     /**
      * Use the @Query annotation to specify a custom SQL query.
@@ -17,13 +18,14 @@ interface PlayerDAO
      * Get all players
      */
     @Query("SELECT * from player_data")
-    fun getAllPlayers(): LiveData<List<PlayerData>>
+    //fun getAllPlayers(): LiveData<List<PlayerData>>
+    fun getAllPlayers(): LiveData<List<Player>>
 
     /**
      * Insert player by model
      */
     @Insert
-    fun insert(player_data: PlayerData)
+    fun insert(player: Player)
 
     /**
      * Delete all players
@@ -41,7 +43,7 @@ interface PlayerDAO
      * Delete player by model
      */
     @Delete
-    fun delete(data: PlayerData)
+    fun delete(player: Player)
 
     /**
      * Update name by id
@@ -59,5 +61,5 @@ interface PlayerDAO
      * Update by model
      */
     @Update
-    fun update(playerData: PlayerData);
+    fun update(player: Player)
 }

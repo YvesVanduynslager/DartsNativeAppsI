@@ -164,13 +164,15 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     private fun savePlayerScore()
     {
-        player.playerData.score = Integer.parseInt(txt_score.text.toString())
+        //player.playerData.score = Integer.parseInt(txt_score.text.toString())
+        player.score = Integer.parseInt(txt_score.text.toString())
         showToast("Saved score")
     }
 
     private fun resetPlayerScore()
     {
-        playerViewModel.score.value = player.playerData.score
+        //playerViewModel.score.value = player.playerData.score
+        playerViewModel.score.value = player.score
         showToast("Reset score")
     }
 

@@ -1,4 +1,4 @@
-package com.tile.yvesv.nativeappsiproject.persistence
+package com.tile.yvesv.nativeappsiproject
 
 import android.app.Application
 import com.tile.yvesv.nativeappsiproject.injection.component.DaggerDatabaseComponent
@@ -12,8 +12,7 @@ class App : Application()
         lateinit var component: DatabaseComponent
     }
 
-    override fun onCreate()
-    {
+    override fun onCreate() {
         super.onCreate()
         component = DaggerDatabaseComponent
                 .builder()

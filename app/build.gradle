@@ -90,9 +90,10 @@ dependencies {
     // code as legitimate classes because they are not normally added to the source path.
     // Adding the annotationProcessor plugin will add these files into the IDE classpath
     // and enable you to have more visibility.
-    annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
+    //annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    //annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -101,5 +102,8 @@ dependencies {
 
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
+
+    //Anko
+    implementation 'org.jetbrains.anko:anko-common:0.10.4'
 
 }
