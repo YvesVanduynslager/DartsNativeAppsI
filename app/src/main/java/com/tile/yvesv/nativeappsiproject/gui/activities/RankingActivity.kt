@@ -8,6 +8,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SimpleItemAnimator
+import android.transition.Slide
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -64,6 +66,8 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
              */
             isDualPane = true
         }
+        //player_list.itemAnimator = SimpleItemAnimator()
+
 
         dartsPlayerViewModel = ViewModelProviders.of(this).get(DartsPlayerViewModel::class.java)
     }
@@ -83,6 +87,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         playersListAdapter = SimpleItemRecyclerViewAdapter(this, isDualPane)
         player_list.adapter = playersListAdapter
 
+
         //player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, isDualPane)
     }
 
@@ -98,7 +103,6 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
     }
 
     class SimpleItemRecyclerViewAdapter(private val parentActivity: RankingActivity,
-            /*private val players: List<Player>,*/
                                         private val twoPane: Boolean) :
             RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>()
     {
