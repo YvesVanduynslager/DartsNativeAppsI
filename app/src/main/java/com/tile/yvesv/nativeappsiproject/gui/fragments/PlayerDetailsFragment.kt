@@ -12,13 +12,14 @@ import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
+import com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier
 import kotlinx.android.synthetic.main.fragment_player_details.*
-import kotlinx.android.synthetic.main.fragment_player_details.view.*
 import java.io.Serializable
+
 
 class PlayerDetailsFragment : Fragment(), View.OnClickListener
 {
@@ -41,7 +42,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
                 //assign the selected player to player variable
                 this.player = it.getSerializable(PLAYER) as Player
 
-                //this.playerViewModel.score.value = this.player.playerData.score
                 this.playerViewModel.name.value = this.player.name
                 this.playerViewModel.description.value = this.player.description
                 this.playerViewModel.score.value = this.player.score
@@ -54,7 +54,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         super.onResume()
 
         /*activity will be RankingActivity or PlayerDetailActivity depending on
-        the device (cellphone or tablet)*/
+        the width (cellphone or tablet)*/
         activityFragmentListener = activity as DetailFragmentListener
 
         plus_one.setOnClickListener(this)
@@ -79,14 +79,14 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         val binding: FragmentPlayerDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_details, container, false)
         val rootView = binding.root
 
-        player.let {
-            //rootView.txt_name.text = it.playerData.name
-            //score is handled with databinding
-            //rootView.txt_score.text = "${playerViewModel.score.value}"
+        //player.let {
+        //rootView.txt_name.text = it.playerData.name
+        //score is handled with databinding
+        //rootView.txt_score.text = "${playerViewModel.score.value}"
 
-            //rootView.txt_description.text = it.playerData.description
-            //rootView.img_player.setImageResource(it.playerData.imageResId)
-        }
+        //rootView.txt_description.text = it.playerData.description
+        //rootView.img_player.setImageResource(it.playerData.imageResId)
+        //}
 
         binding.playerViewModel = playerViewModel
 
@@ -126,15 +126,13 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     override fun onClick(view: View?)
     {
         val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
-        //val scoreModifier = PlayerScoreModifier(player)
 
         when (view?.id)
         {
             btn_save.id ->
             {
-                //player.playerData.score = Integer.parseInt(txt_score.text.toString())
                 this.savePlayerScore()
-                this.activityFragmentListener!!.notifyChange(player, playerViewModel)
+                //this.returnToRankingActivity()
             }
             btn_cancel.id ->
             {
@@ -164,9 +162,15 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     private fun savePlayerScore()
     {
-        //player.playerData.score = Integer.parseInt(txt_score.text.toString())
         player.score = Integer.parseInt(txt_score.text.toString())
         showToast("Saved score")
+        activityFragmentListener!!.notifyChange(player)
+    }
+
+    private fun returnToRankingActivity()
+    {
+        val intent = RankingActivity.newIntent(this.context!!)
+        startActivity(intent)
     }
 
     private fun resetPlayerScore()
@@ -183,6 +187,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     interface DetailFragmentListener
     {
-        fun notifyChange(player: IPlayer, vm: PlayerViewModel)
+        fun notifyChange(player: IPlayer)
     }
 }

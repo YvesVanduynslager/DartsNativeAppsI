@@ -1,14 +1,15 @@
 package com.tile.yvesv.nativeappsiproject.gui.activities
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
-import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
+import com.tile.yvesv.nativeappsiproject.model.IPlayer
+import com.tile.yvesv.nativeappsiproject.model.Player
+import com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel
 
 /**
  * An activity representing a single player detail screen. This
@@ -18,6 +19,8 @@ import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
  */
 class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener
 {
+
+    private lateinit var dartsPlayerViewModel: DartsPlayerViewModel
     /**
      * Creates the Activity
      * - dependencies (none)
@@ -29,8 +32,8 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFr
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player_detail)
-        //setSupportActionBar(detail_toolbar)
 
+        dartsPlayerViewModel = ViewModelProviders.of(this).get(DartsPlayerViewModel::class.java)
         // Show the Up button in the action bar.
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -58,18 +61,17 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFr
         }
     }
 
-    override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
+    override fun notifyChange(player: IPlayer)
     {
-        //Toast.makeText(this, "Player's score hasn't been saved yet: ${player.playerData.score}", Toast.LENGTH_LONG).show()
-        //Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
-        Log.d("PLAYER_VIEW_MODEL_SCORE", "Score in viewmodel is: ${vm.score.value}")
+        dartsPlayerViewModel.update(player as Player)
+        print(player)
     }
 
     companion object
     {
-        fun newIntent ( context : Context): Intent
+        fun newIntent(context: Context): Intent
         {
-            return Intent ( context , PlayerDetailActivity::class.java)
+            return Intent(context, PlayerDetailActivity::class.java)
         }
     }
 

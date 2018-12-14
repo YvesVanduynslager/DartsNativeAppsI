@@ -6,6 +6,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.tile.yvesv.nativeappsiproject.model.Player
+import okhttp3.internal.Internal.instance
 import org.jetbrains.anko.doAsync
 
 //import com.tile.yvesv.nativeappsiproject.model.PlayerData
@@ -65,6 +66,7 @@ abstract class DartsDatabase : RoomDatabase()
 wordDao.insert(word)
 word = Word("World!")
 wordDao.insert(word)*/
+            dartsDao.deleteAll()
 
             var player = Player(name = "Ana", description = "Main healer", score = 0)
             dartsDao.insert(player)

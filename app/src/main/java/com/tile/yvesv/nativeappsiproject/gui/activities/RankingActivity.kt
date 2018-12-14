@@ -16,14 +16,12 @@ import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.menu.RankingMenuStrategy
-import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
+import com.tile.yvesv.nativeappsiproject.model.PlayerSorter
 import com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel
-import kotlinx.android.synthetic.main.activity_ranking.*
 import kotlinx.android.synthetic.main.player_rank_item.view.*
 import kotlinx.android.synthetic.main.player_rank_list.*
-import kotlinx.android.synthetic.main.activity_ranking.view.*
 
 /**
  * Activity with 3 tabs that can switch between 3 fragments
@@ -32,18 +30,19 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 {
     override val menuStrategy: MenuStrategy = RankingMenuStrategy()
 
-    lateinit var dartsPlayerViewModel: DartsPlayerViewModel
+    private lateinit var dartsPlayerViewModel: DartsPlayerViewModel
     private lateinit var playersListAdapter: SimpleItemRecyclerViewAdapter
 
 
-    override fun notifyChange(player: IPlayer, vm: PlayerViewModel)
+    override fun notifyChange(player: IPlayer)
     {
-        //Log.d("PLAYER_SCORE", "Score in player object is: ${player.playerData.score}")
-        Log.d("PLAYER_VIEW_MODEL_SCORE", "Score in viewmodel is: ${vm.score.value}")
+        dartsPlayerViewModel.update(player as Player)
+        print(player)
+        //playersListAdapter.notifyDataSetChanged()
     }
 
-    private var twoPane: Boolean = false
-    private var players: List<Player>? = null
+    private var isDualPane: Boolean = false
+    //private var players: List<Player>? = null
     /**
      * Fundamental setup for the activity, such as declaring the user interface (defined in an XML layout file),
      * defining member variables, and configuring some of the UI
@@ -56,14 +55,14 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         if (player_detail_container != null)
         {
             /**
-             * [player_detail_container] sits in player_rank_list(w900dp)
+             * [player_detail_container] sits in player_rank_list.xml(w900dp)
              * the player_rank_list file is selected based on the width of the screen
              * if the player_rank_list.xml file with 900dp width is selected.
-             * there will be a player_detail_container view present
-             * if that is not null we set twoPane to true
-             * this boolean is then used in the recyclerviewadapter. See below
+             * there will be a [player_detail_container] view present
+             * if that is not null we set isDualPane to true
+             * this boolean is then used in the [playersListAdapter]. See below
              */
-            twoPane = true
+            isDualPane = true
         }
 
         dartsPlayerViewModel = ViewModelProviders.of(this).get(DartsPlayerViewModel::class.java)
@@ -80,10 +79,11 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         dartsPlayerViewModel.allPlayers.observe(this, Observer { players ->
             players?.let { playersListAdapter.setPlayers(it) }
         })
-        playersListAdapter = SimpleItemRecyclerViewAdapter(this, true)
+
+        playersListAdapter = SimpleItemRecyclerViewAdapter(this, isDualPane)
         player_list.adapter = playersListAdapter
 
-        //player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, twoPane)
+        //player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, isDualPane)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
@@ -96,48 +96,6 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
     {
         return menuStrategy.menuSetup(this, item)
     }
-
-    /**
-     * Placeholder code until database logic is implemented
-     */
-    /*private fun getPlayers(): List<Player>
-    {
-        val playerList = mutableListOf<Player>()
-
-        val resources = resources
-
-        val ids = resources.getIntArray(R.array.ids)
-        val names = resources.getStringArray(R.array.names)
-        val descriptions = resources.getStringArray(R.array.extras)
-        val scores = resources.getIntArray(R.array.scores)
-
-        /**
-         * Get images
-         */
-        val typedArray = resources.obtainTypedArray(R.array.images)
-        val imageResIds = IntArray(names.size)
-
-        /**
-         * Fill list with players
-         */
-        for (i in 0 until names.size)
-        {
-            imageResIds[i] = typedArray.getResourceId(i, 0)
-            //val playerData = PlayerData(ids[i], names[i], descriptions[i], scores[i])
-            //val thePlayer = Player(playerData)
-            val thePlayer = Player(ids[i], names[i], descriptions[i], scores[i])
-            playerList.add(thePlayer)
-        }
-        typedArray.recycle()
-
-        /**
-         * Sort the players descending on their score and return
-         */
-        return PlayerSorter.sortOnScoreDesc(playerList)
-        /*return playerList.sortedWith(compareByDescending {
-                it.playerData.score
-        })*/
-    }*/
 
     class SimpleItemRecyclerViewAdapter(private val parentActivity: RankingActivity,
             /*private val players: List<Player>,*/
@@ -157,9 +115,10 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
                 // This allows us to reuse a single listener for all items in the list
                 val item = view.tag as Player
                 //Log.d("CLICKED PLAYER", item.playerData.name)
-                Log.d("CLICKED PLAYER", item.name)
 
+                Log.d("CLICKED PLAYER", item.name)
                 Log.d("TWO_PANE", twoPane.toString())
+
                 if (twoPane)
                 {
                     val fragment = PlayerDetailsFragment.newInstance(item)
@@ -207,7 +166,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
         internal fun setPlayers(players: List<Player>)
         {
-            this.playersCached = players
+            this.playersCached = PlayerSorter.sortOnScoreDesc(players)
             notifyDataSetChanged()
         }
 
