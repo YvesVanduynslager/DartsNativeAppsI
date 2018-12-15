@@ -62,47 +62,44 @@ abstract class DartsDatabase : RoomDatabase()
 
         fun populateDatabase(dartsDao: DartsDao)
         {
-            /*var word = Word("Hello")
-wordDao.insert(word)
-word = Word("World!")
-wordDao.insert(word)*/
-            dartsDao.deleteAll()
+            if (dartsDao.getPlayerCount() == 0)
+            {
+                var player = Player(name = "Ana", description = "Main healer", score = 0)
+                dartsDao.insert(player)
 
-            var player = Player(name = "Ana", description = "Main healer", score = 0)
-            dartsDao.insert(player)
+                player = Player(name = "Lucio", description = "Off healer", score = 1)
+                dartsDao.insert(player)
 
-            player = Player(name = "Lucio", description = "Off healer", score = 1)
-            dartsDao.insert(player)
+                player = Player(name = "Moira", description = "Main healer", score = 1)
+                dartsDao.insert(player)
 
-            player = Player(name = "Moira", description = "Main healer", score = 1)
-            dartsDao.insert(player)
+                player = Player(name = "Tracer", description = "DPS", score = 2)
+                dartsDao.insert(player)
 
-            player = Player(name = "Tracer", description = "DPS", score = 2)
-            dartsDao.insert(player)
+                player = Player(name = "Widowmaker", description = "DPS", score = 3)
+                dartsDao.insert(player)
 
-            player = Player(name = "Widowmaker", description = "DPS", score = 3)
-            dartsDao.insert(player)
+                player = Player(name = "Zenyatta", description = "Off healer", score = 5)
+                dartsDao.insert(player)
 
-            player = Player(name = "Zenyatta", description = "Off healer", score = 5)
-            dartsDao.insert(player)
+                player = Player(name = "Ashe", description = "DPS", score = 8)
+                dartsDao.insert(player)
 
-            player = Player(name = "Ashe", description = "DPS", score = 8)
-            dartsDao.insert(player)
+                player = Player(name = "Roadhog", description = "Off tank", score = 13)
+                dartsDao.insert(player)
 
-            player = Player(name = "Roadhog", description = "Off tank", score = 13)
-            dartsDao.insert(player)
+                player = Player(name = "Reinhardt", description = "Main tank", score = 21)
+                dartsDao.insert(player)
 
-            player = Player(name = "Reinhardt", description = "Main tank", score = 21)
-            dartsDao.insert(player)
+                player = Player(name = "Junkrat", description = "DPS", score = 34)
+                dartsDao.insert(player)
 
-            player = Player(name = "Junkrat", description = "DPS", score = 34)
-            dartsDao.insert(player)
+                player = Player(name = "Winston", description = "Main tank", score = 55)
+                dartsDao.insert(player)
 
-            player = Player(name = "Winston", description = "Main tank", score = 55)
-            dartsDao.insert(player)
-
-            player = Player(name = "Zarya", description = "Off tank", score = 89)
-            dartsDao.insert(player)
+                player = Player(name = "Zarya", description = "Off tank", score = 89)
+                dartsDao.insert(player)
+            }
         }
     }
 }

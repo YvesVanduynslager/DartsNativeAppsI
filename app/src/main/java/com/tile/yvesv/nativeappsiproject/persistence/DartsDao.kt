@@ -22,6 +22,12 @@ interface DartsDao
     fun getAllPlayers(): LiveData<List<Player>>
 
     /**
+     * Get the amount of players
+     */
+    @Query("SELECT COUNT(*) FROM player_data")
+    fun getPlayerCount(): Int
+
+    /**
      * Insert player by model
      */
     @Insert

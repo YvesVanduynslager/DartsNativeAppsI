@@ -8,8 +8,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SimpleItemAnimator
-import android.transition.Slide
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -33,17 +31,16 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
     override val menuStrategy: MenuStrategy = RankingMenuStrategy()
 
     private lateinit var dartsPlayerViewModel: DartsPlayerViewModel
-    private lateinit var playersListAdapter: SimpleItemRecyclerViewAdapter
+    private lateinit var rankListAdapter: SimpleItemRecyclerViewAdapter
 
+    private var isDualPane: Boolean = false
 
     override fun notifyChange(player: IPlayer)
     {
         dartsPlayerViewModel.update(player as Player)
         print(player)
-        //playersListAdapter.notifyDataSetChanged()
     }
 
-    private var isDualPane: Boolean = false
     //private var players: List<Player>? = null
     /**
      * Fundamental setup for the activity, such as declaring the user interface (defined in an XML layout file),
@@ -62,7 +59,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
              * if the player_rank_list.xml file with 900dp width is selected.
              * there will be a [player_detail_container] view present
              * if that is not null we set isDualPane to true
-             * this boolean is then used in the [playersListAdapter]. See below
+             * this boolean is then used in the [rankListAdapter]. See below
              */
             isDualPane = true
         }
@@ -81,11 +78,11 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
         //players = this.getPlayers()
 
         dartsPlayerViewModel.allPlayers.observe(this, Observer { players ->
-            players?.let { playersListAdapter.setPlayers(it) }
+            players?.let { rankListAdapter.setPlayers(it) }
         })
 
-        playersListAdapter = SimpleItemRecyclerViewAdapter(this, isDualPane)
-        player_list.adapter = playersListAdapter
+        rankListAdapter = SimpleItemRecyclerViewAdapter(this, isDualPane)
+        player_list.adapter = rankListAdapter
 
 
         //player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, isDualPane)

@@ -33,6 +33,7 @@
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/txt_name"
             app:layout_constraintStart_toStartOf="parent" />
 
