@@ -19,7 +19,7 @@ import org.jetbrains.anko.doAsync
  * In order to keep track of different db schemas over time we also have to provide a version.
  * For now we can just destroy and recreate the database when a new schema is needed.
  */
-@Database(entities = [Player::class], version = 1)
+@Database(entities = [Player::class], version = 1, exportSchema = false)
 abstract class DartsDatabase : RoomDatabase()
 {
     abstract fun playerDao(): DartsDao

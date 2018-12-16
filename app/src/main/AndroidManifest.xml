@@ -53,6 +53,10 @@
         <activity
             android:name=".gui.activities.BoredActivity"
             android:label="No games?"/>
+        <activity
+            android:name=".gui.activities.PlayerAddEditActivity"
+            android:label="AddEditPlayer"
+        android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

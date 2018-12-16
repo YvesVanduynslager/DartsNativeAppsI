@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerAddEditBinding
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 import com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity
@@ -17,16 +18,16 @@ import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier
-import kotlinx.android.synthetic.main.fragment_player_details.*
+import kotlinx.android.synthetic.main.fragment_player_add_edit.*
 import java.io.Serializable
 
 
-class PlayerDetailsFragment : Fragment(), View.OnClickListener
+class PlayerAddEditFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
     private lateinit var playerViewModel: PlayerViewModel
 
-    private var activityFragmentListener: DetailFragmentListener? = null
+    private var activityFragmentListener: AddEditFragmentListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -55,10 +56,8 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
         /*activity will be RankingActivity or PlayerDetailActivity depending on
         the width (cellphone or tablet)*/
-        activityFragmentListener = activity as DetailFragmentListener
+        activityFragmentListener = activity as AddEditFragmentListener
 
-        plus_one.setOnClickListener(this)
-        minus_one.setOnClickListener(this)
         btn_save.setOnClickListener(this)
         btn_cancel.setOnClickListener(this)
     }
@@ -67,8 +66,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     {
         super.onPause()
         activityFragmentListener = null
-        plus_one.setOnClickListener(null)
-        minus_one.setOnClickListener(null)
         btn_save.setOnClickListener(null)
         btn_cancel.setOnClickListener(null)
     }
@@ -76,7 +73,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         //DON'T EVER FORGET THIS LINE FOR DATABINDING FFS
-        val binding: FragmentPlayerDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_details, container, false)
+        val binding: FragmentPlayerAddEditBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_add_edit, container, false)
         val rootView = binding.root
 
         //player.let {
@@ -113,11 +110,11 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     {
         const val PLAYER = "player"
 
-        fun newInstance(player: IPlayer): PlayerDetailsFragment
+        fun newInstance(player: Player): PlayerAddEditFragment
         {
             val args = Bundle()
             args.putSerializable(PLAYER, player as Serializable)
-            val fragment = PlayerDetailsFragment()
+            val fragment = PlayerAddEditFragment()
             fragment.arguments = args
             return fragment
         }
@@ -125,45 +122,26 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     override fun onClick(view: View?)
     {
-        val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
-
         when (view?.id)
         {
             btn_save.id ->
             {
-                this.savePlayerScore()
+                this.savePlayer()
                 //this.returnToRankingActivity()
             }
             btn_cancel.id ->
             {
-                this.resetPlayerScore()
+                this.resetPlayer()
             }
-            plus_one.id ->
-            {
-                scoreModifier.increaseScoreByOne()
-            }
-            minus_one.id ->
-            {
-                try
-                {
-                    scoreModifier.decreaseScoreByOne()
-                }
-                catch (e: ZeroException) //catch exception on attempt to decrease score below 0
-                {
-                    //log the error message
-                    Log.e("Exception", e.message)
-                    //display a toast notifying the user that he can't decrease below 0
-                    showToast("Score can not be lower than 0!")
-                }
-            }
-
         }
     }
 
-    private fun savePlayerScore()
+    private fun savePlayer()
     {
-        //player.score = Integer.parseInt(txt_score.text.toString())
-        player.score = playerViewModel.score.value!!
+        player.name = txt_name.text.toString()
+        player.score = 0
+        player.description = txt_description.text.toString()
+
         showToast("Saved score")
         activityFragmentListener!!.notifyChange(player)
     }
@@ -174,7 +152,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         startActivity(intent)
     }
 
-    private fun resetPlayerScore()
+    private fun resetPlayer()
     {
         //playerViewModel.score.value = player.playerData.score
         playerViewModel.score.value = player.score
@@ -186,7 +164,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
     }
 
-    interface DetailFragmentListener
+    interface AddEditFragmentListener
     {
         fun notifyChange(player: IPlayer)
     }

@@ -9,7 +9,6 @@ class PlayerViewModel : ViewModel()
      * Wrap in MutableLiveData to automatically update the ui on state changes
      * view that uses the view model needs to be initialized using ViewModelProviders
      */
-    val imageResId = MutableLiveData<Int>()
     var name = MutableLiveData<String>()
     var description = MutableLiveData<String>()
     var score = MutableLiveData<Int>()

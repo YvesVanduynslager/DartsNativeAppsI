@@ -34,10 +34,7 @@ import java.io.Serializable
  */
 @Entity(tableName = "player_data")
 data class Player(@PrimaryKey(autoGenerate = true) var id: Int = 0,
-             @ColumnInfo(name="player_name") val name: String,
+             @ColumnInfo(name="player_name") var name: String,
              @ColumnInfo(name="player_descr") var description: String,
              @ColumnInfo(name="player_score") var score: Int,
              @ColumnInfo(name="extra_text") var text: String = ""): Serializable, IPlayer
-{
-
-}

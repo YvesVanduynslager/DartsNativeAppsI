@@ -5,28 +5,23 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.TextView
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.R.id.*
-import com.tile.yvesv.nativeappsiproject.R.layout.player_rank_item
-import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
+import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerAddEditFragment
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.menu.PlayersMenuStrategy
+import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.model.PlayerSorter
 import com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel
-
 import kotlinx.android.synthetic.main.activity_players.*
-import kotlinx.android.synthetic.main.player_rank_item.*
 import kotlinx.android.synthetic.main.player_rank_item.view.*
 import kotlinx.android.synthetic.main.player_rank_list.*
-import kotlinx.android.synthetic.main.player_rank_list.view.*
 
 class PlayersActivity : AppCompatActivity(), MenuInterface
 {
@@ -49,10 +44,35 @@ class PlayersActivity : AppCompatActivity(), MenuInterface
 
         dartsPlayerViewModel = ViewModelProviders.of(this).get(DartsPlayerViewModel::class.java)
 
-        fab.setOnClickListener { view ->
+        /*btn_add.setOnClickListener { view ->
             Snackbar.make(view, "Add new player fragment", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+        }*/
+        btn_add.setOnClickListener {
+            if (isDualPane)
+            {
+                /*val fragment = PlayerDetailsFragment.newInstance(item)
+                parentActivity.supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.player_detail_container, fragment)
+                        .commit()*/
+            }
+            else
+            {
+                //EXPLICIT INTENT
+                val intent = PlayerAddEditActivity.newIntent(this.applicationContext).apply {
+                    putExtra(PlayerAddEditFragment.PLAYER, Player(name="",description = "",score = 0))
+                }
+
+                startActivity(intent)
+            }
         }
+    }
+
+    override fun onResume()
+    {
+        super.onResume()
+
     }
 
     override fun onStart()
@@ -111,11 +131,11 @@ class PlayersActivity : AppCompatActivity(), MenuInterface
                 else
                 {
                     //EXPLICIT INTENT
-                    /*val intent = PlayerDetailActivity.newIntent(view.context).apply {
-                        putExtra(PlayerDetailsFragment.PLAYER, item)
+                    val intent = PlayerAddEditActivity.newIntent(view.context).apply {
+                        //putExtra(PlayerDetailsFragment.PLAYER, item)
                     }
 
-                    view.context.startActivity(intent)*/
+                    view.context.startActivity(intent)
                 }
             }
         }
@@ -159,6 +179,7 @@ class PlayersActivity : AppCompatActivity(), MenuInterface
             //val rank: TextView = view.txt_rank
         }
     }
+
     companion object
     {
         fun newIntent(context: Context): Intent
