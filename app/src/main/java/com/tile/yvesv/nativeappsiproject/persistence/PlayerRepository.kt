@@ -2,6 +2,7 @@ package com.tile.yvesv.nativeappsiproject.persistence
 
 import android.arch.lifecycle.LiveData
 import android.support.annotation.WorkerThread
+import android.util.Log
 import com.tile.yvesv.nativeappsiproject.model.Player
 import org.jetbrains.anko.doAsync
 
@@ -20,18 +21,21 @@ class PlayerRepository(private val dartsDao: DartsDao)
     fun insert(player: Player)
     {
         doAsync { dartsDao.insert(player) }
+        Log.e("CRUD", "Inserted $player")
     }
 
     @WorkerThread
     fun delete(player: Player)
     {
         doAsync { dartsDao.delete(player) }
+        Log.e("CRUD", "Deleted $player")
     }
 
     @WorkerThread
     fun update(player: Player)
     {
         doAsync { dartsDao.update(player) }
+        Log.e("CRUD", "Updated $player")
     }
 
     /*@WorkerThread

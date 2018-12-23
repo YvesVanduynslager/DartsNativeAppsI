@@ -4,13 +4,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerAddEditBinding
-import com.tile.yvesv.nativeappsiproject.gui.CRUDoperation
+import com.tile.yvesv.nativeappsiproject.gui.CRUD
+import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment.Companion.PLAYER
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
@@ -20,7 +20,7 @@ import java.io.Serializable
 class PlayerAddEditFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
-    private lateinit var crud: CRUDoperation
+    private lateinit var crud: CRUD
 
     private lateinit var playerViewModel: PlayerViewModel
 
@@ -46,7 +46,7 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
             }
             if (it.containsKey(CRUD))
             {
-                this.crud = it.getSerializable(CRUD) as CRUDoperation
+                this.crud = it.getSerializable(CRUD) as CRUD
             }
         }
     }
@@ -60,6 +60,7 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         activityFragmentListener = activity as AddEditFragmentListener
 
         btn_save.setOnClickListener(this)
+        btn_delete.setOnClickListener(this)
         btn_cancel.setOnClickListener(this)
     }
 
@@ -68,6 +69,7 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         super.onPause()
         activityFragmentListener = null
         btn_save.setOnClickListener(null)
+        btn_delete.setOnClickListener(null)
         btn_cancel.setOnClickListener(null)
     }
 
@@ -97,30 +99,56 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
             btn_save.id ->
             {
                 this.savePlayer()
-                activity!!.onBackPressed()
-                //this.returnToRankingActivity()
+                this.back()
             }
             btn_cancel.id ->
             {
-                this.resetPlayer()
+                //this.resetPlayer()
+                this.back()
+            }
+            btn_delete.id ->
+            {
+                this.deletePlayer()
+                this.back()
             }
         }
     }
 
-    private fun savePlayer()
+    private fun back()
     {
-        player.name = txt_name.text.toString()
-        player.score = 0
-        player.description = txt_description.text.toString()
-
-        showToast("Saved player ${player.name}")
-        activityFragmentListener!!.notifyChange(player, crud)
+        activity!!.onBackPressed()
     }
 
-    private fun resetPlayer()
+    private fun savePlayer()
     {
-        playerViewModel.score.value = player.score
-        showToast("Reset player ${player.name}")
+        when (crud)
+        {
+            com.tile.yvesv.nativeappsiproject.gui.CRUD.CREATE -> {
+                player.name = txt_name.text.toString()
+                player.score = 0
+                player.description = txt_description.text.toString()
+
+                activityFragmentListener!!.create(player)
+                showToast("Created player ${player.name}")
+            }
+            com.tile.yvesv.nativeappsiproject.gui.CRUD.UPDATE -> {
+                player.name = txt_name.text.toString()
+                player.description = txt_description.text.toString()
+
+                activityFragmentListener!!.update(player)
+                showToast("Updated player ${player.name}")
+            }
+            else ->
+            {
+                Log.e("CRUD", "No operation passed")
+            }
+        }
+    }
+
+    private fun deletePlayer()
+    {
+        activityFragmentListener!!.delete(player)
+        showToast("Deleted player ${player.name}")
     }
 
     private fun showToast(text: String)
@@ -130,7 +158,9 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
 
     interface AddEditFragmentListener
     {
-        fun notifyChange(player: IPlayer, crud: CRUDoperation)
+        fun create(player: IPlayer)
+        fun update(player: IPlayer)
+        fun delete(player: IPlayer)
     }
 
     /**
@@ -146,7 +176,7 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         const val PLAYER = "player"
         const val CRUD = "crud"
 
-        fun newInstance(player: IPlayer, crud: CRUDoperation): PlayerAddEditFragment
+        fun newInstance(player: IPlayer, crud: CRUD): PlayerAddEditFragment
         {
             val args = Bundle()
 

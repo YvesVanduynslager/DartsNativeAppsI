@@ -23,22 +23,17 @@ class DartsPlayerViewModel : ViewModel()
 
     fun insert(player: Player)
     {
-
         playerRepository.insert(player)
-
     }
 
     fun delete(player: Player)
     {
-
         playerRepository.delete(player)
     }
 
     //fun update(player: PlayerData)
     fun update(player: Player)
     {
-
         playerRepository.update(player)
-
     }
 }

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.gui.CRUDoperation
+import com.tile.yvesv.nativeappsiproject.gui.CRUD
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerAddEditFragment
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
@@ -46,7 +46,7 @@ class PlayerAddEditActivity : AppCompatActivity(), PlayerAddEditFragment.AddEdit
 
             val addEditFragment = PlayerAddEditFragment.newInstance(
                     intent.getSerializableExtra(PlayerAddEditFragment.PLAYER) as IPlayer,
-                    intent.getSerializableExtra(PlayerAddEditFragment.CRUD) as CRUDoperation
+                    intent.getSerializableExtra(PlayerAddEditFragment.CRUD) as CRUD
             )
 
             supportFragmentManager.beginTransaction()
@@ -55,13 +55,13 @@ class PlayerAddEditActivity : AppCompatActivity(), PlayerAddEditFragment.AddEdit
         }
     }
 
-    override fun notifyChange(player: IPlayer, crud: CRUDoperation)
+    /*override fun addEdit(player: IPlayer, crud: CRUD)
     {
         when (crud)
         {
-            CRUDoperation.CREATE -> dartsPlayerViewModel.insert(player as Player)
-            CRUDoperation.UPDATE -> dartsPlayerViewModel.update(player as Player)
-            CRUDoperation.DELETE -> dartsPlayerViewModel.delete(player as Player)
+            CRUD.CREATE -> dartsPlayerViewModel.insert(player as Player)
+            CRUD.UPDATE -> dartsPlayerViewModel.update(player as Player)
+            CRUD.DELETE -> dartsPlayerViewModel.delete(player as Player)
             else ->
             {
                 Log.e("CRUD", "No CRUD type passed")
@@ -70,6 +70,22 @@ class PlayerAddEditActivity : AppCompatActivity(), PlayerAddEditFragment.AddEdit
         //dartsPlayerViewModel.insert(player as Player)
         //dartsPlayerViewModel.update(player as Player)
         print(player)
+    }*/
+
+    override fun create(player: IPlayer)
+    {
+        Log.e("CRUD", "Inserting $player")
+        dartsPlayerViewModel.insert(player as Player)
+    }
+    override fun update(player: IPlayer)
+    {
+        Log.e("CRUD", "Updating $player")
+        dartsPlayerViewModel.update(player as Player)
+    }
+    override fun delete(player: IPlayer)
+    {
+        Log.e("CRUD", "Deleting $player")
+        dartsPlayerViewModel.delete(player as Player)
     }
 
     companion object

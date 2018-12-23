@@ -1,8 +1,8 @@
 package com.tile.yvesv.nativeappsiproject.model
 
-object PlayerSorter
+object PlayerSorter : IPlayerSorter
 {
-    fun sortOnNameAsc(players: List<Player>) : List<Player>
+    override fun sortOnNameAsc(players: List<Player>) : List<Player>
     {
         return players.sortedWith(compareBy {
             //it.playerData.name
@@ -10,7 +10,7 @@ object PlayerSorter
         })
     }
 
-    fun sortOnScoreDesc(players: List<Player>) : List<Player>
+    override fun sortOnScoreDesc(players: List<Player>) : List<Player>
     {
         return players.sortedWith(compareByDescending {
             //it.playerData.score

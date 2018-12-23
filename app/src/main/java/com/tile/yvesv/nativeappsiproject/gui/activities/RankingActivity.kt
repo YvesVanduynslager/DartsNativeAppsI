@@ -1,6 +1,5 @@
 package com.tile.yvesv.nativeappsiproject.gui.activities
 
-//import com.tile.yvesv.nativeappsiproject.model.PlayerData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -38,7 +37,6 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
     override fun notifyChange(player: IPlayer)
     {
         dartsPlayerViewModel.update(player as Player)
-        print(player)
     }
 
     //private var players: List<Player>? = null
@@ -83,9 +81,6 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
         rankListAdapter = SimpleItemRecyclerViewAdapter(this, isDualPane)
         player_list.adapter = rankListAdapter
-
-
-        //player_list.adapter = SimpleItemRecyclerViewAdapter(this, players!!, isDualPane)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
@@ -149,15 +144,11 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int)
         {
-            //val player = players[position]
             val player = playersCached[position]
 
-            //holder.name.text = player.playerData.name
-            //holder.score.text = "${player.playerData.score}"
             holder.name.text = player.name
             holder.score.text = "${player.score}"
             holder.rank.text = "${(position + 1)}"
-            //holder.image.setImageResource(player.playerData.imageResId)
 
             with(holder.itemView) {
                 tag = player // Save the player represented by this view

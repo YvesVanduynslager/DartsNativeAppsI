@@ -1,6 +1,6 @@
 package com.tile.yvesv.nativeappsiproject.gui
 
-enum class CRUDoperation
+enum class CRUD
 {
     CREATE, READ, UPDATE, DELETE
 }

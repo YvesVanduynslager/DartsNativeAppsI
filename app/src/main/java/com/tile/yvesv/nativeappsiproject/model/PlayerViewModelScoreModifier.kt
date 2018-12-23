@@ -10,7 +10,7 @@ import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
  *
  * @param playerViewModel the view model for the selected player that needs its score adjusted.
  */
-class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel) : ScoreModifier
+class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel) : IPlayerScoreModifier
 {
     override fun increaseScoreByOne()
     {
