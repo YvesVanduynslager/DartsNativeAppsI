@@ -6,7 +6,7 @@ object PlayerSorter
     {
         return players.sortedWith(compareBy {
             //it.playerData.name
-            it.name
+            it.name.toLowerCase()
         })
     }
 
