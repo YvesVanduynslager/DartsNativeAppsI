@@ -1,30 +1,29 @@
-package com.tile.yvesv.nativeappsiproject.gui.activities
+package com.tile.yvesv.nativeappsiproject.gui.fragments
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.gui.menu.InfoMenuStrategy
-import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
-import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
-import kotlinx.android.synthetic.main.activity_info.*
+import kotlinx.android.synthetic.main.fragment_info.*
 
-class InfoActivity : AppCompatActivity(), MenuInterface
+class InfoFragment : Fragment()
 {
-    override val menuStrategy: MenuStrategy = InfoMenuStrategy()
 
-    override fun onCreate(savedInstanceState: Bundle?)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View?
     {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_info)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_info, container, false)
     }
 
-    /**override fun onResume()
+    override fun onResume()
     {
         super.onResume()
         btn_email.setOnClickListener{this.openEmail()}
@@ -34,27 +33,12 @@ class InfoActivity : AppCompatActivity(), MenuInterface
     {
         super.onPause()
         btn_email.setOnClickListener(null)
-    }*/
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean
-    {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    /**
-     * Handles the menu selection
-     * @param item The selected menu-item
-     */
-    override fun onOptionsItemSelected(item: MenuItem): Boolean
-    {
-        return menuStrategy.menuSetup(this, item)
     }
 
     /**
      * Create a new implicit intent for opening a new e-mail message
      */
-    /*private fun openEmail()
+    private fun openEmail()
     {
         val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "yves.vanduynslager@telenet.be", null))
 
@@ -73,19 +57,19 @@ class InfoActivity : AppCompatActivity(), MenuInterface
     private fun checkForCompatibility(intent: Intent, requestCode: Int? = null)
     {
         //Check whether an activity exists to start with the provided intent
-        val manager = this.packageManager
+        val manager = activity!!.packageManager
         val name = intent.resolveActivity(manager)
 
         if (name == null)
         {
-            val marketIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + this.packageName))
+            val marketIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + activity!!.packageName))
             if (marketIntent.resolveActivity(manager) != null)
             {
                 startActivity(marketIntent)
             }
             else
             {
-                val emailToast = Toast.makeText(this, "Could not find the market activity", Toast.LENGTH_LONG)
+                val emailToast = Toast.makeText(activity, "Could not find the market activity", Toast.LENGTH_LONG)
                 emailToast.show()
             }
         }
@@ -95,22 +79,6 @@ class InfoActivity : AppCompatActivity(), MenuInterface
                 startActivity(intent)
             else
                 startActivityForResult(intent, requestCode)
-        }
-    }*/
-
-    companion object
-    {
-        /**
-         * Id's for the activities which return results
-         */
-        //private const val PICK_EMAIL = 1
-
-        /**
-         * Create new intent for InfoActivity
-         */
-        fun newIntent(context: Context): Intent
-        {
-            return Intent(context, InfoActivity::class.java)
         }
     }
 }

@@ -11,11 +11,15 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.R.string.name
+import com.tile.yvesv.nativeappsiproject.gui.CRUDoperation
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerAddEditFragment
+import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.menu.PlayersMenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
+import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.model.PlayerSorter
 import com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel
@@ -23,8 +27,25 @@ import kotlinx.android.synthetic.main.activity_players.*
 import kotlinx.android.synthetic.main.player_rank_item.view.*
 import kotlinx.android.synthetic.main.player_rank_list.*
 
-class PlayersActivity : AppCompatActivity(), MenuInterface
+class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragment.AddEditFragmentListener
 {
+    override fun notifyChange(player: IPlayer, crud: CRUDoperation)
+    {
+        when (crud)
+        {
+            CRUDoperation.CREATE -> dartsPlayerViewModel.insert(player as Player)
+            CRUDoperation.UPDATE -> dartsPlayerViewModel.update(player as Player)
+            CRUDoperation.DELETE -> dartsPlayerViewModel.delete(player as Player)
+            else ->
+            {
+                Log.e("CRUD", "No CRUD type passed")
+            }
+        }
+        //dartsPlayerViewModel.insert(player as Player)
+        //dartsPlayerViewModel.update(player as Player)
+        print(player)
+    }
+
     override val menuStrategy: MenuStrategy = PlayersMenuStrategy()
 
     private lateinit var dartsPlayerViewModel: DartsPlayerViewModel
@@ -51,17 +72,19 @@ class PlayersActivity : AppCompatActivity(), MenuInterface
         btn_add.setOnClickListener {
             if (isDualPane)
             {
-                /*val fragment = PlayerDetailsFragment.newInstance(item)
-                parentActivity.supportFragmentManager
+                //Pass empty player object to PlayerAddEditFragment (new player)
+                val fragment = PlayerAddEditFragment.newInstance(Player(name="",description = "",score = 0), CRUDoperation.CREATE)
+                supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.player_detail_container, fragment)
-                        .commit()*/
+                        .commit()
             }
             else
             {
-                //EXPLICIT INTENT
+                //EXPLICIT INTENT. Pass empty player object to PlayerAddEditFragment (new player)
                 val intent = PlayerAddEditActivity.newIntent(this.applicationContext).apply {
                     putExtra(PlayerAddEditFragment.PLAYER, Player(name="",description = "",score = 0))
+                    putExtra(PlayerAddEditFragment.CRUD, CRUDoperation.CREATE)
                 }
 
                 startActivity(intent)
@@ -115,24 +138,24 @@ class PlayersActivity : AppCompatActivity(), MenuInterface
                 // Here each item in the RecyclerView keeps a reference to the player it represents.
                 // This allows us to reuse a single listener for all items in the list
                 val item = view.tag as Player
-                //Log.d("CLICKED PLAYER", item.playerData.name)
 
                 Log.d("CLICKED PLAYER", item.name)
                 Log.d("TWO_PANE", twoPane.toString())
 
                 if (twoPane)
                 {
-                    /*val fragment = PlayerDetailsFragment.newInstance(item)
+                    val fragment = PlayerAddEditFragment.newInstance(item, CRUDoperation.UPDATE)
                     parentActivity.supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.player_detail_container, fragment)
-                            .commit()*/
+                            .replace(R.id.add_edit_container, fragment)
+                            .commit()
                 }
                 else
                 {
                     //EXPLICIT INTENT
                     val intent = PlayerAddEditActivity.newIntent(view.context).apply {
-                        //putExtra(PlayerDetailsFragment.PLAYER, item)
+                        putExtra(PlayerAddEditFragment.PLAYER, item)
+                        putExtra(PlayerAddEditFragment.CRUD, CRUDoperation.UPDATE)
                     }
 
                     view.context.startActivity(intent)
