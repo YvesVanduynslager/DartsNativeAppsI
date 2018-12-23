@@ -24,6 +24,8 @@ import java.io.Serializable
 class PlayerDetailsFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
+    private var twoPane: Boolean = false
+
     private lateinit var playerViewModel: PlayerViewModel
 
     private var activityFragmentListener: DetailFragmentListener? = null
@@ -46,31 +48,43 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
                 this.playerViewModel.description.value = this.player.description
                 this.playerViewModel.score.value = this.player.score
             }
+            if(it.containsKey(TWOPANE))
+            {
+                this.twoPane = it.getSerializable(TWOPANE) as Boolean
+            }
         }
     }
 
     override fun onResume()
     {
         super.onResume()
+        Log.i("Details", "Fragment resumed")
 
         /*activity will be RankingActivity or PlayerDetailActivity depending on
         the width (cellphone or tablet)*/
         activityFragmentListener = activity as DetailFragmentListener
+        Log.i("Details", "Registered callback")
 
         plus_one.setOnClickListener(this)
         minus_one.setOnClickListener(this)
         btn_save.setOnClickListener(this)
         btn_cancel.setOnClickListener(this)
+        Log.i("Details", "Registered click listeners")
     }
 
     override fun onPause()
     {
         super.onPause()
+        Log.i("Details", "Fragment paused")
+
         activityFragmentListener = null
+        Log.i("Details", "Unregistered callback")
+
         plus_one.setOnClickListener(null)
         minus_one.setOnClickListener(null)
         btn_save.setOnClickListener(null)
         btn_cancel.setOnClickListener(null)
+        Log.i("Details", "Unregistered click listeners")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -78,15 +92,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         //DON'T EVER FORGET THIS LINE FOR DATABINDING FFS
         val binding: FragmentPlayerDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_details, container, false)
         val rootView = binding.root
-
-        //player.let {
-        //rootView.txt_name.text = it.playerData.name
-        //score is handled with databinding
-        //rootView.txt_score.text = "${playerViewModel.score.value}"
-
-        //rootView.txt_description.text = it.playerData.description
-        //rootView.img_player.setImageResource(it.playerData.imageResId)
-        //}
 
         binding.playerViewModel = playerViewModel
 
@@ -101,6 +106,14 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         return rootView
     }
 
+    private fun back()
+    {
+        if (!twoPane)
+        {
+            activity!!.onBackPressed()
+        }
+    }
+
     /**
      * A fragment can take initialization parameters through its arguments, which you access via the arguments property.
      * The arguments are actually a Bundle that stores them as key-value pairs, just like the Bundle in Activity.onSaveInstanceState.
@@ -112,13 +125,18 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     companion object
     {
         const val PLAYER = "player"
+        const val TWOPANE = "twopane"
 
-        fun newInstance(player: IPlayer): PlayerDetailsFragment
+        fun newInstance(player: IPlayer, twoPane: Boolean): PlayerDetailsFragment
         {
             val args = Bundle()
+
             args.putSerializable(PLAYER, player as Serializable)
+            args.putSerializable(TWOPANE, twoPane as Serializable)
+
             val fragment = PlayerDetailsFragment()
             fragment.arguments = args
+
             return fragment
         }
     }
@@ -132,7 +150,8 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
             btn_save.id ->
             {
                 this.savePlayerScore()
-                //this.returnToRankingActivity()
+
+                this.back()
             }
             btn_cancel.id ->
             {
@@ -164,14 +183,8 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
     {
         //player.score = Integer.parseInt(txt_score.text.toString())
         player.score = playerViewModel.score.value!!
-        showToast("Saved score")
-        activityFragmentListener!!.notifyChange(player)
-    }
-
-    private fun returnToRankingActivity()
-    {
-        val intent = RankingActivity.newIntent(this.context!!)
-        startActivity(intent)
+        showToast("Saved score for player ${player.name}")
+        activityFragmentListener!!.update(player)
     }
 
     private fun resetPlayerScore()
@@ -188,6 +201,6 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     interface DetailFragmentListener
     {
-        fun notifyChange(player: IPlayer)
+        fun update(player: IPlayer)
     }
 }

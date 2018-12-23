@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.player_rank_item.view.*
 import kotlinx.android.synthetic.main.player_rank_list.*
 
 /**
- * Activity with 3 tabs that can switch between 3 fragments
+ * Displays ranking
  */
 class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmentListener, MenuInterface
 {
@@ -34,7 +34,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
     private var isDualPane: Boolean = false
 
-    override fun notifyChange(player: IPlayer)
+    override fun update(player: IPlayer)
     {
         dartsPlayerViewModel.update(player as Player)
     }
@@ -110,14 +110,10 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
                 // Here each item in the RecyclerView keeps a reference to the player it represents.
                 // This allows us to reuse a single listener for all items in the list
                 val item = view.tag as Player
-                //Log.d("CLICKED PLAYER", item.playerData.name)
-
-                Log.d("CLICKED PLAYER", item.name)
-                Log.d("TWO_PANE", twoPane.toString())
 
                 if (twoPane)
                 {
-                    val fragment = PlayerDetailsFragment.newInstance(item)
+                    val fragment = PlayerDetailsFragment.newInstance(item, twoPane)
                     parentActivity.supportFragmentManager
                             .beginTransaction()
                             .replace(R.id.player_detail_container, fragment)
@@ -128,6 +124,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
                     //EXPLICIT INTENT
                     val intent = PlayerDetailActivity.newIntent(view.context).apply {
                         putExtra(PlayerDetailsFragment.PLAYER, item)
+                        putExtra(PlayerDetailsFragment.TWOPANE, twoPane)
                     }
 
                     view.context.startActivity(intent)
@@ -137,8 +134,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
         {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.player_rank_item, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.player_rank_item, parent, false)
             return ViewHolder(view)
         }
 
@@ -162,7 +158,6 @@ class RankingActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFragmen
             notifyDataSetChanged()
         }
 
-        //override fun getItemCount() = players.size
         override fun getItemCount() = playersCached.size
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)

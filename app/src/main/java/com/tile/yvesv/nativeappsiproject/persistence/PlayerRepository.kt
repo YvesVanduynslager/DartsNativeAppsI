@@ -21,21 +21,21 @@ class PlayerRepository(private val dartsDao: DartsDao)
     fun insert(player: Player)
     {
         doAsync { dartsDao.insert(player) }
-        Log.e("CRUD", "Inserted $player")
+        Log.i("CRUD_operation", "Inserted $player")
     }
 
     @WorkerThread
     fun delete(player: Player)
     {
         doAsync { dartsDao.delete(player) }
-        Log.e("CRUD", "Deleted $player")
+        Log.i("CRUD_operation", "Deleted $player")
     }
 
     @WorkerThread
     fun update(player: Player)
     {
         doAsync { dartsDao.update(player) }
-        Log.e("CRUD", "Updated $player")
+        Log.i("CRUD_operation", "Updated $player")
     }
 
     /*@WorkerThread

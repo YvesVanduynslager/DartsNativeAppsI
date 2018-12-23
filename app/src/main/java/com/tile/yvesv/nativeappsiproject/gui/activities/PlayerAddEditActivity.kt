@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.gui.CRUD
+import com.tile.yvesv.nativeappsiproject.gui.CRUD_operation
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerAddEditFragment
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
@@ -46,7 +46,8 @@ class PlayerAddEditActivity : AppCompatActivity(), PlayerAddEditFragment.AddEdit
 
             val addEditFragment = PlayerAddEditFragment.newInstance(
                     intent.getSerializableExtra(PlayerAddEditFragment.PLAYER) as IPlayer,
-                    intent.getSerializableExtra(PlayerAddEditFragment.CRUD) as CRUD
+                    intent.getSerializableExtra(PlayerAddEditFragment.CRUD) as CRUD_operation,
+                    intent.getSerializableExtra(PlayerAddEditFragment.TWOPANE) as Boolean
             )
 
             supportFragmentManager.beginTransaction()
@@ -55,36 +56,21 @@ class PlayerAddEditActivity : AppCompatActivity(), PlayerAddEditFragment.AddEdit
         }
     }
 
-    /*override fun addEdit(player: IPlayer, crud: CRUD)
-    {
-        when (crud)
-        {
-            CRUD.CREATE -> dartsPlayerViewModel.insert(player as Player)
-            CRUD.UPDATE -> dartsPlayerViewModel.update(player as Player)
-            CRUD.DELETE -> dartsPlayerViewModel.delete(player as Player)
-            else ->
-            {
-                Log.e("CRUD", "No CRUD type passed")
-            }
-        }
-        //dartsPlayerViewModel.insert(player as Player)
-        //dartsPlayerViewModel.update(player as Player)
-        print(player)
-    }*/
-
     override fun create(player: IPlayer)
     {
-        Log.e("CRUD", "Inserting $player")
+        Log.i("CRUD_operation", "Inserting $player")
         dartsPlayerViewModel.insert(player as Player)
     }
+
     override fun update(player: IPlayer)
     {
-        Log.e("CRUD", "Updating $player")
+        Log.i("CRUD_operation", "Updating $player")
         dartsPlayerViewModel.update(player as Player)
     }
+
     override fun delete(player: IPlayer)
     {
-        Log.e("CRUD", "Deleting $player")
+        Log.i("CRUD_operation", "Deleting $player")
         dartsPlayerViewModel.delete(player as Player)
     }
 

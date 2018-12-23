@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,7 @@ import kotlinx.android.synthetic.main.fragment_info.*
 
 class InfoFragment : Fragment()
 {
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_info, container, false)
@@ -26,13 +25,17 @@ class InfoFragment : Fragment()
     override fun onResume()
     {
         super.onResume()
+        Log.i("Info", "Fragment resumed")
         btn_email.setOnClickListener{this.openEmail()}
+        Log.i("Info", "Registered click listeners")
     }
 
     override fun onPause()
     {
         super.onPause()
+        Log.i("Info", "Fragment paused")
         btn_email.setOnClickListener(null)
+        Log.i("Info", "Unregistered click listeners")
     }
 
     /**

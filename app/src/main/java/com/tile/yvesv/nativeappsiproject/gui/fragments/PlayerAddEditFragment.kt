@@ -5,11 +5,13 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerAddEditBinding
-import com.tile.yvesv.nativeappsiproject.gui.CRUD
+import com.tile.yvesv.nativeappsiproject.gui.CRUD_operation
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment.Companion.PLAYER
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
@@ -20,7 +22,8 @@ import java.io.Serializable
 class PlayerAddEditFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
-    private lateinit var crud: CRUD
+    private lateinit var crud: CRUD_operation
+    private var twoPane: Boolean = false
 
     private lateinit var playerViewModel: PlayerViewModel
 
@@ -46,31 +49,49 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
             }
             if (it.containsKey(CRUD))
             {
-                this.crud = it.getSerializable(CRUD) as CRUD
+                this.crud = it.getSerializable(CRUD) as CRUD_operation
+            }
+            if (it.containsKey(TWOPANE))
+            {
+                this.twoPane = it.getSerializable(TWOPANE) as Boolean
             }
         }
     }
 
+    /**
+     * Register listeners when this fragment enters resume state
+     */
     override fun onResume()
     {
         super.onResume()
+        Log.i("AddEdit", "Fragment resumed")
 
         /*activity will be RankingActivity or PlayerDetailActivity depending on
         the width (cellphone or tablet)*/
         activityFragmentListener = activity as AddEditFragmentListener
+        Log.i("AddEdit", "Registered callback")
 
         btn_save.setOnClickListener(this)
         btn_delete.setOnClickListener(this)
         btn_cancel.setOnClickListener(this)
+        Log.i("AddEdit", "Registered click listeners")
     }
 
+    /**
+     * Unregister listeners when this fragment enters pause state
+     */
     override fun onPause()
     {
         super.onPause()
+        Log.i("AddEdit", "Fragment paused")
+
         activityFragmentListener = null
+        Log.i("AddEdit", "Unregistered callback")
+
         btn_save.setOnClickListener(null)
         btn_delete.setOnClickListener(null)
         btn_cancel.setOnClickListener(null)
+        Log.i("AddEdit", "Unregistered click listeners")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -103,7 +124,6 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
             }
             btn_cancel.id ->
             {
-                //this.resetPlayer()
                 this.back()
             }
             btn_delete.id ->
@@ -116,14 +136,18 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
 
     private fun back()
     {
-        activity!!.onBackPressed()
+        if (!twoPane)
+        {
+            activity!!.onBackPressed()
+        }
     }
 
     private fun savePlayer()
     {
         when (crud)
         {
-            com.tile.yvesv.nativeappsiproject.gui.CRUD.CREATE -> {
+            CRUD_operation.CREATE ->
+            {
                 player.name = txt_name.text.toString()
                 player.score = 0
                 player.description = txt_description.text.toString()
@@ -131,7 +155,8 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
                 activityFragmentListener!!.create(player)
                 showToast("Created player ${player.name}")
             }
-            com.tile.yvesv.nativeappsiproject.gui.CRUD.UPDATE -> {
+            CRUD_operation.UPDATE ->
+            {
                 player.name = txt_name.text.toString()
                 player.description = txt_description.text.toString()
 
@@ -140,7 +165,7 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
             }
             else ->
             {
-                Log.e("CRUD", "No operation passed")
+                Log.e("CRUD_operation", "No operation passed")
             }
         }
     }
@@ -175,13 +200,30 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
     {
         const val PLAYER = "player"
         const val CRUD = "crud"
+        const val TWOPANE = "twopane"
 
-        fun newInstance(player: IPlayer, crud: CRUD): PlayerAddEditFragment
+        /**
+         * The fragment needs to know if we're working in twoPane mode to handle
+         * back navigation in a correct way. See [back] method
+         */
+        fun newInstance(player: IPlayer, crud: CRUD_operation, twoPane: Boolean): PlayerAddEditFragment
         {
             val args = Bundle()
 
             args.putSerializable(CRUD, crud as Serializable)
             args.putSerializable(PLAYER, player as Serializable)
+            args.putSerializable(TWOPANE, twoPane as Serializable)
+
+            val fragment = PlayerAddEditFragment()
+            fragment.arguments = args
+
+            return fragment
+        }
+
+        //To be used for creating a new player instead of pasing CRUD_operation value
+        fun newInstance(): PlayerAddEditFragment
+        {
+            val args = Bundle()
 
             val fragment = PlayerAddEditFragment()
             fragment.arguments = args

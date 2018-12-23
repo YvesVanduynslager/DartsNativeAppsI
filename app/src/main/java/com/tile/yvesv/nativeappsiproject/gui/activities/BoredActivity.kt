@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.tile.yvesv.nativeappsiproject.R
+import com.tile.yvesv.nativeappsiproject.R.id.txt_activity
 import com.tile.yvesv.nativeappsiproject.gui.menu.BoredMenuStrategy
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
@@ -20,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_bored.*
  * Not to be confused with Android activities ;)
  * Used only to demonstrate networking functionality.
  */
-class BoredActivity : AppCompatActivity(), MenuInterface
+class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
 {
     override val menuStrategy: MenuStrategy = BoredMenuStrategy()
     private var act: BoredActivityViewModel = BoredActivityViewModel()
@@ -31,18 +34,26 @@ class BoredActivity : AppCompatActivity(), MenuInterface
         setContentView(R.layout.activity_bored)
 
         /**[BoredActivityViewModel] needs to be initialized using ViewModelProviders
-        * because of the use of MutableLiveData */
+         * because of the use of MutableLiveData */
         act = ViewModelProviders.of(this).get(BoredActivityViewModel::class.java)
-        btn_bored.setOnClickListener { this.newBoredActivity() }
     }
 
-    /**
-     * Request a new activity and display it in [txt_activity]
-     */
-    private fun newBoredActivity()
+    override fun onResume()
     {
-        act.newActivity()
-        txt_activity.text = act.getRawAct().value
+        super.onResume()
+        Log.i("boredAPI", "Activity resumed")
+
+        btn_bored.setOnClickListener(this)
+        Log.i("boredAPI", "Registered click listener")
+    }
+
+    override fun onPause()
+    {
+        super.onPause()
+        Log.i("boredAPI", "Activity paused")
+
+        btn_bored.setOnClickListener(null)
+        Log.i("boredAPI", "Unregistered click listener")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
@@ -58,34 +69,24 @@ class BoredActivity : AppCompatActivity(), MenuInterface
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
         return menuStrategy.menuSetup(this, item)
-        /*when (item.itemId)
+    }
+
+    override fun onClick(view: View?)
+    {
+        when (view?.id)
         {
-            R.id.ranking ->
+            btn_bored.id ->
             {
-                val intent = RankingActivity.newIntent(this.applicationContext)
-                startActivity(intent)
+                /**
+                 * Request a new activity and display it in [txt_activity]
+                 */
+                act.newActivity()
+                Log.i("boredAPI", "Requested new activity")
 
-                Logger.i("Ranking selected")
-                return true
+                txt_activity.text = act.getRawAct().value
+                Log.i("boredAPI", "Received: ${act.getRawAct().value}")
             }
-            R.id.players ->
-            {
-                val intent = PlayersActivity.newIntent(this.applicationContext)
-                startActivity(intent)
-
-                Logger.i("Players selected")
-                return true
-            }
-            R.id.info ->
-            {
-                val intent = InfoActivity.newIntent(this.applicationContext)
-                startActivity(intent)
-
-                Logger.i("Info selected")
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }*/
+        }
     }
 
     companion object

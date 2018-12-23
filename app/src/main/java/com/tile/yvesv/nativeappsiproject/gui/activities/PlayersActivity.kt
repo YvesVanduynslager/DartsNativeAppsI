@@ -11,7 +11,7 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import com.tile.yvesv.nativeappsiproject.R
-import com.tile.yvesv.nativeappsiproject.gui.CRUD
+import com.tile.yvesv.nativeappsiproject.gui.CRUD_operation
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerAddEditFragment
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuStrategy
@@ -26,39 +26,6 @@ import kotlinx.android.synthetic.main.player_rank_list.*
 
 class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragment.AddEditFragmentListener
 {
-    /*override fun addEdit(player: IPlayer, crud: CRUD)
-    {
-        when (crud)
-        {
-            CRUD.CREATE -> dartsPlayerViewModel.insert(player as Player)
-            CRUD.UPDATE -> dartsPlayerViewModel.update(player as Player)
-            CRUD.DELETE -> dartsPlayerViewModel.delete(player as Player)
-            else ->
-            {
-                Log.e("CRUD", "No CRUD type passed")
-            }
-        }
-        //dartsPlayerViewModel.insert(player as Player)
-        //dartsPlayerViewModel.update(player as Player)
-        print(player)
-    }*/
-
-    override fun create(player: IPlayer)
-    {
-        Log.e("CRUD", "Inserting $player")
-        dartsPlayerViewModel.insert(player as Player)
-    }
-    override fun update(player: IPlayer)
-    {
-        Log.e("CRUD", "Updating $player")
-        dartsPlayerViewModel.update(player as Player)
-    }
-    override fun delete(player: IPlayer)
-    {
-        Log.e("CRUD", "Deleting $player")
-        dartsPlayerViewModel.delete(player as Player)
-    }
-
     override val menuStrategy: MenuStrategy = PlayersMenuStrategy()
 
     private lateinit var dartsPlayerViewModel: DartsPlayerViewModel
@@ -86,7 +53,7 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
             if (isDualPane)
             {
                 //Pass empty player object to PlayerAddEditFragment (new player)
-                val fragment = PlayerAddEditFragment.newInstance(Player(name="",description = "",score = 0), CRUD.CREATE)
+                val fragment = PlayerAddEditFragment.newInstance(Player(name = "", description = "", score = 0), CRUD_operation.CREATE, isDualPane)
                 supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.player_detail_container, fragment)
@@ -96,19 +63,13 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
             {
                 //EXPLICIT INTENT. Pass empty player object to PlayerAddEditFragment (new player)
                 val intent = PlayerAddEditActivity.newIntent(this.applicationContext).apply {
-                    putExtra(PlayerAddEditFragment.PLAYER, Player(name="",description = "",score = 0))
-                    putExtra(PlayerAddEditFragment.CRUD, CRUD.CREATE)
+                    putExtra(PlayerAddEditFragment.PLAYER, Player(name = "", description = "", score = 0))
+                    putExtra(PlayerAddEditFragment.CRUD, CRUD_operation.CREATE)
                 }
 
                 startActivity(intent)
             }
         }
-    }
-
-    override fun onResume()
-    {
-        super.onResume()
-
     }
 
     override fun onStart()
@@ -135,9 +96,25 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
         return menuStrategy.menuSetup(this, item)
     }
 
-    class SimpleItemRecyclerViewAdapter(private val parentActivity: PlayersActivity,
-                                        private val twoPane: Boolean) :
-            RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>()
+    override fun create(player: IPlayer)
+    {
+        Log.e("CRUD_operation", "Inserting $player")
+        dartsPlayerViewModel.insert(player as Player)
+    }
+
+    override fun update(player: IPlayer)
+    {
+        Log.e("CRUD_operation", "Updating $player")
+        dartsPlayerViewModel.update(player as Player)
+    }
+
+    override fun delete(player: IPlayer)
+    {
+        Log.e("CRUD_operation", "Deleting $player")
+        dartsPlayerViewModel.delete(player as Player)
+    }
+
+    class SimpleItemRecyclerViewAdapter(private val parentActivity: PlayersActivity, private val twoPane: Boolean) : RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>()
     {
 
         private var playersCached = emptyList<Player>()
@@ -152,12 +129,9 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
                 // This allows us to reuse a single listener for all items in the list
                 val item = view.tag as Player
 
-                Log.d("CLICKED PLAYER", item.name)
-                Log.d("TWO_PANE", twoPane.toString())
-
                 if (twoPane)
                 {
-                    val fragment = PlayerAddEditFragment.newInstance(item, CRUD.UPDATE)
+                    val fragment = PlayerAddEditFragment.newInstance(item, CRUD_operation.UPDATE, twoPane)
                     parentActivity.supportFragmentManager
                             .beginTransaction()
                             .replace(R.id.add_edit_container, fragment)
@@ -168,7 +142,7 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
                     //EXPLICIT INTENT
                     val intent = PlayerAddEditActivity.newIntent(view.context).apply {
                         putExtra(PlayerAddEditFragment.PLAYER, item)
-                        putExtra(PlayerAddEditFragment.CRUD, CRUD.UPDATE)
+                        putExtra(PlayerAddEditFragment.CRUD, CRUD_operation.UPDATE)
                     }
 
                     view.context.startActivity(intent)
@@ -186,13 +160,9 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int)
         {
-            //val player = players[position]
             val player = playersCached[position]
 
             holder.name.text = player.name
-            //holder.score.text = "${player.score}"
-            //holder.rank.text = "${(position + 1)}"
-            //holder.image.setImageResource(player.playerData.imageResId)
 
             with(holder.itemView) {
                 tag = player // Save the player represented by this view
@@ -211,8 +181,6 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
         {
             val name: TextView = view.txt_name
-            //val score: TextView = view.txt_score
-            //val rank: TextView = view.txt_rank
         }
     }
 

@@ -24,18 +24,6 @@ class InfoActivity : AppCompatActivity(), MenuInterface
         setContentView(R.layout.activity_info)
     }
 
-    /**override fun onResume()
-    {
-        super.onResume()
-        btn_email.setOnClickListener{this.openEmail()}
-    }
-
-    override fun onPause()
-    {
-        super.onPause()
-        btn_email.setOnClickListener(null)
-    }*/
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean
     {
         menuInflater.inflate(R.menu.main, menu)
@@ -51,56 +39,9 @@ class InfoActivity : AppCompatActivity(), MenuInterface
         return menuStrategy.menuSetup(this, item)
     }
 
-    /**
-     * Create a new implicit intent for opening a new e-mail message
-     */
-    /*private fun openEmail()
-    {
-        val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "yves.vanduynslager@telenet.be", null))
-
-        //Sets the subject for the e-mail
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "DartsApp: ")
-
-        //check if there is an e-mail app present or not
-        checkForCompatibility(emailIntent)
-    }
-
-    /**
-     * Checks whether there is an application available to handle the intent. If not, it will
-     * start the Google Play market place to see whether an application exists which can be installed.
-     * If there is an app available, it will start the Activity of that app.
-     */
-    private fun checkForCompatibility(intent: Intent, requestCode: Int? = null)
-    {
-        //Check whether an activity exists to start with the provided intent
-        val manager = this.packageManager
-        val name = intent.resolveActivity(manager)
-
-        if (name == null)
-        {
-            val marketIntent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + this.packageName))
-            if (marketIntent.resolveActivity(manager) != null)
-            {
-                startActivity(marketIntent)
-            }
-            else
-            {
-                val emailToast = Toast.makeText(this, "Could not find the market activity", Toast.LENGTH_LONG)
-                emailToast.show()
-            }
-        }
-        else
-        {
-            if (requestCode == null)
-                startActivity(intent)
-            else
-                startActivityForResult(intent, requestCode)
-        }
-    }*/
-
     companion object
     {
-        /**
+        /*
          * Id's for the activities which return results
          */
         //private const val PICK_EMAIL = 1

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
@@ -50,9 +51,9 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFr
         {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-
             val detailFragment = PlayerDetailsFragment.newInstance(
-                    intent.getSerializableExtra(PlayerDetailsFragment.PLAYER) as IPlayer
+                    intent.getSerializableExtra(PlayerDetailsFragment.PLAYER) as IPlayer,
+                    intent.getSerializableExtra(PlayerDetailsFragment.TWOPANE) as Boolean
             )
 
             supportFragmentManager.beginTransaction()
@@ -61,10 +62,10 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailsFragment.DetailFr
         }
     }
 
-    override fun notifyChange(player: IPlayer)
+    override fun update(player: IPlayer)
     {
+        Log.i("CRUD_operation", "Updating $player")
         dartsPlayerViewModel.update(player as Player)
-        print(player)
     }
 
     companion object
