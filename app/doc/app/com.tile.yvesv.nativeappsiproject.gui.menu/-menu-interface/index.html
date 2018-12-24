@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MenuInterface - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.gui.menu</a>&nbsp;/&nbsp;<a href="./index.html">MenuInterface</a><br/>
+<br/>
+<h1>MenuInterface</h1>
+<code><span class="keyword">interface </span><span class="identifier">MenuInterface</span></code>
+<p><strong>Interface</strong><br/>
+<a href="./index.html">MenuInterface</a>: Used for consistency.
+Activities implementing the menu should inherit this interface and override <a href="menu-strategy.html">menuStrategy</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="menu-strategy.html">menuStrategy</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">menuStrategy</span><span class="symbol">: </span><a href="../-menu-strategy/index.html"><span class="identifier">MenuStrategy</span></a></code>
+<p>: The <a href="../-menu-strategy/index.html">MenuStrategy</a> to be initialized.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.tile.yvesv.nativeappsiproject.gui.activities/-bored-activity/index.html">BoredActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">BoredActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">MenuInterface</span></a><span class="symbol">, </span><a href="https://developer.android.com/reference/android/view/View/OnClickListener.html"><span class="identifier">OnClickListener</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.tile.yvesv.nativeappsiproject.gui.activities/-info-activity/index.html">InfoActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">InfoActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">MenuInterface</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.tile.yvesv.nativeappsiproject.gui.activities/-players-activity/index.html">PlayersActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PlayersActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">MenuInterface</span></a><span class="symbol">, </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-add-edit-fragment/-add-edit-fragment-listener/index.html"><span class="identifier">AddEditFragmentListener</span></a><span class="symbol">, </span><a href="https://developer.android.com/reference/android/view/View/OnClickListener.html"><span class="identifier">OnClickListener</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.tile.yvesv.nativeappsiproject.gui.activities/-ranking-activity/index.html">RankingActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">RankingActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-detail-fragment/-detail-fragment-listener/index.html"><span class="identifier">DetailFragmentListener</span></a><span class="symbol">, </span><a href="./index.html"><span class="identifier">MenuInterface</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

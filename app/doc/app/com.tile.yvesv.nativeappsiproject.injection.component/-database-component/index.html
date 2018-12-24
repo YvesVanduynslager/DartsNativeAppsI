@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DatabaseComponent - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.injection.component</a>&nbsp;/&nbsp;<a href="./index.html">DatabaseComponent</a><br/>
+<br/>
+<h1>DatabaseComponent</h1>
+<code><span class="identifier">@Singleton</span> <span class="identifier">@Component</span><span class="symbol">(</span>[DatabaseModule]<span class="symbol">)</span> <span class="keyword">interface </span><span class="identifier">DatabaseComponent</span></code>
+<p><strong>Class</strong><br/>
+<p><a href="./index.html">DatabaseComponent</a>:
+Component providing the inject functions for presenters.</p>
+
+
+<p>A component is a mapping between one or more modules and one or more classes that will use them.
+In this case we have the <a href="../../com.tile.yvesv.nativeappsiproject.injection.module/-database-module/index.html">DatabaseModule</a> which needs to inject dependencies in our <a href="../../com.tile.yvesv.nativeappsiproject.persistence/-darts-player-view-model/index.html">DartsPlayerViewModel</a></p>
+
+
+<p>https ://google.github.io/dagger/api/2.14/dagger/Component.html</p>
+</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="inject.html">inject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.injection.component.DatabaseComponent$inject(com.tile.yvesv.nativeappsiproject.App)/app">app</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject/-app/index.html"><span class="identifier">App</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.injection.component.DatabaseComponent$inject(com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel)/dartsPlayerViewModel">dartsPlayerViewModel</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.persistence/-darts-player-view-model/index.html"><span class="identifier">DartsPlayerViewModel</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

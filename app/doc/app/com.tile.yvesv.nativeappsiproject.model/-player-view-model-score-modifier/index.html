@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PlayerViewModelScoreModifier - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.model</a>&nbsp;/&nbsp;<a href="./index.html">PlayerViewModelScoreModifier</a><br/>
+<br/>
+<h1>PlayerViewModelScoreModifier</h1>
+<code><span class="keyword">class </span><span class="identifier">PlayerViewModelScoreModifier</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-player-score-modifier/index.html"><span class="identifier">IPlayerScoreModifier</span></a></code>
+<h3>Parameters</h3>
+<p><a name="playerViewModel"></a>
+<code>playerViewModel</code> - the view model for the selected player that needs its score adjusted.</p>
+<p><strong>Class</strong><br/>
+<a href="./index.html">PlayerViewModelScoreModifier</a>:
+This class changes the value of the score for the selected player
+Logic happens here instead of PlayerViewModel to adhere to Single Responsibility Principle
+and Dependency Inversion Principle</p>
+<p><strong>Author</strong><br/>
+Yves Vanduynslager</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PlayerViewModelScoreModifier</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier$<init>(com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel)/playerViewModel">playerViewModel</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.gui.viewmodels/-player-view-model/index.html"><span class="identifier">PlayerViewModel</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="decrease-score-by.html">decreaseScoreBy</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">decreaseScoreBy</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier$decreaseScoreBy(kotlin.Int)/points">points</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Decrease the score with <a href="decrease-score-by.html#com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier$decreaseScoreBy(kotlin.Int)/points">points</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="decrease-score-by-one.html">decreaseScoreByOne</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">decreaseScoreByOne</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Decrease the score with 1.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="increase-score-by.html">increaseScoreBy</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">increaseScoreBy</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier$increaseScoreBy(kotlin.Int)/points">points</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Increase the score with <a href="increase-score-by.html#com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier$increaseScoreBy(kotlin.Int)/points">points</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="increase-score-by-one.html">increaseScoreByOne</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">increaseScoreByOne</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Increase the score with 1.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

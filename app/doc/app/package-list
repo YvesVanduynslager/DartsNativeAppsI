@@ -1,0 +1,17 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+com.tile.yvesv.nativeappsiproject
+com.tile.yvesv.nativeappsiproject.exceptions
+com.tile.yvesv.nativeappsiproject.gui
+com.tile.yvesv.nativeappsiproject.gui.activities
+com.tile.yvesv.nativeappsiproject.gui.base
+com.tile.yvesv.nativeappsiproject.gui.fragments
+com.tile.yvesv.nativeappsiproject.gui.menu
+com.tile.yvesv.nativeappsiproject.gui.viewmodels
+com.tile.yvesv.nativeappsiproject.injection.component
+com.tile.yvesv.nativeappsiproject.injection.module
+com.tile.yvesv.nativeappsiproject.model
+com.tile.yvesv.nativeappsiproject.networking
+com.tile.yvesv.nativeappsiproject.persistence
+com.tile.yvesv.nativeappsiproject.util

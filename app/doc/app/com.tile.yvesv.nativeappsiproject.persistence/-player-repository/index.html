@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PlayerRepository - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.persistence</a>&nbsp;/&nbsp;<a href="./index.html">PlayerRepository</a><br/>
+<br/>
+<h1>PlayerRepository</h1>
+<code><span class="keyword">class </span><span class="identifier">PlayerRepository</span></code>
+<p><strong>Class</strong><br/>
+<a href="./index.html">PlayerRepository</a>
+A Repository class abstracts access to multiple data sources. When a
+network connection is unavailable, the Dao can be used to request cached data instead.
+Using the repository pattern hides this complexity from other classes.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PlayerRepository</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.PlayerRepository$<init>(com.tile.yvesv.nativeappsiproject.persistence.DartsDao)/dartsDao">dartsDao</span><span class="symbol">:</span>&nbsp;<a href="../-darts-dao/index.html"><span class="identifier">DartsDao</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="players.html">players</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">players</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="delete.html">delete</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">delete</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.PlayerRepository$delete(com.tile.yvesv.nativeappsiproject.model.Player)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="insert.html">insert</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">insert</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.PlayerRepository$insert(com.tile.yvesv.nativeappsiproject.model.Player)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.PlayerRepository$update(com.tile.yvesv.nativeappsiproject.model.Player)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

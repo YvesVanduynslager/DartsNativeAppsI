@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BoredActivity - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.gui.activities</a>&nbsp;/&nbsp;<a href="./index.html">BoredActivity</a><br/>
+<br/>
+<h1>BoredActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">BoredActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.menu/-menu-interface/index.html"><span class="identifier">MenuInterface</span></a><span class="symbol">, </span><a href="https://developer.android.com/reference/android/view/View/OnClickListener.html"><span class="identifier">OnClickListener</span></a></code>
+<p><strong>Class</strong><br/>
+<a href="./index.html">BoredActivity</a>: Displays an activity (not to be confused with Android activities)
+to perform when there are no games to play. In this use case this is only used to demonstrate networking functionality.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">BoredActivity</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="menu-strategy.html">menuStrategy</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">menuStrategy</span><span class="symbol">: </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.menu/-menu-strategy/index.html"><span class="identifier">MenuStrategy</span></a></code>
+<p>: The top menu implementation that is used for this activity.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-click.html">onClick</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onClick</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.BoredActivity$onClick(android.view.View)/view">view</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p><a href="https://developer.android.com/reference/android/view/View/OnClickListener.html">View.OnClickListener</a> override</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.BoredActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Fundamental setup for the activity, such as declaring the user interface (defined in an XML layout file),
+defining member variables, and configuring some of the UI</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-options-menu.html">onCreateOptionsMenu</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateOptionsMenu</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.BoredActivity$onCreateOptionsMenu(android.view.Menu)/menu">menu</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/Menu.html"><span class="identifier">Menu</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Displays the menu</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.BoredActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Handles the menu selection</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-pause.html">onPause</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onPause</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Unregister listeners when <a href="./index.html">BoredActivity</a> enters pause state</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-resume.html">onResume</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onResume</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Register listeners when <a href="./index.html">BoredActivity</a> enters resume state</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="new-intent.html">newIntent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">newIntent</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.BoredActivity.Companion$newIntent(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a></code>
+<p>Creates a new intent for <a href="./index.html">BoredActivity</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BoredActivityViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.gui.viewmodels</a>&nbsp;/&nbsp;<a href="./index.html">BoredActivityViewModel</a><br/>
+<br/>
+<h1>BoredActivityViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">BoredActivityViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.gui.base/-base-view-model/index.html"><span class="identifier">BaseViewModel</span></a></code>
+<p><strong>Class</strong><br/>
+<a href="./index.html">BoredActivityViewModel</a>: ViewModel that requests data and holds the result from API calls</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">BoredActivityViewModel</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="bored-act-api.html">boredActApi</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">boredActApi</span><span class="symbol">: </span><a href="../../com.tile.yvesv.nativeappsiproject.networking/-bored-act-api/index.html"><span class="identifier">BoredActApi</span></a></code>
+<p>The instance of the BoredActApi class to get back the results of the API
+Injected with ViewModelInjectorComponent</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-raw-act.html">getRawAct</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getRawAct</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="new-activity.html">newActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">newActivity</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Retrieve a new boredActivity by fetching data on the background.
+Display fetched data on the UI main thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-cleared.html">onCleared</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCleared</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Disposes the subscription when the <a href="../../com.tile.yvesv.nativeappsiproject.gui.base/-base-view-model/index.html">BaseViewModel</a> is no longer used.
+When the Disposable <a href="#">subscription</a> get disposed, the Observer will no longer
+receive values from the Observable.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

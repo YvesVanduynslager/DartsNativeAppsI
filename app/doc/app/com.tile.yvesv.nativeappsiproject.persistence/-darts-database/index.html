@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DartsDatabase - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.persistence</a>&nbsp;/&nbsp;<a href="./index.html">DartsDatabase</a><br/>
+<br/>
+<h1>DartsDatabase</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">DartsDatabase</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RoomDatabase</span></code>
+<p><strong>Class</strong><br/>
+<p><a href="./index.html">DartsDatabase</a>:
+We use @Database to annotate the class that represents the database itself.
+In the annotation we also specify all the entities that will be saved in this database.</p>
+
+
+<p>In order to keep track of different db schemas over time we also have to provide a version.
+For now we can just destroy and recreate the database when a new schema is needed.</p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DartsDatabase</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="player-dao.html">playerDao</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">playerDao</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-darts-dao/index.html"><span class="identifier">DartsDao</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-database.html">getDatabase</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDatabase</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.DartsDatabase.Companion$getDatabase(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">DartsDatabase</span></a></code>
+<p>Get the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="populate-database.html">populateDatabase</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">populateDatabase</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.DartsDatabase.Companion$populateDatabase(com.tile.yvesv.nativeappsiproject.persistence.DartsDao)/dartsDao">dartsDao</span><span class="symbol">:</span>&nbsp;<a href="../-darts-dao/index.html"><span class="identifier">DartsDao</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Populate the database with sample data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

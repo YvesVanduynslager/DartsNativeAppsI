@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PlayerAddEditActivity - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.gui.activities</a>&nbsp;/&nbsp;<a href="./index.html">PlayerAddEditActivity</a><br/>
+<br/>
+<h1>PlayerAddEditActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">PlayerAddEditActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-add-edit-fragment/-add-edit-fragment-listener/index.html"><span class="identifier">AddEditFragmentListener</span></a></code>
+<p><strong>Class</strong><br/>
+<a href="./index.html">PlayerAddEditActivity</a>: Activity for adding, editing, deleting a player.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PlayerAddEditActivity</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.PlayerAddEditActivity$create(com.tile.yvesv.nativeappsiproject.model.IPlayer)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-i-player.html"><span class="identifier">IPlayer</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Callback for <a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-add-edit-fragment/index.html">PlayerAddEditFragment</a>
+Calls <a href="#">dartsPlayerViewModel</a> to insert a new Player into the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="delete.html">delete</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">delete</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.PlayerAddEditActivity$delete(com.tile.yvesv.nativeappsiproject.model.IPlayer)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-i-player.html"><span class="identifier">IPlayer</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Callback for <a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-add-edit-fragment/index.html">PlayerAddEditFragment</a>
+Calls <a href="#">dartsPlayerViewModel</a> to remove a player from the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.PlayerAddEditActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Creates the Activity.
+On newIntent call the onCreate method is called
+and we retrieve the serialized data added by <a href="../-players-activity/index.html">PlayersActivity</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.PlayerAddEditActivity$update(com.tile.yvesv.nativeappsiproject.model.IPlayer)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-i-player.html"><span class="identifier">IPlayer</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Callback for <a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-add-edit-fragment/index.html">PlayerAddEditFragment</a>
+Calls <a href="#">dartsPlayerViewModel</a> to update an existing player in the database.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="new-intent.html">newIntent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">newIntent</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.PlayerAddEditActivity.Companion$newIntent(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a></code>
+<p>Creates a new intent for <a href="./index.html">PlayerAddEditActivity</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

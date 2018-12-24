@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RankingActivity - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.gui.activities</a>&nbsp;/&nbsp;<a href="./index.html">RankingActivity</a><br/>
+<br/>
+<h1>RankingActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">RankingActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-detail-fragment/-detail-fragment-listener/index.html"><span class="identifier">DetailFragmentListener</span></a><span class="symbol">, </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.menu/-menu-interface/index.html"><span class="identifier">MenuInterface</span></a></code>
+<p><strong>Class</strong><br/>
+<a href="./index.html">RankingActivity</a>: Activity for displaying a sorted list of players based on their score (high to low).</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-simple-item-recycler-view-adapter/index.html">SimpleItemRecyclerViewAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">SimpleItemRecyclerViewAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Adapter</span><span class="symbol">&lt;</span><a href="-simple-item-recycler-view-adapter/-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">&gt;</span></code>
+<p>RecyclerView setup</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">RankingActivity</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="menu-strategy.html">menuStrategy</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">menuStrategy</span><span class="symbol">: </span><a href="../../com.tile.yvesv.nativeappsiproject.gui.menu/-menu-strategy/index.html"><span class="identifier">MenuStrategy</span></a></code>
+<p>: The top menu implementation that is used for this activity.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Fundamental setup for the activity, such as declaring the user interface (defined in an XML layout file),
+defining member variables, and configuring some of the UI</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-options-menu.html">onCreateOptionsMenu</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateOptionsMenu</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity$onCreateOptionsMenu(android.view.Menu)/menu">menu</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/Menu.html"><span class="identifier">Menu</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Displays the menu</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Handles the menu selection</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-start.html">onStart</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onStart</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Makes the activity visible to the user, as the app prepares for the activity to enter the foreground and become interactive</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity$update(com.tile.yvesv.nativeappsiproject.model.IPlayer)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-i-player.html"><span class="identifier">IPlayer</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Callback for <a href="../../com.tile.yvesv.nativeappsiproject.gui.fragments/-player-detail-fragment/index.html">PlayerDetailFragment</a>
+Calls <a href="#">dartsPlayerViewModel</a> to update an existing player in the database.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="new-intent.html">newIntent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">newIntent</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity.Companion$newIntent(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a></code>
+<p>Creates a new intent for <a href="./index.html">RankingActivity</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

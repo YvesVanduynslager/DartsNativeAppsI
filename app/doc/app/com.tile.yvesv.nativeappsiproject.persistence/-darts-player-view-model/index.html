@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DartsPlayerViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.persistence</a>&nbsp;/&nbsp;<a href="./index.html">DartsPlayerViewModel</a><br/>
+<br/>
+<h1>DartsPlayerViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">DartsPlayerViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewModel</span></code>
+<p><strong>Class</strong><br/>
+<a href="./index.html">DartsPlayerViewModel</a>: CRUD operations on the database.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DartsPlayerViewModel</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="all-players.html">allPlayers</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">allPlayers</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>READ</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="player-repository.html">playerRepository</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">playerRepository</span><span class="symbol">: </span><a href="../-player-repository/index.html"><span class="identifier">PlayerRepository</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="delete.html">delete</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">delete</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel$delete(com.tile.yvesv.nativeappsiproject.model.Player)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>DELETE</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="insert.html">insert</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">insert</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel$insert(com.tile.yvesv.nativeappsiproject.model.Player)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>CREATE</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.persistence.DartsPlayerViewModel$update(com.tile.yvesv.nativeappsiproject.model.Player)/player">player</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.model/-player/index.html"><span class="identifier">Player</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>UPDATE</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ViewModelInjectorComponent - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.injection.component</a>&nbsp;/&nbsp;<a href="./index.html">ViewModelInjectorComponent</a><br/>
+<br/>
+<h1>ViewModelInjectorComponent</h1>
+<code><span class="identifier">@Singleton</span> <span class="identifier">@Component</span><span class="symbol">(</span>[NetworkModule]<span class="symbol">)</span> <span class="keyword">interface </span><span class="identifier">ViewModelInjectorComponent</span></code>
+<p><strong>Class</strong><br/>
+<p>: <a href="./index.html">ViewModelInjectorComponent</a>
+Component providing the inject functions for presenters.</p>
+
+
+<p>A component is a mapping between one or more modules and one or more classes that will use them.
+In this case we have the <a href="../../com.tile.yvesv.nativeappsiproject.injection.module/-network-module.html">NetworkModule</a> which needs to inject dependencies in our <a href="../../com.tile.yvesv.nativeappsiproject.gui.viewmodels/-bored-activity-view-model/index.html">BoredActivityViewModel</a></p>
+
+
+<p>https ://google.github.io/dagger/api/2.14/dagger/Component.html</p>
+</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Builder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="inject.html">inject</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">inject</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.injection.component.ViewModelInjectorComponent$inject(com.tile.yvesv.nativeappsiproject.gui.viewmodels.BoredActivityViewModel)/boredActivityViewModel">boredActivityViewModel</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.gui.viewmodels/-bored-activity-view-model/index.html"><span class="identifier">BoredActivityViewModel</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Injects the dependencies into the specified <a href="../../com.tile.yvesv.nativeappsiproject.gui.viewmodels/-bored-activity-view-model/index.html">BoredActivityViewModel</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
