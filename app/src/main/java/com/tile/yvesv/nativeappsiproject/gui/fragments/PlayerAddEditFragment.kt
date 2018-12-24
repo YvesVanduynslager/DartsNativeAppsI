@@ -1,6 +1,7 @@
 package com.tile.yvesv.nativeappsiproject.gui.fragments
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,52 +9,68 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerAddEditBinding
-import com.tile.yvesv.nativeappsiproject.gui.CRUD_operation
-import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailsFragment.Companion.PLAYER
+import com.tile.yvesv.nativeappsiproject.gui.CRUDoperation
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
 import kotlinx.android.synthetic.main.fragment_player_add_edit.*
 import java.io.Serializable
 
+/**
+ * @class [PlayerAddEditFragment]: Fragment for adding, editing, deleting a player.
+ *
+ * @property player: player that needs to be added, edited or deleted.
+ * @property crud: the operation that started this fragment.
+ * @property playerViewModel: ViewModel that holds the (temporary) changes made to the player.
+ * @property isDualPane: Boolean to later determine if the app is running in dual pane or not. Default is false.
+ * @property activityFragmentListener: Listener to callback to the fragments parent Activity.
+ *
+ * @author Yves Vanduynslager
+ */
 class PlayerAddEditFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
-    private lateinit var crud: CRUD_operation
-    private var twoPane: Boolean = false
-
+    private lateinit var crud: CRUDoperation
     private lateinit var playerViewModel: PlayerViewModel
 
+    private var isDualPane: Boolean = false
     private var activityFragmentListener: AddEditFragmentListener? = null
 
+    /**
+     * Fundamental setup for the fragment, such as declaring the user interface (defined in an XML layout file),
+     * defining member variables, and configuring some of the UI
+     */
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
 
-        /*PlayerViewModel needs to be initialized using ViewModelProviders for auto updating on state changes
-        PlayerViewModel uses MutableLiveData for properties*/
+        /**[playerViewModel] needs to be initialized using ViewModelProviders
+         * because of the use of MutableLiveData */
         playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel::class.java)
 
+        /* Retrieve the serialized data */
         arguments!!.let {
             if (it.containsKey(PLAYER))
             {
-                //assign the selected player to player variable
+                //assign the serialized player to player variable
                 this.player = it.getSerializable(PLAYER) as Player
 
+                //save the player data in the playerViewModel
                 this.playerViewModel.name.value = this.player.name
                 this.playerViewModel.description.value = this.player.description
                 this.playerViewModel.score.value = this.player.score
             }
             if (it.containsKey(CRUD))
             {
-                this.crud = it.getSerializable(CRUD) as CRUD_operation
+                this.crud = it.getSerializable(CRUD) as CRUDoperation
             }
             if (it.containsKey(TWOPANE))
             {
-                this.twoPane = it.getSerializable(TWOPANE) as Boolean
+                this.isDualPane = it.getSerializable(TWOPANE) as Boolean
             }
         }
     }
@@ -66,7 +83,7 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         super.onResume()
         Log.i("AddEdit", "Fragment resumed")
 
-        /*activity will be RankingActivity or PlayerDetailActivity depending on
+        /* Activity will be RankingActivity or PlayerDetailActivity depending on
         the width (cellphone or tablet)*/
         activityFragmentListener = activity as AddEditFragmentListener
         Log.i("AddEdit", "Registered callback")
@@ -96,7 +113,7 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        //DON'T EVER FORGET THIS LINE FOR DATABINDING FFS
+        //Configure the data binding
         val binding: FragmentPlayerAddEditBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_add_edit, container, false)
         val rootView = binding.root
 
@@ -113,19 +130,29 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         return rootView
     }
 
+    /**
+     * [View.OnClickListener] override
+     * @param view: the view that fired the event
+     */
     override fun onClick(view: View?)
     {
+        //Check which view fired the event
         when (view?.id)
         {
+            //Save button tapped
             btn_save.id ->
             {
                 this.savePlayer()
+                view.hideKeyboard()
                 this.back()
             }
+            //Cancel button tapped
             btn_cancel.id ->
             {
+                view.hideKeyboard()
                 this.back()
             }
+            //Delete button tapped
             btn_delete.id ->
             {
                 this.deletePlayer()
@@ -134,19 +161,36 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         }
     }
 
+    /**
+     * Extension method to easily hide the keyboard
+     */
+    private fun View.hideKeyboard()
+    {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    /**
+     * Programmatically press the back button.
+     * If we're working in dualPane mode, back press must not happen.
+     */
     private fun back()
     {
-        if (!twoPane)
+        if (!isDualPane)
         {
             activity!!.onBackPressed()
         }
     }
 
+    /**
+     * Callback the parent Activity to save the new or updated [player]
+     */
     private fun savePlayer()
     {
         when (crud)
         {
-            CRUD_operation.CREATE ->
+            //New player: CREATE
+            CRUDoperation.CREATE ->
             {
                 player.name = txt_name.text.toString()
                 player.score = 0
@@ -155,7 +199,8 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
                 activityFragmentListener!!.create(player)
                 showToast("Created player ${player.name}")
             }
-            CRUD_operation.UPDATE ->
+            //Existing player: UPDATE
+            CRUDoperation.UPDATE ->
             {
                 player.name = txt_name.text.toString()
                 player.description = txt_description.text.toString()
@@ -165,22 +210,32 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
             }
             else ->
             {
-                Log.e("CRUD_operation", "No operation passed")
+                Log.e("CRUDoperation", "No operation passed")
             }
         }
     }
 
+    /**
+     * Callback the parent activity to delete [player]
+     */
     private fun deletePlayer()
     {
         activityFragmentListener!!.delete(player)
         showToast("Deleted player ${player.name}")
     }
 
+    /**
+     * Creates and shows a Toast
+     * @param text: The text to be displayed in the Toast
+     */
     private fun showToast(text: String)
     {
         Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
     }
 
+    /**
+     * Callback methods to be implemented by parent activity
+     */
     interface AddEditFragmentListener
     {
         fun create(player: IPlayer)
@@ -188,14 +243,6 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         fun delete(player: IPlayer)
     }
 
-    /**
-     * A fragment can take initialization parameters through its arguments, which you access via the arguments property.
-     * The arguments are actually a Bundle that stores them as key-value pairs, just like the Bundle in Activity.onSaveInstanceState.
-     * You create and populate the arguments’ Bundle, set the arguments, and when you need the values later, you reference arguments property to retrieve them.
-     * As you learned earlier, when a fragment is re-created, the default empty constructor is used — no parameters for you.
-     * Because the fragment can recall initial parameters from its persisted arguments, you can utilize them in the re-creation.
-     * The code below also stores information about the selected Rage Player in the PlayerDetailsFragment arguments.
-     */
     companion object
     {
         const val PLAYER = "player"
@@ -203,24 +250,30 @@ class PlayerAddEditFragment : Fragment(), View.OnClickListener
         const val TWOPANE = "twopane"
 
         /**
-         * The fragment needs to know if we're working in twoPane mode to handle
+         * The fragment needs to know if we're working in dualPane mode to handle
          * back navigation in a correct way. See [back] method
+         *
+         * @param player: The player we want to edit or add.
+         * @param crud: To determine if we want to add or update a player.
+         * @param isDualPane: Boolean to determine if the app is running in dual pane or not.
          */
-        fun newInstance(player: IPlayer, crud: CRUD_operation, twoPane: Boolean): PlayerAddEditFragment
+        fun newInstance(player: IPlayer, crud: CRUDoperation, isDualPane: Boolean): PlayerAddEditFragment
         {
             val args = Bundle()
 
+            //Serialize the passed values
             args.putSerializable(CRUD, crud as Serializable)
             args.putSerializable(PLAYER, player as Serializable)
-            args.putSerializable(TWOPANE, twoPane as Serializable)
+            args.putSerializable(TWOPANE, isDualPane as Serializable)
 
+            //Create the fragment and add the serialized data
             val fragment = PlayerAddEditFragment()
             fragment.arguments = args
 
             return fragment
         }
 
-        //To be used for creating a new player instead of pasing CRUD_operation value
+        //TODO: To be used for creating a new player instead of passing CRUDoperation value
         fun newInstance(): PlayerAddEditFragment
         {
             val args = Bundle()

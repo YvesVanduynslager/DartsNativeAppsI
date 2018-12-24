@@ -11,7 +11,7 @@ import com.tile.yvesv.nativeappsiproject.injection.module.NetworkModule
  */
 abstract class BaseViewModel : ViewModel()
 {
-    private val injectorComponent: ViewModelInjectorComponent = DaggerViewModelInjectorComponent //Solved with gradle config
+    private val injectorComponent: ViewModelInjectorComponent = DaggerViewModelInjectorComponent
             .builder()
             .networkModule(NetworkModule)
             .build()
@@ -31,5 +31,4 @@ abstract class BaseViewModel : ViewModel()
             is BoredActivityViewModel -> injectorComponent.inject(this)
         }
     }
-
 }

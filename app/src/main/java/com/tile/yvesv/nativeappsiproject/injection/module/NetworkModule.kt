@@ -13,6 +13,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 /**
+ * @class [NetworkModule]:
  * Module which provides all required dependencies for the network.
  *
  * Object: Singleton instance (https://kotlinlang.org/docs/reference/object-declarations.html)
@@ -36,6 +37,7 @@ object NetworkModule
 
     /**
      * Return the Retrofit object.
+     * @return [Retrofit] object that was built
      */
     @Provides
     internal fun provideRetrofitInterface(): Retrofit
@@ -49,6 +51,7 @@ object NetworkModule
             this.addInterceptor(loggingInterceptor)
         }.build()
 
+        //Build and return the Retrofit object
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)

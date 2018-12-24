@@ -18,16 +18,23 @@ import com.tile.yvesv.nativeappsiproject.gui.viewmodels.BoredActivityViewModel
 import kotlinx.android.synthetic.main.activity_bored.*
 
 /**
- * @class [BoredActivity]
- * This activity displays a random activity to perform when there are no games to play
- * Not to be confused with Android activities ;)
- * Used only to demonstrate networking functionality.
+ * @class [BoredActivity]: Displays an activity (not to be confused with Android activities)
+ * to perform when there are no games to play. In this use case this is only used to demonstrate networking functionality.
+ *
+ * @property menuStrategy: The top menu implementation that is used for this activity.
+ * @property act: The ViewModel that is used to get data from the API.
+ *
+ * @author Yves Vanduynslager
  */
 class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
 {
     override val menuStrategy: MenuStrategy = BoredMenuStrategy()
     private var act: BoredActivityViewModel = BoredActivityViewModel()
 
+    /**
+     * Fundamental setup for the activity, such as declaring the user interface (defined in an XML layout file),
+     * defining member variables, and configuring some of the UI
+     */
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -38,6 +45,9 @@ class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
         act = ViewModelProviders.of(this).get(BoredActivityViewModel::class.java)
     }
 
+    /**
+     * Register listeners when [BoredActivity] enters resume state
+     */
     override fun onResume()
     {
         super.onResume()
@@ -47,6 +57,9 @@ class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
         Log.i("boredAPI", "Registered click listener")
     }
 
+    /**
+     * Unregister listeners when [BoredActivity] enters pause state
+     */
     override fun onPause()
     {
         super.onPause()
@@ -56,6 +69,10 @@ class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
         Log.i("boredAPI", "Unregistered click listener")
     }
 
+    /**
+     * Displays the menu
+     * @return [Boolean]
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean
     {
         menuInflater.inflate(R.menu.main, menu)
@@ -71,15 +88,18 @@ class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
         return menuStrategy.menuSetup(this, item)
     }
 
+    /**
+     * [View.OnClickListener] override
+     * @param view: the view that fired the event
+     */
     override fun onClick(view: View?)
     {
+        //check which view fired the event
         when (view?.id)
         {
             btn_bored.id ->
             {
-                /**
-                 * Request a new activity and display it in [txt_activity]
-                 */
+                /** Request a new activity and display it in [txt_activity] */
                 act.newActivity()
                 Log.i("boredAPI", "Requested new activity")
 
@@ -97,7 +117,9 @@ class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
         //private const val PICK_EMAIL = 1
 
         /**
-         * Create new intent for InfoActivity
+         * Creates a new intent for [BoredActivity]
+         * @param context: The context in which this intent needs to be created
+         * @return new intent for [BoredActivity]
          */
         fun newIntent(context: Context): Intent
         {

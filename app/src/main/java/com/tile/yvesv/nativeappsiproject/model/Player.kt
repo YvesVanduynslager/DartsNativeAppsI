@@ -6,10 +6,16 @@ import android.arch.persistence.room.PrimaryKey
 import java.io.Serializable
 
 /**
- * @class Stores the properties for the player
+ * @class [Player]: Stores the properties for the player
+ *
+ * @param id: player id
  * @param name the player's name
  * @param description description of the player
- */
+ * @param score: the player's score
+ * @param text: extra text
+ *
+ * @author Yves Vanduynslager
+ * */
 @Entity(tableName = "player_data")
 data class Player(@PrimaryKey(autoGenerate = true) var id: Int = 0,
              @ColumnInfo(name="player_name") var name: String,

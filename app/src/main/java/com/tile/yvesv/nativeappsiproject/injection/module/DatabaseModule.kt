@@ -10,6 +10,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 /**
+ * @class: [DatabaseModule]:
  * Module which provides all required dependencies for the network.
  *
  * Object: Singleton instance (https://kotlinlang.org/docs/reference/object-declarations.html)

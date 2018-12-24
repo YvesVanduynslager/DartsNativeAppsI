@@ -12,7 +12,8 @@ class App : Application()
         lateinit var component: DatabaseComponent
     }
 
-    override fun onCreate() {
+    override fun onCreate()
+    {
         super.onCreate()
         component = DaggerDatabaseComponent
                 .builder()

@@ -6,6 +6,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 /**
+ * @class: [ViewModelInjectorComponent]
  * Component providing the inject functions for presenters.
  *
  * A component is a mapping between one or more modules and one or more classes that will use them.

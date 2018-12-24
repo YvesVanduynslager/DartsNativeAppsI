@@ -1,6 +1,5 @@
 package com.tile.yvesv.nativeappsiproject.gui.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,36 +9,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import com.tile.yvesv.nativeappsiproject.R
 import kotlinx.android.synthetic.main.fragment_info.*
 
+/**
+ * @class [InfoFragment]: Displays a fragment with some info about the creator
+ * and an e-mail button which will open an e-mail client if there's one available on the device.
+ */
 class InfoFragment : Fragment()
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        // Inflate the layout for this fragment
+        //Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_info, container, false)
     }
 
+    /**
+     * Register listeners when [InfoFragment] enters resume state
+     */
     override fun onResume()
     {
         super.onResume()
         Log.i("Info", "Fragment resumed")
-        btn_email.setOnClickListener{this.openEmail()}
+
+        btn_email.setOnClickListener { this.openEmail() }
         Log.i("Info", "Registered click listeners")
     }
 
+    /**
+     * Unregister listeners when [InfoFragment] enters pause state
+     */
     override fun onPause()
     {
         super.onPause()
         Log.i("Info", "Fragment paused")
+
         btn_email.setOnClickListener(null)
         Log.i("Info", "Unregistered click listeners")
     }
 
     /**
-     * Create a new implicit intent for opening a new e-mail message
+     * Create a new implicit intent for opening an e-mail client and a new e-mail message
      */
     private fun openEmail()
     {

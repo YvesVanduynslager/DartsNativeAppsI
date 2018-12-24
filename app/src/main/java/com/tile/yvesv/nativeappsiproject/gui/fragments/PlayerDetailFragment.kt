@@ -12,7 +12,6 @@ import android.widget.Toast
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
-import com.tile.yvesv.nativeappsiproject.gui.activities.RankingActivity
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
@@ -20,41 +19,58 @@ import com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import java.io.Serializable
 
-
-class PlayerDetailsFragment : Fragment(), View.OnClickListener
+/**
+ * @class [PlayerDetailFragment]: Fragment for viewing a player's details and editing a player's score.
+ *
+ * @property player: player that needs to be added, edited or deleted.
+ * @property playerViewModel: ViewModel that holds the (temporary) changes made to the player.
+ * @property isDualPane: Boolean to later determine if the app is running in dual pane or not. Default is false.
+ * @property activityFragmentListener: Listener to callback to the fragments parent Activity.
+ *
+ * @author Yves Vanduynslager
+ */
+class PlayerDetailFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
-    private var twoPane: Boolean = false
-
     private lateinit var playerViewModel: PlayerViewModel
 
+    private var isDualPane: Boolean = false
     private var activityFragmentListener: DetailFragmentListener? = null
 
+    /**
+     * Fundamental setup for the fragment, such as declaring the user interface (defined in an XML layout file),
+     * defining member variables, and configuring some of the UI
+     */
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
 
-        /*PlayerViewModel needs to be initialized using ViewModelProviders for auto updating on state changes
-        PlayerViewModel uses MutableLiveData for properties*/
+        /**[playerViewModel] needs to be initialized using ViewModelProviders
+         * because of the use of MutableLiveData */
         playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel::class.java)
 
+        /* Retrieve the serialized data */
         arguments!!.let {
             if (it.containsKey(PLAYER))
             {
-                //assign the selected player to player variable
+                //assign the serialized player to player variable
                 this.player = it.getSerializable(PLAYER) as Player
 
+                //save the player data in the playerViewModel
                 this.playerViewModel.name.value = this.player.name
                 this.playerViewModel.description.value = this.player.description
                 this.playerViewModel.score.value = this.player.score
             }
             if(it.containsKey(TWOPANE))
             {
-                this.twoPane = it.getSerializable(TWOPANE) as Boolean
+                this.isDualPane = it.getSerializable(TWOPANE) as Boolean
             }
         }
     }
 
+    /**
+     * Register listeners when this fragment enters resume state
+     */
     override fun onResume()
     {
         super.onResume()
@@ -72,6 +88,9 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         Log.i("Details", "Registered click listeners")
     }
 
+    /**
+     * Unregister listeners when this fragment enters pause state
+     */
     override fun onPause()
     {
         super.onPause()
@@ -89,7 +108,7 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        //DON'T EVER FORGET THIS LINE FOR DATABINDING FFS
+        //Configure the data binding
         val binding: FragmentPlayerDetailsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_player_details, container, false)
         val rootView = binding.root
 
@@ -106,68 +125,54 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         return rootView
     }
 
+    /**
+     * Programmatically press the back button.
+     * If we're working in dualPane mode, back press must not happen.
+     */
     private fun back()
     {
-        if (!twoPane)
+        if (!isDualPane)
         {
             activity!!.onBackPressed()
         }
     }
 
     /**
-     * A fragment can take initialization parameters through its arguments, which you access via the arguments property.
-     * The arguments are actually a Bundle that stores them as key-value pairs, just like the Bundle in Activity.onSaveInstanceState.
-     * You create and populate the arguments’ Bundle, set the arguments, and when you need the values later, you reference arguments property to retrieve them.
-     * As you learned earlier, when a fragment is re-created, the default empty constructor is used — no parameters for you.
-     * Because the fragment can recall initial parameters from its persisted arguments, you can utilize them in the re-creation.
-     * The code below also stores information about the selected Rage Player in the PlayerDetailsFragment arguments.
+     * [View.OnClickListener] override
+     * @param view: the view that fired the event
      */
-    companion object
-    {
-        const val PLAYER = "player"
-        const val TWOPANE = "twopane"
-
-        fun newInstance(player: IPlayer, twoPane: Boolean): PlayerDetailsFragment
-        {
-            val args = Bundle()
-
-            args.putSerializable(PLAYER, player as Serializable)
-            args.putSerializable(TWOPANE, twoPane as Serializable)
-
-            val fragment = PlayerDetailsFragment()
-            fragment.arguments = args
-
-            return fragment
-        }
-    }
-
     override fun onClick(view: View?)
     {
         val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
 
+        //Check which view fired the event
         when (view?.id)
         {
+            //Save button tapped
             btn_save.id ->
             {
-                this.savePlayerScore()
-
+                this.savePlayer()
                 this.back()
             }
+            //Cancel button tapped
             btn_cancel.id ->
             {
-                this.resetPlayerScore()
+                this.resetScore()
             }
+            //+1 button tapped
             plus_one.id ->
             {
                 scoreModifier.increaseScoreByOne()
             }
+            //-1 button tapped
             minus_one.id ->
             {
                 try
                 {
                     scoreModifier.decreaseScoreByOne()
                 }
-                catch (e: ZeroException) //catch exception on attempt to decrease score below 0
+                //Catch exception on attempt to decrease score below 0
+                catch (e: ZeroException)
                 {
                     //log the error message
                     Log.e("Exception", e.message)
@@ -179,28 +184,67 @@ class PlayerDetailsFragment : Fragment(), View.OnClickListener
         }
     }
 
-    private fun savePlayerScore()
+    /**
+     * Callback the parent Activity to save the updated [player]
+     */
+    private fun savePlayer()
     {
-        //player.score = Integer.parseInt(txt_score.text.toString())
         player.score = playerViewModel.score.value!!
         showToast("Saved score for player ${player.name}")
         activityFragmentListener!!.update(player)
     }
 
-    private fun resetPlayerScore()
+    /**
+     * Reset the player's score to it's original unsaved value
+     */
+    private fun resetScore()
     {
-        //playerViewModel.score.value = player.playerData.score
         playerViewModel.score.value = player.score
         showToast("Reset score")
     }
 
+    /**
+     * Creates and shows a Toast
+     * @param text: The text to be displayed in the Toast
+     */
     private fun showToast(text: String)
     {
         Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
     }
 
+    /**
+     * Callback methods to be implemented by parent activity
+     */
     interface DetailFragmentListener
     {
         fun update(player: IPlayer)
+    }
+
+    companion object
+    {
+        const val PLAYER = "player"
+        const val TWOPANE = "twopane"
+
+        /**
+         * The fragment needs to know if we're working in dualPane mode to handle
+         * back navigation in a correct way. See [back] method
+         *
+         * @param player: The player we want to edit or add.
+         * @param isDualPane: Boolean to determine if the app is running in dual pane or not.
+         */
+        fun newInstance(player: IPlayer, isDualPane: Boolean): PlayerDetailFragment
+        {
+            val args = Bundle()
+
+            //Serialize the passed values
+            args.putSerializable(PLAYER, player as Serializable)
+            args.putSerializable(TWOPANE, isDualPane as Serializable)
+
+            //Create the fragment and add the serialized data
+            val fragment = PlayerDetailFragment()
+            fragment.arguments = args
+
+            return fragment
+        }
     }
 }

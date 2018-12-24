@@ -3,8 +3,11 @@ package com.tile.yvesv.nativeappsiproject.persistence
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import com.tile.yvesv.nativeappsiproject.model.Player
-//import com.tile.yvesv.nativeappsiproject.model.PlayerData
 
+/**
+ * @interface [DartsDao]:
+ * Contains the SQL-instructions to query the database
+ */
 @Dao
 interface DartsDao
 {

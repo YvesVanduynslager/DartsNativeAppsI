@@ -9,10 +9,8 @@ import com.tile.yvesv.nativeappsiproject.model.Player
 import okhttp3.internal.Internal.instance
 import org.jetbrains.anko.doAsync
 
-//import com.tile.yvesv.nativeappsiproject.model.PlayerData
-
-//@Database(entities = [PlayerData::class], version = 1, exportSchema = false)
 /**
+ * @class [DartsDatabase]:
  * We use @Database to annotate the class that represents the database itself.
  * In the annotation we also specify all the entities that will be saved in this database.
  *
@@ -30,8 +28,13 @@ abstract class DartsDatabase : RoomDatabase()
         private var INSTANCE: DartsDatabase? = null
         private const val DATABASE_NAME = "Darts_database"
 
+        /**
+         * Get the database.
+         * @return The database
+         */
         fun getDatabase(context: Context): DartsDatabase
         {
+            //Singleton
             val tempInstance = INSTANCE
             if (tempInstance != null)
             {
@@ -60,8 +63,12 @@ abstract class DartsDatabase : RoomDatabase()
             }
         }
 
+        /**
+         * Populate the database with sample data.
+         */
         fun populateDatabase(dartsDao: DartsDao)
         {
+            //Only populate when there are no players
             if (dartsDao.getPlayerCount() == 0)
             {
                 var player = Player(name = "Ana", description = "Main healer", score = 0)

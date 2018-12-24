@@ -1,9 +1,12 @@
 package com.tile.yvesv.nativeappsiproject.gui.menu
 
 /**
- * @interface [MenuInterface]
- * Used mainly for consistency
- * Activities implementing the menu should inherit this interface
+ * @interface [MenuInterface]: Used for consistency.
+ * Activities implementing the menu should inherit this interface and override [menuStrategy].
+ *
+ * @property menuStrategy: The [MenuStrategy] to be initialized.
+ *
+ * @author Yves Vanduynslager
  */
 interface MenuInterface
 {

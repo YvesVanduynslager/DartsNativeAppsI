@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 /**
- * @constructor Sets all properties of the post
+ * @constructor Sets all properties of the activity
  * @property activity Description of the activity
  */
 @Parcelize

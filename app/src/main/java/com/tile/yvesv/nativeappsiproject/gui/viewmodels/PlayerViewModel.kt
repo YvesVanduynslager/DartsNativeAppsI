@@ -3,6 +3,14 @@ package com.tile.yvesv.nativeappsiproject.gui.viewmodels
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 
+/**
+ * @class [PlayerViewModel]: Stores MutableLiveData so we can automatically update values in the ui.
+ *
+ * @property name: MutableLiveData for the name of the player.
+ * @property description: MutableLiveData for the description of the player.
+ * @property score: MutableLiveData for the score of the player.
+ * @property text: MutableLiveData for the text of the player.
+ */
 class PlayerViewModel : ViewModel()
 {
     /**

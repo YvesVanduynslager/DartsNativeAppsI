@@ -4,14 +4,20 @@ import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 
 /**
+ * @class [PlayerViewModelScoreModifier]:
  * This class changes the value of the score for the selected player
  * Logic happens here instead of PlayerViewModel to adhere to Single Responsibility Principle
  * and Dependency Inversion Principle
  *
  * @param playerViewModel the view model for the selected player that needs its score adjusted.
+ *
+ * @author Yves Vanduynslager
  */
 class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel) : IPlayerScoreModifier
 {
+    /**
+     * Increase the score with 1.
+     */
     override fun increaseScoreByOne()
     {
         this.playerViewModel.score.let {
@@ -20,6 +26,11 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
             it.value = score
         }
     }
+
+    /**
+     * Decrease the score with 1.
+     * @throws ZeroException: on adjusting score below 0.
+     */
     override fun decreaseScoreByOne()
     {
         this.playerViewModel.score.let{
@@ -38,7 +49,8 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
     }
 
     /**
-     * @param points the number of points to be increased
+     * Increase the score with [points].
+     * @param points the number of points to be increased.
      */
     override fun increaseScoreBy(points: Int)
     {
@@ -50,7 +62,8 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
     }
 
     /**
-     * @param points the number of points to be decreased
+     * Decrease the score with [points]
+     * @param points the number of points to be decreased.
      */
     override fun decreaseScoreBy(points: Int)
     {

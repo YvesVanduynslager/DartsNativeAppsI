@@ -21,32 +21,20 @@ class PlayerRepository(private val dartsDao: DartsDao)
     fun insert(player: Player)
     {
         doAsync { dartsDao.insert(player) }
-        Log.i("CRUD_operation", "Inserted $player")
+        Log.i("CRUDoperation", "Inserted $player")
     }
 
     @WorkerThread
     fun delete(player: Player)
     {
         doAsync { dartsDao.delete(player) }
-        Log.i("CRUD_operation", "Deleted $player")
+        Log.i("CRUDoperation", "Deleted $player")
     }
 
     @WorkerThread
     fun update(player: Player)
     {
         doAsync { dartsDao.update(player) }
-        Log.i("CRUD_operation", "Updated $player")
+        Log.i("CRUDoperation", "Updated $player")
     }
-
-    /*@WorkerThread
-    fun readByName(name: String)
-    {
-        dartsDao.readByName(name)
-    }
-
-    @WorkerThread
-    fun readById(id: Int)
-    {
-        dartsDao.readById(id)
-    }*/
 }

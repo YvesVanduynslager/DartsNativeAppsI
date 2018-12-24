@@ -25,7 +25,8 @@ android {
     }
     dokka {
         outputFormat = 'html'
-        outputDirectory = "$buildDir/javadoc"
+        //outputDirectory = "$buildDir/doc"
+        outputDirectory = "/doc"
     }
     dataBinding { //enable data binding for view models
         enabled = true
