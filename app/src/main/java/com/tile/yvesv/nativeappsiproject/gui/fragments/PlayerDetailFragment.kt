@@ -33,6 +33,8 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
     private lateinit var playerViewModel: PlayerViewModel
+    private lateinit var scoreModifier: PlayerViewModelScoreModifier
+
 
     private var isDualPane: Boolean = false
     private var activityFragmentListener: DetailFragmentListener? = null
@@ -48,6 +50,10 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
         /**[playerViewModel] needs to be initialized using ViewModelProviders
          * because of the use of MutableLiveData */
         playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel::class.java)
+        /**
+         * setup the scoreModifier with [playerViewModel]
+         */
+        scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
 
         /* Retrieve the serialized data */
         arguments!!.let {
@@ -143,7 +149,7 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
      */
     override fun onClick(view: View?)
     {
-        val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
+        //val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
 
         //Check which view fired the event
         when (view?.id)
@@ -189,7 +195,8 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
      */
     private fun savePlayer()
     {
-        player.score = playerViewModel.score.value!!
+        player.saveScore(playerViewModel.score.value!!)
+        //player.score = playerViewModel.score.value!!
         showToast("Saved score for player ${player.name}")
         activityFragmentListener!!.update(player)
     }
@@ -199,7 +206,9 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
      */
     private fun resetScore()
     {
-        playerViewModel.score.value = player.score
+        scoreModifier.resetScore(player.score)
+        //playerViewModel.resetScore(player.score)
+        //playerViewModel.score.value = player.score
         showToast("Reset score")
     }
 

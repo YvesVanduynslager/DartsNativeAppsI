@@ -6,4 +6,5 @@ interface IPlayerViewModel
     fun decreaseScoreByOne()
     fun increaseScoreBy(points: Int)
     fun decreaseScoreBy(points: Int)
+    fun resetScore(score: Int)
 }

@@ -23,35 +23,14 @@ class PlayerViewModelScoreModifier(private val playerViewModel: IPlayerViewModel
     override fun increaseScoreByOne()
     {
         playerViewModel.increaseScoreByOne()
-
-        /*this.playerViewModel.score.let {
-            var score = it.value!!
-            score += 1
-            it.value = score
-        }*/
     }
 
     /**
      * Decrease the score with 1.
-     * @throws ZeroException: on adjusting score below 0.
      */
     override fun decreaseScoreByOne()
     {
         playerViewModel.decreaseScoreByOne()
-
-        /*this.playerViewModel.score.let{
-            var score = it.value!!
-            if(score > 0)
-            {
-                score -= 1
-                it.value = score
-            }
-            else //if the score will be lower than 0, throw a ZeroException and catch it in UI
-            {
-                //TODO: use resources here
-                throw ZeroException("Score can not be lower than 0!")
-            }
-        }*/
     }
 
     /**
@@ -70,6 +49,10 @@ class PlayerViewModelScoreModifier(private val playerViewModel: IPlayerViewModel
     override fun decreaseScoreBy(points: Int)
     {
         this.playerViewModel.decreaseScoreBy(points)
+    }
 
+    override fun resetScore(score: Int)
+    {
+        this.playerViewModel.resetScore(score)
     }
 }

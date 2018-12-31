@@ -3,7 +3,6 @@ package com.tile.yvesv.nativeappsiproject.gui.viewmodels
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
-import java.io.File
 
 /**
  * @class [PlayerViewModel]: Stores MutableLiveData so we can automatically update values in the ui.
@@ -15,6 +14,26 @@ import java.io.File
  */
 class PlayerViewModel : ViewModel(), IPlayerViewModel
 {
+    /**
+     * Wrap in MutableLiveData to automatically update the ui on state changes
+     * view that uses the view model needs to be initialized using ViewModelProviders
+     */
+    var name = MutableLiveData<String>()
+    var description = MutableLiveData<String>()
+    var score = MutableLiveData<Int>()
+    var text = MutableLiveData<String>()
+
+    init //Not needed to init these, are initialized in gui with Player properties
+    {
+        //name.value = ""
+        //description.value= ""
+        //score.value = 0
+        //text.value = ""
+    }
+
+    /**
+     * Increase the score with 1.
+     */
     override fun increaseScoreByOne()
     {
         this.score.let {
@@ -24,6 +43,10 @@ class PlayerViewModel : ViewModel(), IPlayerViewModel
         }
     }
 
+    /**
+     * Decrease the score with 1.
+     * @throws ZeroException: on adjusting score below 0.
+     */
     override fun decreaseScoreByOne()
     {
         this.score.let{
@@ -41,6 +64,10 @@ class PlayerViewModel : ViewModel(), IPlayerViewModel
         }
     }
 
+    /**
+     * Increase the score with [points].
+     * @param points the number of points to be increased.
+     */
     override fun increaseScoreBy(points: Int)
     {
         this.score.let {
@@ -50,6 +77,12 @@ class PlayerViewModel : ViewModel(), IPlayerViewModel
         }
     }
 
+    /**
+     * Decrease the score with [points]
+     * @param points the number of points to be decreased.
+     *
+     * @throws ZeroException: on adjusting score below 0.
+     */
     override fun decreaseScoreBy(points: Int)
     {
         this.score.let {
@@ -68,22 +101,12 @@ class PlayerViewModel : ViewModel(), IPlayerViewModel
     }
 
     /**
-     * Wrap in MutableLiveData to automatically update the ui on state changes
-     * view that uses the view model needs to be initialized using ViewModelProviders
+     * Reset the score for the viewModel.
+     *
+     * @param score score that needs to be reset to.
      */
-    var name = MutableLiveData<String>()
-    var description = MutableLiveData<String>()
-    var score = MutableLiveData<Int>()
-    var text = MutableLiveData<String>()
-
-    init
+    override fun resetScore(score: Int)
     {
-        //imageResId.value = -1
-        //name.value = ""
-        //description.value= ""
-        //score.value = 0
-        //text.value = ""
+        this.score.value = score
     }
-
-
 }

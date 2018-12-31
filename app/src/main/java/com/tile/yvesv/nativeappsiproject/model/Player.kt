@@ -3,6 +3,7 @@ package com.tile.yvesv.nativeappsiproject.model
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 import java.io.Serializable
 
 /**
@@ -22,3 +23,12 @@ data class Player(@PrimaryKey(autoGenerate = true) var id: Int = 0,
              @ColumnInfo(name="player_descr") var description: String,
              @ColumnInfo(name="player_score") var score: Int,
              @ColumnInfo(name="extra_text") var text: String = ""): Serializable, IPlayer
+{
+    fun saveScore(score: Int)
+    {
+        if(score < 0)
+            throw ZeroException("Score can not be lower than 0!")
+
+        this.score = score
+    }
+}
