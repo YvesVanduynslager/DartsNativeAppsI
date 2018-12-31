@@ -1,9 +1,6 @@
 package com.tile.yvesv.nativeappsiproject.model
 
-import android.arch.lifecycle.ViewModel
-import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.IPlayerViewModel
-import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 
 /**
  * @class [PlayerViewModelScoreModifier]:
