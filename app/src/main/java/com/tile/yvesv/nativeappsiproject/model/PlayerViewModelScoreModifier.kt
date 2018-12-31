@@ -1,6 +1,8 @@
 package com.tile.yvesv.nativeappsiproject.model
 
+import android.arch.lifecycle.ViewModel
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
+import com.tile.yvesv.nativeappsiproject.gui.viewmodels.IPlayerViewModel
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 
 /**
@@ -13,18 +15,20 @@ import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
  *
  * @author Yves Vanduynslager
  */
-class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel) : IPlayerScoreModifier
+class PlayerViewModelScoreModifier(private val playerViewModel: IPlayerViewModel) : IPlayerScoreModifier
 {
     /**
      * Increase the score with 1.
      */
     override fun increaseScoreByOne()
     {
-        this.playerViewModel.score.let {
+        playerViewModel.increaseScoreByOne()
+
+        /*this.playerViewModel.score.let {
             var score = it.value!!
             score += 1
             it.value = score
-        }
+        }*/
     }
 
     /**
@@ -33,7 +37,9 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
      */
     override fun decreaseScoreByOne()
     {
-        this.playerViewModel.score.let{
+        playerViewModel.decreaseScoreByOne()
+
+        /*this.playerViewModel.score.let{
             var score = it.value!!
             if(score > 0)
             {
@@ -45,7 +51,7 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
                 //TODO: use resources here
                 throw ZeroException("Score can not be lower than 0!")
             }
-        }
+        }*/
     }
 
     /**
@@ -54,11 +60,7 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
      */
     override fun increaseScoreBy(points: Int)
     {
-        this.playerViewModel.score.let {
-            var score = it.value!!
-            score += points
-            it.value = score
-        }
+        this.playerViewModel.increaseScoreBy(points)
     }
 
     /**
@@ -67,18 +69,7 @@ class PlayerViewModelScoreModifier(private val playerViewModel: PlayerViewModel)
      */
     override fun decreaseScoreBy(points: Int)
     {
-        this.playerViewModel.score.let {
-            var score = it.value!!
-            if(score - points > 0)
-            {
-                score -= points
-                it.value = score
-            }
-            else //if the score will be lower than 0, throw a ZeroException and catch it in UI
-            {
-                //TODO: use resources here
-                throw ZeroException("Score can not be lower than 0!")
-            }
-        }
+        this.playerViewModel.decreaseScoreBy(points)
+
     }
 }
