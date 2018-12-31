@@ -7,7 +7,6 @@ import com.tile.yvesv.nativeappsiproject.TestUtils.getValue
 import com.tile.yvesv.nativeappsiproject.model.Player
 import com.tile.yvesv.nativeappsiproject.persistence.DartsDao
 import com.tile.yvesv.nativeappsiproject.persistence.DartsDatabase
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

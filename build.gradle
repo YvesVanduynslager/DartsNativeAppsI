@@ -20,9 +20,12 @@ buildscript {
             'buildTools'    : '27.0.3',
             'minSdk'        : 19,
             'targetSdk'     : 28,
+
             'dagger'        : "2.16",
             'rx'            : "2.2.3",
-            'rxandroid'     : "2.1.0"
+            'rxandroid'     : "2.1.0",
+
+            'junit'         : "4.12"
     ]
 
     repositories {
