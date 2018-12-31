@@ -1,6 +1,6 @@
 package com.tile.yvesv.nativeappsiproject.model
 
-interface IPlayerScoreModifier
+interface IScoreModifier
 {
     fun increaseScoreByOne()
     fun decreaseScoreByOne()

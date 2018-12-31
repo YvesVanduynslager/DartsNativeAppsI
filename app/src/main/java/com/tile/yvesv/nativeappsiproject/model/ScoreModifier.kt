@@ -3,7 +3,7 @@ package com.tile.yvesv.nativeappsiproject.model
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.IPlayerViewModel
 
 /**
- * @class [PlayerViewModelScoreModifier]:
+ * @class [ScoreModifier]:
  * This class changes the value of the score for the selected player
  * Logic happens here instead of PlayerViewModel to adhere to Single Responsibility Principle
  * and Dependency Inversion Principle
@@ -12,7 +12,7 @@ import com.tile.yvesv.nativeappsiproject.gui.viewmodels.IPlayerViewModel
  *
  * @author Yves Vanduynslager
  */
-class PlayerViewModelScoreModifier(private val playerViewModel: IPlayerViewModel) : IPlayerScoreModifier
+class ScoreModifier(private val playerViewModel: IPlayerViewModel) : IScoreModifier
 {
     /**
      * Increase the score with 1.

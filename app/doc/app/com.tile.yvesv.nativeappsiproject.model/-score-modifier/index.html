@@ -1,19 +1,19 @@
 <HTML>
 <HEAD>
 <meta charset="UTF-8">
-<title>PlayerViewModelScoreModifier - app</title>
+<title>ScoreModifier - app</title>
 <link rel="stylesheet" href="../../../style.css">
 </HEAD>
 <BODY>
-<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.model</a>&nbsp;/&nbsp;<a href="./index.html">PlayerViewModelScoreModifier</a><br/>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.tile.yvesv.nativeappsiproject.model</a>&nbsp;/&nbsp;<a href="./index.html">ScoreModifier</a><br/>
 <br/>
-<h1>PlayerViewModelScoreModifier</h1>
-<code><span class="keyword">class </span><span class="identifier">PlayerViewModelScoreModifier</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-player-score-modifier/index.html"><span class="identifier">IPlayerScoreModifier</span></a></code>
+<h1>ScoreModifier</h1>
+<code><span class="keyword">class </span><span class="identifier">ScoreModifier</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-score-modifier/index.html"><span class="identifier">IScoreModifier</span></a></code>
 <h3>Parameters</h3>
 <p><a name="playerViewModel"></a>
 <code>playerViewModel</code> - the view model for the selected player that needs its score adjusted.</p>
 <p><strong>Class</strong><br/>
-<a href="./index.html">PlayerViewModelScoreModifier</a>:
+<a href="./index.html">ScoreModifier</a>:
 This class changes the value of the score for the selected player
 Logic happens here instead of PlayerViewModel to adhere to Single Responsibility Principle
 and Dependency Inversion Principle</p>
@@ -27,7 +27,7 @@ Yves Vanduynslager</p>
 <p><a href="-init-.html">&lt;init&gt;</a></p>
 </td>
 <td>
-<code><span class="identifier">PlayerViewModelScoreModifier</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.model.ScoreModifier$<init>(com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel)/playerViewModel">playerViewModel</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.gui.viewmodels/-player-view-model/index.html"><span class="identifier">PlayerViewModel</span></a><span class="symbol">)</span></code></td>
+<code><span class="identifier">ScoreModifier</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.model.ScoreModifier$<init>(com.tile.yvesv.nativeappsiproject.gui.viewmodels.IPlayerViewModel)/playerViewModel">playerViewModel</span><span class="symbol">:</span>&nbsp;<a href="../../com.tile.yvesv.nativeappsiproject.gui.viewmodels/-i-player-view-model/index.html"><span class="identifier">IPlayerViewModel</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -69,6 +69,13 @@ Yves Vanduynslager</p>
 <code><span class="keyword">fun </span><span class="identifier">increaseScoreByOne</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
 <p>Increase the score with 1.</p>
 </td>
+</tr>
+<tr>
+<td>
+<p><a href="reset-score.html">resetScore</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">resetScore</span><span class="symbol">(</span><span class="identifier" id="com.tile.yvesv.nativeappsiproject.model.ScoreModifier$resetScore(kotlin.Int)/score">score</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
 </table>

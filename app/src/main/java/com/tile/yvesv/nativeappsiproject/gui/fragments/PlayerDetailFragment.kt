@@ -15,7 +15,7 @@ import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.PlayerViewModel
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
 import com.tile.yvesv.nativeappsiproject.model.Player
-import com.tile.yvesv.nativeappsiproject.model.PlayerViewModelScoreModifier
+import com.tile.yvesv.nativeappsiproject.model.ScoreModifier
 import kotlinx.android.synthetic.main.fragment_player_details.*
 import java.io.Serializable
 
@@ -33,7 +33,7 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
 {
     private lateinit var player: Player
     private lateinit var playerViewModel: PlayerViewModel
-    private lateinit var scoreModifier: PlayerViewModelScoreModifier
+    private lateinit var scoreModifier: ScoreModifier
 
 
     private var isDualPane: Boolean = false
@@ -53,7 +53,7 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
         /**
          * setup the scoreModifier with [playerViewModel]
          */
-        scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
+        scoreModifier = ScoreModifier(playerViewModel)
 
         /* Retrieve the serialized data */
         arguments!!.let {
@@ -149,7 +149,7 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
      */
     override fun onClick(view: View?)
     {
-        //val scoreModifier = PlayerViewModelScoreModifier(playerViewModel)
+        //val scoreModifier = ScoreModifier(playerViewModel)
 
         //Check which view fired the event
         when (view?.id)
