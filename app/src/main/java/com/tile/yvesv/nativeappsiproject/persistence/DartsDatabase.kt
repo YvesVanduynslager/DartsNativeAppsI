@@ -26,7 +26,7 @@ abstract class DartsDatabase : RoomDatabase()
     {
         @Volatile
         private var INSTANCE: DartsDatabase? = null
-        private const val DATABASE_NAME = "Darts_database"
+        const val DATABASE_NAME = "Darts_database"
 
         /**
          * Get the database.

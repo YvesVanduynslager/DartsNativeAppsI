@@ -16,6 +16,7 @@
         android:fillViewport="true">
 
         <LinearLayout
+            android:id="@+id/fragment_detail_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top|center_horizontal|center"
@@ -39,9 +40,9 @@
                 android:layout_marginStart="@dimen/player_extra_margin_left"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="@dimen/player_extra_margin_right"
-                android:text="@{playerViewModel.description}"
                 android:layout_marginBottom="@dimen/player_extra_margin_bottom"
                 android:autoLink="web"
+                android:text="@{playerViewModel.description}"
                 android:textColor="@android:color/white" />
 
             <android.support.constraint.ConstraintLayout
