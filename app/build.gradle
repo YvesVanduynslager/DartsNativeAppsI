@@ -6,11 +6,12 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion versions.targetSdk
+    buildToolsVersion versions.buildTools
+
     defaultConfig {
         applicationId "com.tile.yvesv.nativeappsiproject"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        buildToolsVersion versions.buildTools
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
