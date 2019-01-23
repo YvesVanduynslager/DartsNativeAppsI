@@ -14,7 +14,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:layout_weight="2"
-        app:layoutManager="LinearLayoutManager"
+
         tools:context=".gui.activities.RankingActivity"
         tools:listitem="@layout/player_rank_item" />
 
@@ -24,3 +24,5 @@
         android:layout_height="match_parent"
         android:layout_weight="2" />
 </LinearLayout>
+
+    <!--app:layoutManager="LinearLayoutManager"-->

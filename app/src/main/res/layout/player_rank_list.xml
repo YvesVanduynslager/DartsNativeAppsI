@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/player_list"
     android:name="com.tile.yvesv.nativeappsiproject.PlayerListFragment"
@@ -9,6 +8,8 @@
     android:layout_height="match_parent"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
-    app:layoutManager="LinearLayoutManager"
+
     tools:context=".gui.activities.RankingActivity"
     tools:listitem="@layout/player_rank_item" />
+
+    <!--app:layoutManager="LinearLayoutManager"-->

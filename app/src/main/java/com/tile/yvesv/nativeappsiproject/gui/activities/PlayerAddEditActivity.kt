@@ -38,6 +38,7 @@ class PlayerAddEditActivity : AppCompatActivity(), PlayerAddEditFragment.AddEdit
 
         /** [savedInstanceState] is non-null when there is fragment state saved from previous
          * configurations of this activity (e.g. when rotating the screen from portrait to landscape).
+         * Or the activity has been killed due to system constraints.
          * In this case, the fragment will automatically be re-added to its container so we don't need to manually add it.
          * http://developer.android.com/guide/components/fragments.html */
         if (savedInstanceState == null)

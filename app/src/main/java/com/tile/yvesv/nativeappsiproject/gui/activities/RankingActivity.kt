@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.TextView
@@ -78,6 +79,9 @@ class RankingActivity : AppCompatActivity(), PlayerDetailFragment.DetailFragment
         /**Initialize the recycler view adapter */
         rankListAdapter = SimpleItemRecyclerViewAdapter(this, isDualPane)
         player_list.adapter = rankListAdapter
+
+        /** Set the layoutManager for the recyclerView (ex. GridLayoutManager, StaggeredGridLayoutManager */
+        player_list.layoutManager = LinearLayoutManager(this.applicationContext)
     }
 
     /**

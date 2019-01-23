@@ -5,10 +5,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.TextView
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.R.id.player_detail_container
@@ -82,6 +85,9 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
         /**Initialize the recycler view adapter*/
         rankListAdapter = PlayersActivity.SimpleItemRecyclerViewAdapter(this, isDualPane)
         player_list.adapter = rankListAdapter
+
+        /** Set the layoutManager for the recyclerView (ex. GridLayoutManager, StaggeredGridLayoutManager */
+        player_list.layoutManager = LinearLayoutManager(this.applicationContext)
     }
 
     /**
@@ -253,6 +259,14 @@ class PlayersActivity : AppCompatActivity(), MenuInterface, PlayerAddEditFragmen
         {
             val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.player_rank_item, parent, false)
+
+            /* set the rank and score text fields to invisible */
+            view.txt_score.visibility = View.INVISIBLE
+            view.txt_rank.visibility = View.INVISIBLE
+
+            /* adjust the width to match parent */
+            val param: ConstraintLayout.LayoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,WRAP_CONTENT);
+            view.txt_name.layoutParams = param
 
             return ViewHolder(view)
         }
