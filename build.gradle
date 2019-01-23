@@ -17,7 +17,7 @@ buildscript {
             "okHttp"        : '3.11.0',
 
             'gradle'        : '3.2.1',
-            'buildTools'    : '27.0.3',
+            'buildTools'    : '28.0.3',
             'minSdk'        : 19,
             'targetSdk'     : 28,
 
