@@ -13,7 +13,7 @@
         <variable name="player" type="modelPlayer" />
     </data>-->
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/list_player_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,5 +68,5 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_name" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

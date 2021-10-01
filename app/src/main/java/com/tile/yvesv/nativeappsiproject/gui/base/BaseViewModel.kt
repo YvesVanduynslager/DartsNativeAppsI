@@ -1,6 +1,6 @@
 package com.tile.yvesv.nativeappsiproject.gui.base
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.tile.yvesv.nativeappsiproject.gui.viewmodels.BoredActivityViewModel
 import com.tile.yvesv.nativeappsiproject.injection.component.DaggerViewModelInjectorComponent
 import com.tile.yvesv.nativeappsiproject.injection.component.ViewModelInjectorComponent
@@ -28,7 +28,9 @@ abstract class BaseViewModel : ViewModel()
     {
         when (this)
         {
-            is BoredActivityViewModel -> injectorComponent.inject(this)
+            is BoredActivityViewModel -> {
+                injectorComponent.inject(this)
+            }
         }
     }
 }

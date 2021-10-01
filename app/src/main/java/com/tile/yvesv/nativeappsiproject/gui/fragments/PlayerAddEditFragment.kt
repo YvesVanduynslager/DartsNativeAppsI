@@ -1,16 +1,16 @@
 package com.tile.yvesv.nativeappsiproject.gui.fragments
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerAddEditBinding
 import com.tile.yvesv.nativeappsiproject.gui.CRUDoperation

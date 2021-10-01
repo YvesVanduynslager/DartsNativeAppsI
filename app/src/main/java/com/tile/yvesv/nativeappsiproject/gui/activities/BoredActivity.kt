@@ -1,14 +1,14 @@
 package com.tile.yvesv.nativeappsiproject.gui.activities
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.R.id.txt_activity
 import com.tile.yvesv.nativeappsiproject.gui.menu.BoredMenuStrategy
@@ -42,7 +42,7 @@ class BoredActivity : AppCompatActivity(), MenuInterface, View.OnClickListener
 
         /**[BoredActivityViewModel] needs to be initialized using ViewModelProviders
          * because of the use of MutableLiveData */
-        act = ViewModelProviders.of(this).get(BoredActivityViewModel::class.java)
+        act = ViewModelProvider(this).get(BoredActivityViewModel::class.java)
     }
 
     /**

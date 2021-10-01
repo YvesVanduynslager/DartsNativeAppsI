@@ -1,7 +1,7 @@
 package com.tile.yvesv.nativeappsiproject.gui.viewmodels
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
 
 /**

@@ -1,8 +1,9 @@
 package com.tile.yvesv.nativeappsiproject.gui.viewmodels
 
-import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.gui.base.BaseViewModel
 import com.tile.yvesv.nativeappsiproject.networking.BoredAct
@@ -92,7 +93,7 @@ class BoredActivityViewModel : BaseViewModel()
         {
             is SocketTimeoutException ->
             {
-                Log.e("boredAPI", error.message)
+                Log.e("boredAPI", error.message.toString())
             }
             is IOException ->
             {
@@ -145,11 +146,11 @@ class BoredActivityViewModel : BaseViewModel()
      * receive values from the Observable.
      * @url: https://medium.com/@vanniktech/rxjava-2-disposable-under-the-hood-f842d2373e64
      */
-    override fun onCleared()
+    /*override fun onCleared()
     {
         super.onCleared()
         subscription.dispose()
-    }
+    }*/
 
     /**
      * @return The rawActivity with the data retrieved from the API

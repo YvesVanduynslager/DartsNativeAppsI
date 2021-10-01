@@ -1,11 +1,11 @@
 package com.tile.yvesv.nativeappsiproject.gui.activities
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailFragment
 import com.tile.yvesv.nativeappsiproject.model.IPlayer
@@ -33,7 +33,7 @@ class PlayerDetailActivity : AppCompatActivity(), PlayerDetailFragment.DetailFra
 
         /**[dartsPlayerViewModel] needs to be initialized using ViewModelProviders
          * because of the use of MutableLiveData */
-        dartsPlayerViewModel = ViewModelProviders.of(this).get(DartsPlayerViewModel::class.java)
+        dartsPlayerViewModel = ViewModelProvider(this).get(DartsPlayerViewModel::class.java)
 
         /** [savedInstanceState] is non-null when there is fragment state saved from previous
          * configurations of this activity (e.g. when rotating the screen from portrait to landscape).

@@ -1,14 +1,14 @@
 package com.tile.yvesv.nativeappsiproject.gui.fragments
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.databinding.FragmentPlayerDetailsBinding
 import com.tile.yvesv.nativeappsiproject.exceptions.ZeroException
@@ -181,7 +181,7 @@ class PlayerDetailFragment : Fragment(), View.OnClickListener
                 catch (e: ZeroException)
                 {
                     //log the error message
-                    Log.e("Exception", e.message)
+                    Log.e("Exception", e.message.toString())
                     //display a toast notifying the user that he can't decrease below 0
                     showToast("Score can not be lower than 0!")
                 }

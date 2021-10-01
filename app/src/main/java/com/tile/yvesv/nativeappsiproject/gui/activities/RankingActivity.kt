@@ -1,15 +1,15 @@
 package com.tile.yvesv.nativeappsiproject.gui.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.gui.fragments.PlayerDetailFragment
 import com.tile.yvesv.nativeappsiproject.gui.menu.MenuInterface
@@ -61,7 +61,7 @@ class RankingActivity : AppCompatActivity(), PlayerDetailFragment.DetailFragment
 
         /**[dartsPlayerViewModel] needs to be initialized using ViewModelProviders
          * because of the use of MutableLiveData */
-        dartsPlayerViewModel = ViewModelProviders.of(this).get(DartsPlayerViewModel::class.java)
+        dartsPlayerViewModel = ViewModelProvider(this).get(DartsPlayerViewModel::class.java)
     }
 
     /**

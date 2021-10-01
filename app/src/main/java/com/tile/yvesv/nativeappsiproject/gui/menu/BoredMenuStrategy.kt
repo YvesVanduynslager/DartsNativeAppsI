@@ -1,7 +1,7 @@
 package com.tile.yvesv.nativeappsiproject.gui.menu
 
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.orhanobut.logger.Logger
 import com.tile.yvesv.nativeappsiproject.R
 import com.tile.yvesv.nativeappsiproject.gui.activities.InfoActivity

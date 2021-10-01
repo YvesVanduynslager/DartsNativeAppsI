@@ -1,8 +1,8 @@
 package com.tile.yvesv.nativeappsiproject.persistence
 
-import android.arch.lifecycle.LiveData
-import android.support.annotation.WorkerThread
 import android.util.Log
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.tile.yvesv.nativeappsiproject.model.Player
 import org.jetbrains.anko.doAsync
 
